@@ -596,3 +596,21 @@ without sacrificing the topology advantage, leaving it to M2 (oriented normals).
 `promotion_supported` stays false. Artifact schema
 `pftf_alpha_m1_weighted_alpha_ablation/v1`; design
 `docs/M1_WEIGHTED_ALPHA_DESIGN.md`.
+
+### M2 oriented normals and the thin-gap limit (2026-07-25)
+
+Oriented-normal reconstruction (M2) and the `opposing_sheets` thin-gap false
+bridge were explored with cheap predeclared probes; all negative. At the default
+density the gap (0.26) is below the median kNN spacing (0.39), so 43% of kNN edges
+cross between the two sheets and oriented-normal propagation bridges the gap
+(both sheets receive the same orientation) — the case is under-resolved and no
+local method can separate locally interleaved sheets. Denser sampling resolves
+the gap at the kNN level (640 points: cross-fraction 0.04) but plain B4 still
+bridges it. At the resolved density every tried reconstruction still fails:
+oriented-normal cell removal reproduced the schema-14 boundary-exposure failure
+(bridge 42 -> 225), normal-offset connectivity exploded Betti error (3 -> 64), and
+per-tet signed inside/outside labeling gave a non-manifold mess. Removal
+interventions fail universally by exposing new boundary; only a principled
+connectivity change works (M1), which is powerless on the thin-gap case. The one
+untested path is a global graph-cut tetrahedron inside/outside labeling
+(Labatut-style), a separate multi-day build. `promotion_supported` stays false.

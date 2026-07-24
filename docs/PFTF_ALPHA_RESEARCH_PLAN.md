@@ -746,6 +746,32 @@ Real family:
   is left to M2 (oriented normals). `promotion_supported` stays false. Design:
   `docs/M1_WEIGHTED_ALPHA_DESIGN.md`.
 
+### M2 oriented normals and the thin-gap limit (2026-07-25)
+
+M2 (oriented normals) and the `opposing_sheets` thin-gap false bridge were
+explored with cheap predeclared probes; all negative:
+
+- At the default density (80 points) the gap (0.26) is smaller than the median
+  kNN spacing (0.39): 43% of kNN edges cross between the two sheets, so
+  oriented-normal MST propagation bridges the gap and assigns both sheets the same
+  orientation. No **local** method (B5, P1, M1, M2) can separate locally
+  interleaved sheets, so `opposing_sheets` at this density is under-resolved.
+- Denser sampling resolves the gap at the kNN level (640 points: spacing 0.16,
+  cross-fraction 0.04), but plain B4 Delaunay-alpha still bridges it — resolution
+  is necessary, not sufficient.
+- At the resolved density every tried reconstruction still fails to separate the
+  sheets: oriented-normal cell removal reproduced the schema-14 boundary-exposure
+  failure (bridge 42 -> 225), normal-offset connectivity exploded Betti error
+  (3 -> 64), and per-tet signed inside/outside labeling produced a non-manifold
+  mess (bridge 677, Betti 176).
+
+Across the whole investigation, removal / deletion interventions fail universally
+by exposing new boundary; only a principled **connectivity change** works, and M1
+is the achievable improvement while being powerless on the thin-gap case. The one
+untested path is a global graph-cut tetrahedron inside/outside labeling
+(Labatut-style) — a separate multi-day build with uncertain payoff.
+`promotion_supported` stays false.
+
 ## 10. 근거
 
 - H. Edelsbrunner and E. P. Mücke, “Three-dimensional alpha shapes,”
