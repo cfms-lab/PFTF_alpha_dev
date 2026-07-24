@@ -156,7 +156,7 @@ PFTF의 신규성 후보는 다음으로 제한한다.
 - B4: \(k\)-NN density-scaled alpha
 - B5: normal-based anisotropic alpha
 - P1: PFTF local SPD metric
-- P2: PFTF metric + confidence + exact fallback
+- P2: PFTF metric + confidence + conservative B4 guard; exact fallback pending
 
 ### 6.2 데이터 조건
 
@@ -260,6 +260,40 @@ Real family:
 - soft complex가 exact alpha complex를 대체한다.
 - local anisotropy 자체가 신규 기여다.
 - 실제 scan 또는 산업 데이터에서 우월성이 검증됐다.
+
+
+### 9.1 구현 체크포인트 (2026-07-24)
+
+- G0-G3와 conservative P2 guard 프로토타입은 Python/SciPy 경로에서
+  end-to-end smoke를 통과했다. exact G4 integration은 아직 남아 있다.
+- P1은 source scale `h_i`와 receiver scale `h_j`의 bounded signed message
+  `tanh(log(h_j/h_i)/s)` 및 receiver 방향 불균형을 trace-free relation
+  tensor로 집계한다.
+- signed relation은 거리로 직접 사용하지 않는다. 고유값을 제한한
+  log-eigenvalue mapping으로 SPD를 만들고, unlabeled confidence에 따라
+  density-scaled identity 쪽으로 연속 완화한다.
+- P2 confidence threshold는 명시적으로 주거나 reference geometry를 읽지
+  않는 calibration-only 분위수로 먼저 동결한다. 목표 fallback 0.25는
+  calibration cell 1,099개에서 threshold 0.268687과 실제 비율 0.25842를
+  만들었다.
+- low-confidence top cell에는 `max(P1 score, B4 score)`를 사용하여 P1과
+  trusted B4를 모두 통과해야 포함되도록 했다. 이는 fixed Euclidean complex
+  위의 conservative guard이며 exact CGAL fallback은 아니다.
+- held-out guard 대상은 전체 cell의 7.49-48.99%, 선택된 cell의
+  11.01-42.31%였다. score-level 및 selected-set B4 guard 위반은 0건이었고
+  complete downward closure와 face incidence 검사도 모두 통과했다. 이는
+  exact false-safe 0을 뜻하지 않으며 그 검증은 여전히 G4 과제다.
+- 작은 frozen held-out smoke에서 평균 F-score는 P1 0.17634, P2 0.16777였고
+  normalized squared Chamfer는 각각 0.00966, 0.01037이었다. P2는 P1보다
+  개선되지 않았고 component-error 합도 B4/B5/P1/P2 모두 2였다. 따라서
+  현재 결과는 구현 체크포인트이지 우월성 또는 논문 승격 근거가 아니다.
+- 출력 삼각 복합체의 GF(2) surface Betti number `(beta_0, beta_1, beta_2)`와
+  합성군별 선언 target에 대한 L1 error를 evaluation-only endpoint로 추가했다.
+  이 target은 B2/adaptive calibration 또는 reference-free P2 confidence
+  selection에 사용하지 않는다. smoke의 Betti-error 합은 B4 20, B5 27,
+  P1 25, P2 25였고, P1/P2는 torus만 `(1,2,1)`로 정확히 복원했다. 기존
+  component 지표가 놓친 위상 실패가 확인되었으므로 이 결과 역시 승격
+  근거가 아니다.
 
 ## 10. 근거
 
