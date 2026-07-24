@@ -33,7 +33,7 @@ def test_cli_calibrates_and_freezes_p2(tmp_path: Path) -> None:
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     topology_contract = payload["topology_endpoint_contract"]
     assert topology_contract["homology_coefficients"] == "GF(2)"
     assert topology_contract["betti_target_role"] == "evaluation_only"
@@ -236,7 +236,7 @@ def test_cli_evaluates_bridge_penalty_without_deploying_it(tmp_path: Path) -> No
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     ablation = payload["bridge_penalty_ablation"]
     assert ablation["enabled"]
     assert ablation["source_split"] == "calibration"
@@ -286,7 +286,7 @@ def test_cli_evaluates_boundary_bridges_without_changing_p2(tmp_path: Path) -> N
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     localization = payload["boundary_bridge_localization"]
     assert localization["enabled"]
     assert localization["source_split"] == "held_out"
@@ -346,7 +346,7 @@ def test_cli_evaluates_boundary_intervention_without_changing_p2(
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     ablation = payload["boundary_owner_intervention"]
     assert ablation["enabled"]
     assert ablation["source_split"] == "calibration"
@@ -400,7 +400,7 @@ def test_cli_evaluates_boundary_region_cuts_without_changing_p2(
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     ablation = payload["boundary_region_cut_ablation"]
     assert ablation["enabled"]
     assert ablation["source_split"] == "calibration"

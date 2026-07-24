@@ -10,7 +10,11 @@ reconstruction.
   evaluation-only cell/boundary bridge diagnostics, a calibration-only penalty
   ablation, a rejected boundary-owner intervention, and a rejected connected
   boundary risk-region/cut audit, plus an exact-predicate construction-readiness
-  preflight and a fail-closed optional exact-backend handoff validator
+  preflight, a fail-closed optional exact-backend handoff validator, an
+  evaluation-only validated-connectivity shadow path, a built-in small-panel
+  exact construction backend, and an exact-rational simplex filtration-value
+  audit, plus evaluation-only exact-resampling connectivity/value and exact-B3
+  candidate-selection shadows
 - B0-P2 calibration and frozen held-out smoke runs exist; exact CGAL fallback
   does not.
 - No PDF or DOCX is generated at this stage.
@@ -74,6 +78,38 @@ The current Python prototype provides:
   returned cells for point coverage, face incidence, convex-hull support, exact
   volume coverage, orientation, and in-sphere predicates without applying them
   to benchmark selection;
+- a built-in small-panel exact 3D Delaunay backend that converts the rational
+  protocol coordinates to one exact integer scale, enumerates every four-point
+  candidate, and retains exact empty circumspheres without consuming
+  SciPy/Qhull candidate connectivity; it caps inputs at 64 points, skips
+  coplanar candidates, and fails closed on exact empty-cosphere ambiguity
+  instead of selecting an undocumented symbolic perturbation;
+- an exact-rational filtration-value audit over every simplex of host-validated
+  connectivity. It solves each intrinsic affine-hull Gram system with
+  `Fraction`, tests Gabriel emptiness against every input point, applies the
+  exact minimum-immediate-coface rule for non-Gabriel simplices, and compares
+  values, ties, critical counts, and ordering with the floating filtration. It
+  stores a canonical exact-record SHA-256 per case and cannot change primary
+  selection;
+- an evaluation-only exact-connectivity shadow that retains only host-accepted
+  cells, rebuilds the filtration through `AlphaFiltration.from_top_simplices`
+  with floating circumsphere values, reruns the requested methods, and compares
+  every non-runtime output plus the bridge-risk probe under declared numerical
+  tolerances without changing primary benchmark cases or selection;
+- an evaluation-only exact-rounded-value shadow that requires the accepted
+  connectivity, exact-value audit, and same-connectivity floating shadow;
+  recomputes and digest-verifies the exact rational records, rounds them to
+  binary64 for the runtime filtration, and separates selected-alpha, objective,
+  endpoint, and candidate-bookkeeping differences without changing selection;
+- an evaluation-only exact critical-index audit that compares the ordered
+  top-simplex birth groups, B2/B3 selected critical ranks, selected full
+  complexes and regularized boundaries, and B3 signature/candidate/persistence
+  paths across floating, exact-rounded, and exact-rational views without
+  changing primary selection;
+- an evaluation-only exact-selected-threshold resampling audit that holds the
+  B3 full complex, full-surface samples, resampled point subsets, floating
+  resampled connectivity/values, and sampling seeds fixed, then measures only
+  the effect of the floating versus exact-rounded selected alpha;
 - sampled-surface Chamfer, Hausdorff, F-score, component/Betti error,
   edge-incidence, and watertightness endpoints with a JSON audit trail.
 
@@ -234,6 +270,207 @@ applied to benchmark selection, so it cannot support promotion. The fixed
 artifact is
 `benchmark-out/smoke_b0_p2_exact_backend_handoff_held_out.json`
 (SHA-256 `31aa04659eab4eeee0977f388facc7e37cc53e4c7cfd0324a43a328264ac2be4`).
+
+Schema 18 adds `--evaluate-exact-connectivity-shadow`. Accepted backend cells
+are retained only after the schema-17 host checks and are passed through
+`AlphaFiltration.from_top_simplices`, which rejects non-integer shapes,
+out-of-range or repeated vertices, duplicate cells, and incomplete point
+coverage. The shadow then reruns the requested B0-P2 methods and compares every
+method output except runtime, plus the bridge-risk probe, using relative
+`1e-12` and absolute `1e-15` float tolerances. It never replaces the primary
+case reports or changes selection. The frozen held-out run again supplied no
+backend, so it produced zero accepted cases, zero shadow reports, zero shadow
+differences, and six explicit null reports; the schema-17 config, predicate
+audit, and all 48 primary non-runtime results remained exactly unchanged. A
+successful Qhull-connectivity fixture exercises the injection and comparison
+path, but its exactness attestation is test-only and is not evidence that Qhull
+constructed the cells exactly. This remains exact connectivity with floating
+filtration values, not an exact alpha complex or a deployed fallback. The fixed
+artifact is
+`benchmark-out/smoke_b0_p2_exact_connectivity_shadow_held_out.json`
+(SHA-256 `eeaf25337689b79e25973ae1a87c037a4ae942463d2e38eea27e0beda2622dd2`).
+
+Schema 19 adds `--exact-python-backend`, a built-in exact Euclidean Delaunay
+constructor for small audit panels. It converts the protocol's binary64
+rational coordinates to a common exact integer scale, enumerates all
+four-point candidates, and retains precisely the exact empty-sphere
+tetrahedra. It does not use SciPy/Qhull connectivity. Inputs are capped at 64
+points; coplanar candidates are skipped and exact cospherical ambiguity fails
+closed because no symbolic perturbation is claimed. On the frozen 48-point,
+six-case held-out panel, the independent schema-17 host validator accepted all
+six responses from `pftf_alpha_python_exact`; the retained tetrahedron counts
+were 208, 198, 188, 187, 209, and 141. All six shadow filtrations matched the
+primary connectivity and every non-runtime B0-P2 output, while the complete
+primary non-runtime result remained exactly equal to schema 18. This is exact
+Euclidean Delaunay connectivity followed by floating-point circumsphere
+filtration values. It is neither CGAL, an exact alpha complex, a spatially
+varying anisotropic triangulation, nor a deployed fallback. The fixed artifact
+is `benchmark-out/smoke_b0_p2_exact_python_backend_shadow_held_out.json`
+(438,966 bytes; SHA-256
+`5ce3863eae74fcdec439bba26c142006823abdbb84bf940ca4fce50aef15f5db`).
+
+
+Schema 20 adds `--evaluate-exact-filtration-values`. For every simplex in the
+host-validated 3D connectivity it computes the intrinsic circumsphere, Gabriel
+emptiness, and non-Gabriel coface minimum with exact rational arithmetic. The
+frozen six-case held-out audit covered 5,430 simplices. Only 953 floating values
+were bitwise equal to the correctly rounded exact value; 4,477 differed. The
+worst absolute error was `3.0440274899232807e-4`, the worst relative error was
+`1.70727232787347e-9`, and the largest ULP difference was 11,128,782. Despite
+those value-level differences, the audit found zero Gabriel disagreements,
+zero exact-tie splits, zero exact-versus-rounded or exact-versus-floating
+critical-count mismatches, and zero adjacent exact-order violations. All six
+connectivity shadows still had zero non-runtime output differences, and the
+complete primary non-runtime payload remained exactly equal to schema 19.
+These results establish ordering agreement only for this frozen panel; exact
+values remain audit-only and are not deployed into selection. This is not CGAL
+or an exact end-to-end alpha evaluation. The fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_filtration_audit_held_out.json`
+(448,635 bytes; SHA-256
+`7c9aa989d122b9b2ed736977a32267e3b2c76cb66a51395747500e32654fc54a`).
+
+Schema 21 adds `--evaluate-exact-value-shadow`. It runs only after exact
+construction, the exact filtration-value audit, and the same-connectivity
+floating-value shadow. Each case recomputes the exact rational records, checks
+its SHA-256 and simplex count against the audit, converts each value with the
+correctly rounded `Fraction`-to-binary64 conversion, and reruns the requested
+methods without replacing primary cases or selection. Missing, rejected,
+arithmetically invalid, or digest-mismatched prerequisites fail closed.
+
+On the same frozen six-case B0-P2 held-out panel, all six exact-value shadows ran.
+Every case had non-runtime B2 and B3 differences versus both primary and the
+same-connectivity floating-value shadow. Candidate-range bookkeeping differed in
+all six cases; selected-alpha fields exceeded the declared `1e-12` relative /
+`1e-15` absolute tolerance in two B2 cases (`u_concavity` and `sharp_crease`),
+and B3 objective/stability fields differed in two cases (`u_concavity` and
+`disconnected_parts`). No surface/topology endpoint or bridge-risk-probe output
+changed. The schema-20 primary non-runtime payload, exact-value audit, and
+floating-connectivity shadow all remained exactly unchanged. Thus unchanged
+critical counts and ordering did not imply identical method reports, although
+the frozen endpoint metrics remained stable.
+
+Exact rational values are only the source for this evaluation shadow. Threshold,
+objective, resampling, and surface evaluation arithmetic remains floating-point,
+and the shadow is not deployed into primary selection. This is neither an
+end-to-end exact alpha complex nor CGAL evidence. The fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_value_shadow_held_out.json` (614,286 bytes;
+SHA-256 `ea0d83f2b0a63f83591b8faeb32a9e710f2799fc970aa79c0a17889814db8e0d`).
+
+Schema 22 adds `--evaluate-exact-critical-index-audit` after the complete schema-21
+chain. It compares floating, correctly rounded exact, and exact-rational critical
+counts and ordered top-simplex birth groups, then audits the B2/B3 selected
+critical rank, full-complex SHA-256, and regularized-boundary SHA-256. For B3 it
+also compares the component/Euler signature sequence, budgeted candidate-index
+sequence, normalized log-radius plateau persistence, and topology/stability
+objective terms. The audit fails closed and cannot replace primary selection.
+
+On the frozen six-case 48-point held-out panel, all critical counts and ordered
+birth groups matched. B2 and B3 had zero selected-index, selected-complex, and
+selected-boundary mismatches; B2 objectives and endpoint payloads also matched.
+B3 persistence arrays differed bitwise in all six cases, but the selected
+persistence exceeded tolerance only for `disconnected_parts`. B3 retained the
+same selected complex while its objective differed for `u_concavity` and
+`disconnected_parts`: the topology term differed in one case and the resampling
+stability term in two. Thus schema-21 report differences on this panel came from
+numeric-radius paths, not a combinatorial selection change. A focused 16-point
+test does produce a selected-index/complex divergence, so this is a frozen-panel
+finding rather than a general invariance claim.
+
+The primary cases, exact-filtration audit, connectivity shadow, and value shadow
+remain structure-identical to schema 21 after runtime fields are excluded. The
+fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_critical_index_audit_held_out.json` (642,885
+bytes; SHA-256
+`5a104add183795ba179eb3b943cc00f9f8135c80c1b6e7481c8c8b3e715a0894`).
+Exact-rational values are still rounded before runtime evaluation; resampling
+filtrations remain floating-point. This is not deployment, CGAL evidence, or an
+end-to-end exact alpha-complex evaluation.
+
+Schema 23 adds `--evaluate-exact-resampling-threshold-audit` after the full
+schema-22 chain and requires B3 to have the same selected critical rank, full
+complex, regularized boundary, and budgeted-candidate position in both shadows.
+It regenerates the deterministic B3 resamples once, holds their floating
+connectivity and filtration values fixed, verifies identical full-surface sample
+hashes, and applies the two selected alpha values to each shared resample. It
+records resampled full-complex and boundary hashes plus per-repeat stability
+losses, then verifies that their means reproduce both B3 reports.
+
+All six frozen cases were audited and all six selected alpha values differed.
+Only `u_concavity` and `disconnected_parts` changed a resampled complex and
+boundary, each in one of two repeats. Those were exactly the two stability
+differences: `0.00026695180449573357` and `0.010215245512115334`,
+respectively. The other four cases changed neither resampled boundary nor
+stability. All reported stability values were reproduced, with zero reproduction
+failures, zero stability differences without a boundary change, and zero
+boundary changes without a stability difference.
+
+The controlled result identifies the schema-22 B3 stability differences as
+binary64 selected-threshold crossings in otherwise shared floating resampling
+filtrations. It does not construct exact connectivity or exact filtration values
+for a resampled point set. Primary cases and every schema-22 prerequisite remain
+structure-identical after runtime fields are excluded. The fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_resampling_threshold_audit_held_out.json`
+(667,995 bytes; SHA-256
+`0aa9302181cabd48c4cc99a6a7a3b52e458b133813b76236a95aab52df9fdff9`).
+This remains evaluation-only and cannot support deployment, CGAL parity, or an
+end-to-end exact-resampling claim.
+
+Schema 24 adds `--evaluate-exact-resampling-filtration-audit`, gated on the
+complete schema-23 chain. It regenerates the same deterministic B3 point
+subsets, runs the exact backend independently on every resample, applies the
+host validator, constructs correctly rounded exact filtration values, and
+compares the selected complex, regularized boundary, and stability loss at the
+same exact-rounded B3 threshold. Full-surface samples, point subsets, and all
+sampling seeds remain fixed; primary cases and selection remain immutable.
+
+All 12 resamples on the frozen six-case 48-point held-out panel were accepted.
+Their exact connectivity matched SciPy/Qhull in every repeat. All 12 had one or
+more floating-versus-correctly-rounded filtration-value differences, totaling
+7,723 simplex values with a maximum difference of 32,653,561 ULP. The large ULP
+count is recorded, not treated by itself as a failure. Six repeats across
+`u_concavity`, `opposing_sheets`, `torus`, and `disconnected_parts` changed the
+selected complex, regularized boundary, and stability; the other six changed
+none of them. Mean stability changed by `0.00026695180449573357`,
+`0.00030055016177662954`, `0.00012341684299446362`, and
+`0.010775278523207324`, respectively.
+
+The primary cases and every schema-23 prerequisite remain structure-identical
+after runtime fields are excluded. Thus the frozen resampling connectivity is
+not the source of the new differences; correctly rounded exact filtration
+values cross the fixed selected threshold in four cases. The audit still rounds
+exact rationals to binary64 and leaves threshold selection, objectives, surface
+sampling, and deployment outside the exact kernel. It is not a general
+false-safe certificate, an anisotropic exact construction, or CGAL parity. The
+fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_resampling_filtration_audit_held_out.json`
+(698,999 bytes; SHA-256
+`190ccdd545e6a4fde31af53ed5706015e202f296684958ce5d2d99fab9d138b9`).
+
+Schema 25 adds `--evaluate-exact-b3-selection-shadow`, gated on the complete
+schema-24 chain. It holds the correctly rounded exact full filtration, budgeted
+critical-index sequence, geometry sampling, and endpoint sampling fixed. Every
+B3 candidate is then evaluated twice: once with the original floating resample
+filtrations and once with the schema-24 host-validated exact resample
+filtrations. The exact-value B3 reference must be reproduced first; missing or
+nonidentical prerequisites fail the case closed.
+
+All six frozen cases and all 60 budgeted candidates were evaluated. Exact
+resampling changed candidate stability and objective values in 28 candidates
+across five cases: 4 in `u_concavity`, 5 in `opposing_sheets`, 4 in `torus`, 7
+in `disconnected_parts`, and 8 in `missing_patch`; `sharp_crease` was unchanged.
+The selected objective changed numerically in the first four cases, but every
+case retained the same selected critical index, alpha, full complex,
+regularized boundary, and endpoint metrics. Thus exact-resampling perturbations
+did not change the frozen-panel B3 argmin.
+
+Primary cases and every schema-24 section remain structure-identical after
+runtime fields are excluded. This shadow is not deployed, still rounds exact
+rationals to binary64, and leaves objective aggregation and surface sampling in
+floating point. It is not a general false-safe certificate, an anisotropic
+exact construction, or CGAL parity. The fixed artifact is
+`benchmark-out/smoke_b0_p2_exact_b3_selection_shadow_held_out.json` (765,053
+bytes; SHA-256
+`5d153c584c6400f3ca5ea8b4a62bbf6dc2069a43ecf3c784d0b8b146d22a61dc`).
 
 ## Core decision
 

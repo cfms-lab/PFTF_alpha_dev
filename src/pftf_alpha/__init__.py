@@ -59,6 +59,12 @@ from .exact import (
     audit_delaunay_predicates,
     audit_exact_predicate_panel,
 )
+from .exact_b3_shadow import (
+    ExactB3CandidateShadow,
+    ExactB3SelectionShadowCase,
+    ExactB3SelectionShadowPanel,
+    evaluate_exact_b3_selection_shadow,
+)
 from .exact_backend import (
     ExactConstructionCaseResult,
     ExactConstructionPanelResult,
@@ -66,6 +72,52 @@ from .exact_backend import (
     exact_construction_request,
     run_exact_construction_backend,
     validate_exact_construction_response,
+)
+from .exact_filtration import (
+    ExactFiltrationCaseAudit,
+    ExactFiltrationPanelAudit,
+    ExactRoundedFiltration,
+    ExactSimplexFiltration,
+    ExactSimplexFiltrationRecord,
+    audit_exact_filtration_case,
+    evaluate_exact_filtration_panel,
+    exact_rounded_filtration,
+    exact_simplex_filtration,
+)
+from .exact_index_audit import (
+    ExactCriticalIndexCaseAudit,
+    ExactCriticalIndexPanelAudit,
+    ExactCriticalMethodIdentity,
+    evaluate_exact_critical_index_audit,
+)
+from .exact_python_backend import (
+    ExactPythonBackendError,
+    ExactPythonConstruction,
+    decode_exact_request,
+    exact_backend_response,
+    exact_delaunay_tetrahedra,
+)
+from .exact_resampling_audit import (
+    ExactResamplingRepeatAudit,
+    ExactResamplingThresholdCaseAudit,
+    ExactResamplingThresholdPanelAudit,
+    evaluate_exact_resampling_threshold_audit,
+)
+from .exact_resampling_filtration import (
+    ExactResamplingFiltrationCaseAudit,
+    ExactResamplingFiltrationPanelAudit,
+    ExactResamplingFiltrationRepeatAudit,
+    evaluate_exact_resampling_filtration_audit,
+)
+from .exact_shadow import (
+    ExactConnectivityShadowCaseResult,
+    ExactConnectivityShadowPanelResult,
+    evaluate_exact_connectivity_shadow,
+)
+from .exact_value_shadow import (
+    ExactValueShadowCaseResult,
+    ExactValueShadowPanelResult,
+    evaluate_exact_value_shadow,
 )
 from .filtration import (
     AlphaFiltration,
@@ -152,8 +204,31 @@ __all__ = [
     "ComplexStatistics",
     "ExactPredicateCaseAudit",
     "ExactPredicatePanelAudit",
+    "ExactB3CandidateShadow",
+    "ExactB3SelectionShadowCase",
+    "ExactB3SelectionShadowPanel",
     "ExactConstructionCaseResult",
     "ExactConstructionPanelResult",
+    "ExactFiltrationCaseAudit",
+    "ExactFiltrationPanelAudit",
+    "ExactRoundedFiltration",
+    "ExactSimplexFiltration",
+    "ExactSimplexFiltrationRecord",
+    "ExactPythonBackendError",
+    "ExactPythonConstruction",
+    "ExactCriticalIndexCaseAudit",
+    "ExactCriticalIndexPanelAudit",
+    "ExactCriticalMethodIdentity",
+    "ExactResamplingRepeatAudit",
+    "ExactResamplingThresholdCaseAudit",
+    "ExactResamplingThresholdPanelAudit",
+    "ExactResamplingFiltrationCaseAudit",
+    "ExactResamplingFiltrationPanelAudit",
+    "ExactResamplingFiltrationRepeatAudit",
+    "ExactConnectivityShadowCaseResult",
+    "ExactConnectivityShadowPanelResult",
+    "ExactValueShadowCaseResult",
+    "ExactValueShadowPanelResult",
     "LocalMetricField",
     "ObjectiveTerms",
     "PFTFRelationField",
@@ -163,9 +238,22 @@ __all__ = [
     "alpha_to_squared_radius",
     "audit_delaunay_predicates",
     "audit_exact_predicate_panel",
+    "audit_exact_filtration_case",
     "evaluate_exact_construction_panel",
+    "evaluate_exact_b3_selection_shadow",
+    "evaluate_exact_connectivity_shadow",
+    "evaluate_exact_critical_index_audit",
+    "evaluate_exact_filtration_panel",
+    "evaluate_exact_resampling_threshold_audit",
+    "evaluate_exact_resampling_filtration_audit",
+    "evaluate_exact_value_shadow",
     "exact_construction_request",
     "hard_alpha_gate",
+    "decode_exact_request",
+    "exact_backend_response",
+    "exact_delaunay_tetrahedra",
+    "exact_rounded_filtration",
+    "exact_simplex_filtration",
     "directed_scale_contrast",
     "intrinsic_circumsphere",
     "metric_circumradius_squared",

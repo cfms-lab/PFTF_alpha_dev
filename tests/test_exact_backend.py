@@ -87,6 +87,7 @@ def test_validator_accepts_complete_exact_delaunay_connectivity() -> None:
     )
 
     assert result.accepted
+    assert result.validated_top_simplices == ((0, 1, 2, 3), (0, 1, 2, 4))
     assert result.protocol_valid
     assert result.used_point_count == 5
     assert result.boundary_facet_count == 6
@@ -121,6 +122,7 @@ def test_validator_rejects_local_delaunay_violation() -> None:
     )
 
     assert not result.accepted
+    assert result.validated_top_simplices is None
     assert "exact_local_delaunay_violations" in result.rejection_reasons
 
 

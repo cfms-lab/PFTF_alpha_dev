@@ -3,8 +3,8 @@
 The backend receives exact rational encodings of the input binary64 values and
 returns tetrahedral connectivity.  The host validates protocol binding,
 topological incidence, convex-hull support, exact volume coverage, and exact
-orientation/in-sphere predicates.  Validated connectivity is not yet applied
-to benchmark selection.
+orientation/in-sphere predicates.  Validated connectivity may be applied to an
+evaluation-only shadow filtration, never to the primary benchmark selection.
 """
 
 from __future__ import annotations
@@ -57,6 +57,7 @@ class ExactConstructionCaseResult:
     response_sha256: str | None
     point_count: int
     top_simplex_count: int
+    validated_top_simplices: tuple[Cell, ...] | None
     used_point_count: int
     boundary_facet_count: int
     boundary_support_violation_count: int
@@ -349,6 +350,7 @@ def _failure_result(
         response_sha256=response_sha256,
         point_count=point_count,
         top_simplex_count=0,
+        validated_top_simplices=None,
         used_point_count=0,
         boundary_facet_count=0,
         boundary_support_violation_count=0,
@@ -450,6 +452,7 @@ def validate_exact_construction_response(
         response_sha256=digest,
         point_count=point_array.shape[0],
         top_simplex_count=cells_array.shape[0],
+        validated_top_simplices=canonical_cells if accepted else None,
         used_point_count=len(used_vertices),
         boundary_facet_count=boundary_facet_count,
         boundary_support_violation_count=boundary_support_violations,

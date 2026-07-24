@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import sys
 from collections.abc import Sequence
 from dataclasses import asdict, replace
 from datetime import UTC, datetime
@@ -26,9 +27,37 @@ from .calibration import (
     evaluate_bridge_penalty_ablation,
 )
 from .exact import ExactPredicatePanelAudit, audit_exact_predicate_panel
+from .exact_b3_shadow import (
+    ExactB3SelectionShadowPanel,
+    evaluate_exact_b3_selection_shadow,
+)
 from .exact_backend import (
     ExactConstructionPanelResult,
     evaluate_exact_construction_panel,
+)
+from .exact_filtration import (
+    ExactFiltrationPanelAudit,
+    evaluate_exact_filtration_panel,
+)
+from .exact_index_audit import (
+    ExactCriticalIndexPanelAudit,
+    evaluate_exact_critical_index_audit,
+)
+from .exact_resampling_audit import (
+    ExactResamplingThresholdPanelAudit,
+    evaluate_exact_resampling_threshold_audit,
+)
+from .exact_resampling_filtration import (
+    ExactResamplingFiltrationPanelAudit,
+    evaluate_exact_resampling_filtration_audit,
+)
+from .exact_shadow import (
+    ExactConnectivityShadowPanelResult,
+    evaluate_exact_connectivity_shadow,
+)
+from .exact_value_shadow import (
+    ExactValueShadowPanelResult,
+    evaluate_exact_value_shadow,
 )
 from .synthetic import PanelSplit, make_minimal_panel
 
@@ -129,7 +158,68 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="validate an optional exact backend handoff without using its cells",
     )
+    parser.add_argument(
+        "--evaluate-exact-connectivity-shadow",
+        action="store_true",
+        help=(
+            "rerun selected methods on host-validated exact connectivity as an "
+            "evaluation-only shadow; primary cases and selection remain unchanged"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-filtration-values",
+        action="store_true",
+        help=(
+            "audit every validated simplex filtration value with exact rational "
+            "arithmetic without changing primary cases or selection"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-value-shadow",
+        action="store_true",
+        help=(
+            "rerun selected methods with correctly rounded exact filtration values "
+            "as an evaluation-only shadow; primary selection remains unchanged"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-critical-index-audit",
+        action="store_true",
+        help=(
+            "audit B2/B3 critical ranks, birth groups, selected complexes, and "
+            "B3 persistence without changing primary selection"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-resampling-threshold-audit",
+        action="store_true",
+        help=(
+            "isolate the B3 selected-threshold effect on shared floating "
+            "resamples without changing primary selection"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-resampling-filtration-audit",
+        action="store_true",
+        help=(
+            "reconstruct B3 resamples with validated exact connectivity and "
+            "correctly rounded exact filtration values without changing selection"
+        ),
+    )
+    parser.add_argument(
+        "--evaluate-exact-b3-selection-shadow",
+        action="store_true",
+        help=(
+            "re-evaluate every budgeted B3 candidate with exact resampled "
+            "filtrations without changing primary selection"
+        ),
+    )
     parser.add_argument("--exact-backend", type=Path, default=None)
+    parser.add_argument(
+        "--exact-python-backend",
+        action="store_true",
+        help="use the built-in small-panel exact integer Delaunay backend",
+    )
     parser.add_argument(
         "--exact-backend-arg",
         action="append",
@@ -255,10 +345,86 @@ def main(argv: Sequence[str] | None = None) -> int:
             "--evaluate-boundary-region-cuts requires --calibrate-adaptive or an "
             "explicit --p2-scale-multiplier"
         )
+    if args.evaluate_exact_connectivity_shadow and not args.evaluate_exact_construction:
+        parser.error(
+            "--evaluate-exact-connectivity-shadow requires "
+            "--evaluate-exact-construction"
+        )
+    if args.evaluate_exact_connectivity_shadow and all(
+        method is BaselineID.B0_CONVEX_HULL for method in methods
+    ):
+        parser.error("--evaluate-exact-connectivity-shadow requires a non-B0 method")
     if not 0.0 < args.p2_target_fallback_fraction < 1.0:
         parser.error("--p2-target-fallback-fraction must lie strictly between 0 and 1")
+    if args.evaluate_exact_filtration_values and not args.evaluate_exact_construction:
+        parser.error(
+            "--evaluate-exact-filtration-values requires --evaluate-exact-construction"
+        )
+    if args.evaluate_exact_value_shadow and not args.evaluate_exact_construction:
+        parser.error(
+            "--evaluate-exact-value-shadow requires --evaluate-exact-construction"
+        )
+    if args.evaluate_exact_value_shadow and not args.evaluate_exact_filtration_values:
+        parser.error(
+            "--evaluate-exact-value-shadow requires --evaluate-exact-filtration-values"
+        )
+    if args.evaluate_exact_value_shadow and not args.evaluate_exact_connectivity_shadow:
+        parser.error(
+            "--evaluate-exact-value-shadow requires "
+            "--evaluate-exact-connectivity-shadow"
+        )
+    if (
+        args.evaluate_exact_critical_index_audit
+        and not args.evaluate_exact_value_shadow
+    ):
+        parser.error(
+            "--evaluate-exact-critical-index-audit requires "
+            "--evaluate-exact-value-shadow"
+        )
+    if args.evaluate_exact_critical_index_audit and not any(
+        method in (BaselineID.B2_CRITICAL_ORACLE, BaselineID.B3_PERSISTENCE_STABILITY)
+        for method in methods
+    ):
+        parser.error(
+            "--evaluate-exact-critical-index-audit requires B2 or B3 in --methods"
+        )
+    if (
+        args.evaluate_exact_resampling_threshold_audit
+        and not args.evaluate_exact_critical_index_audit
+    ):
+        parser.error(
+            "--evaluate-exact-resampling-threshold-audit requires "
+            "--evaluate-exact-critical-index-audit"
+        )
+    if (
+        args.evaluate_exact_resampling_threshold_audit
+        and BaselineID.B3_PERSISTENCE_STABILITY not in methods
+    ):
+        parser.error(
+            "--evaluate-exact-resampling-threshold-audit requires B3 in --methods"
+        )
+    if (
+        args.evaluate_exact_resampling_filtration_audit
+        and not args.evaluate_exact_resampling_threshold_audit
+    ):
+        parser.error(
+            "--evaluate-exact-resampling-filtration-audit requires "
+            "--evaluate-exact-resampling-threshold-audit"
+        )
+    if (
+        args.evaluate_exact_b3_selection_shadow
+        and not args.evaluate_exact_resampling_filtration_audit
+    ):
+        parser.error(
+            "--evaluate-exact-b3-selection-shadow requires "
+            "--evaluate-exact-resampling-filtration-audit"
+        )
     if args.exact_backend is not None and not args.evaluate_exact_construction:
         parser.error("--exact-backend requires --evaluate-exact-construction")
+    if args.exact_python_backend and not args.evaluate_exact_construction:
+        parser.error("--exact-python-backend requires --evaluate-exact-construction")
+    if args.exact_python_backend and args.exact_backend is not None:
+        parser.error("--exact-python-backend cannot be combined with --exact-backend")
     if args.exact_backend_arg and args.exact_backend is None:
         parser.error("--exact-backend-arg requires --exact-backend")
     if not math.isfinite(args.exact_backend_timeout) or args.exact_backend_timeout <= 0:
@@ -292,11 +458,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     p2_confidence_calibration: P2ConfidenceCalibrationResult | None = None
     calibration_cases = None
     bridge_penalty_ablation: BridgePenaltyAblationResult | None = None
+    exact_connectivity_shadow: ExactConnectivityShadowPanelResult | None = None
+    exact_value_shadow: ExactValueShadowPanelResult | None = None
+    exact_critical_index_audit: ExactCriticalIndexPanelAudit | None = None
+    exact_resampling_threshold_audit: ExactResamplingThresholdPanelAudit | None = None
+    exact_resampling_filtration_audit: (
+        ExactResamplingFiltrationPanelAudit | None
+    ) = None
+    exact_b3_selection_shadow: ExactB3SelectionShadowPanel | None = None
     boundary_bridge_localization: BoundaryBridgeLocalizationResult | None = None
     boundary_owner_intervention: BoundaryOwnerInterventionAblationResult | None = None
+    exact_filtration_audit: ExactFiltrationPanelAudit | None = None
     boundary_region_cut_ablation: BoundaryRegionCutAblationResult | None = None
     exact_predicate_audit: ExactPredicatePanelAudit | None = None
     exact_construction_result: ExactConstructionPanelResult | None = None
+    backend_command: tuple[str, ...] | None = None
 
     if args.calibrate_adaptive:
         calibration_cases = make_minimal_panel(
@@ -448,9 +624,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
 
     if args.evaluate_exact_construction:
-        backend_command = None
-        if args.exact_backend is not None:
+        if args.exact_python_backend:
+            backend_command = (sys.executable, "-m", "pftf_alpha.exact_python_backend")
+        elif args.exact_backend is not None:
             backend_command = (str(args.exact_backend), *args.exact_backend_arg)
+        else:
+            backend_command = None
         print(f"[{split.value}] validating optional exact construction handoff")
         exact_construction_result = evaluate_exact_construction_panel(
             ((case.family.value, case.points) for case in cases),
@@ -462,6 +641,23 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"  backend_requested={exact_construction_result.backend_requested}; "
             f"accepted_cases={exact_construction_result.accepted_case_count}; "
             f"blocking={list(exact_construction_result.blocking_reasons)}"
+        )
+
+    if args.evaluate_exact_filtration_values:
+        assert exact_construction_result is not None
+        print(f"[{split.value}] auditing exact rational simplex filtration values")
+        exact_filtration_audit = evaluate_exact_filtration_panel(
+            cases,
+            construction_result=exact_construction_result,
+        )
+        print(
+            f"  audited_cases={exact_filtration_audit.audited_case_count}; "
+            f"value_difference_cases="
+            f"{exact_filtration_audit.value_difference_case_count}; "
+            f"gabriel_disagreement_cases="
+            f"{exact_filtration_audit.gabriel_disagreement_case_count}; "
+            f"order_violation_cases="
+            f"{exact_filtration_audit.order_violation_case_count}"
         )
     if args.evaluate_boundary_bridges:
         print(f"[{split.value}] evaluating boundary/dual bridge localization")
@@ -502,13 +698,160 @@ def main(argv: Sequence[str] | None = None) -> int:
             for result in report.results
         )
         print(f"  {summary}")
+    if args.evaluate_exact_connectivity_shadow:
+        assert exact_construction_result is not None
+        print(f"[{split.value}] applying validated connectivity to shadow filtration")
+        exact_connectivity_shadow = evaluate_exact_connectivity_shadow(
+            cases,
+            reports,
+            construction_result=exact_construction_result,
+            config=config,
+            methods=methods,
+        )
+        print(
+            f"  shadow_cases={exact_connectivity_shadow.shadow_case_count}; "
+            "nonruntime_difference_cases="
+            f"{exact_connectivity_shadow.output_difference_case_count}; "
+            f"blocking={list(exact_connectivity_shadow.blocking_reasons)}"
+        )
+    if args.evaluate_exact_value_shadow:
+        assert exact_construction_result is not None
+        assert exact_filtration_audit is not None
+        assert exact_connectivity_shadow is not None
+        print(
+            f"[{split.value}] applying correctly rounded exact values to shadow "
+            "filtration"
+        )
+        exact_value_shadow = evaluate_exact_value_shadow(
+            cases,
+            reports,
+            construction_result=exact_construction_result,
+            filtration_audit=exact_filtration_audit,
+            connectivity_shadow=exact_connectivity_shadow,
+            config=config,
+            methods=methods,
+        )
+        print(
+            f"  shadow_cases={exact_value_shadow.shadow_case_count}; "
+            "primary_difference_cases="
+            f"{exact_value_shadow.primary_output_difference_case_count}; "
+            "value_only_difference_cases="
+            f"{exact_value_shadow.value_only_output_difference_case_count}; "
+            f"blocking={list(exact_value_shadow.blocking_reasons)}"
+        )
+    if args.evaluate_exact_critical_index_audit:
+        assert exact_construction_result is not None
+        assert exact_filtration_audit is not None
+        assert exact_connectivity_shadow is not None
+        assert exact_value_shadow is not None
+        print(f"[{split.value}] auditing exact critical-index selection identity")
+        exact_critical_index_audit = evaluate_exact_critical_index_audit(
+            cases,
+            construction_result=exact_construction_result,
+            filtration_audit=exact_filtration_audit,
+            connectivity_shadow=exact_connectivity_shadow,
+            value_shadow=exact_value_shadow,
+            config=config,
+            methods=methods,
+        )
+        audit = exact_critical_index_audit
+        b3_same_complex_differences = (
+            audit.b3_objective_difference_with_same_complex_case_count
+        )
+        print(
+            f"  audited_cases={exact_critical_index_audit.audited_case_count}; "
+            "selected_index_mismatches="
+            f"{exact_critical_index_audit.selected_index_mismatch_method_count}; "
+            "selected_complex_mismatches="
+            f"{exact_critical_index_audit.selected_complex_mismatch_method_count}; "
+            "B3_objective_differences_with_same_complex="
+            f"{b3_same_complex_differences}; "
+            f"blocking={list(exact_critical_index_audit.blocking_reasons)}"
+        )
+
+    if args.evaluate_exact_resampling_threshold_audit:
+        assert exact_construction_result is not None
+        assert exact_filtration_audit is not None
+        assert exact_connectivity_shadow is not None
+        assert exact_value_shadow is not None
+        assert exact_critical_index_audit is not None
+        print(f"[{split.value}] auditing exact-selected resampling thresholds")
+        exact_resampling_threshold_audit = evaluate_exact_resampling_threshold_audit(
+            cases,
+            construction_result=exact_construction_result,
+            filtration_audit=exact_filtration_audit,
+            connectivity_shadow=exact_connectivity_shadow,
+            value_shadow=exact_value_shadow,
+            critical_index_audit=exact_critical_index_audit,
+            config=config,
+        )
+        resampling_audit = exact_resampling_threshold_audit
+        print(
+            f"  audited_cases={resampling_audit.audited_case_count}; "
+            "resampled_boundary_difference_cases="
+            f"{resampling_audit.resampled_boundary_difference_case_count}; "
+            "stability_difference_cases="
+            f"{resampling_audit.stability_difference_case_count}; "
+            "reproduction_failures="
+            f"{resampling_audit.threshold_effect_reproduction_failure_case_count}; "
+            f"blocking={list(resampling_audit.blocking_reasons)}"
+        )
+
+    if args.evaluate_exact_resampling_filtration_audit:
+        assert exact_construction_result is not None
+        assert exact_resampling_threshold_audit is not None
+        print(f"[{split.value}] auditing exact resampling connectivity and values")
+        exact_resampling_filtration_audit = (
+            evaluate_exact_resampling_filtration_audit(
+                cases,
+                construction_result=exact_construction_result,
+                threshold_audit=exact_resampling_threshold_audit,
+                config=config,
+                backend_command=backend_command,
+                backend_timeout_seconds=args.exact_backend_timeout,
+            )
+        )
+        resampling_filtration = exact_resampling_filtration_audit
+        print(
+            f"  audited_cases={resampling_filtration.audited_case_count}; "
+            f"audited_repeats={resampling_filtration.audited_repeat_count}; "
+            "connectivity_difference_cases="
+            f"{resampling_filtration.connectivity_difference_case_count}; "
+            "stability_difference_cases="
+            f"{resampling_filtration.stability_difference_case_count}; "
+            f"blocking={list(resampling_filtration.blocking_reasons)}"
+        )
+
+    if args.evaluate_exact_b3_selection_shadow:
+        assert exact_construction_result is not None
+        assert exact_value_shadow is not None
+        assert exact_resampling_filtration_audit is not None
+        print(f"[{split.value}] shadowing exact-resampling B3 selection")
+        exact_b3_selection_shadow = evaluate_exact_b3_selection_shadow(
+            cases,
+            construction_result=exact_construction_result,
+            exact_value_shadow=exact_value_shadow,
+            exact_resampling_audit=exact_resampling_filtration_audit,
+            config=config,
+        )
+        b3_shadow = exact_b3_selection_shadow
+        print(
+            f"  shadow_cases={b3_shadow.shadow_case_count}; "
+            "candidate_stability_difference_cases="
+            f"{b3_shadow.candidate_stability_difference_case_count}; "
+            "selected_index_difference_cases="
+            f"{b3_shadow.selected_index_difference_case_count}; "
+            "selected_endpoint_difference_cases="
+            f"{b3_shadow.selected_endpoint_difference_case_count}; "
+            f"blocking={list(b3_shadow.blocking_reasons)}"
+        )
 
     output = args.output
     if output is None:
         output = Path("benchmark-out") / f"b0_p2_{split.value}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "schema_version": 17,
+        "schema_version": 25,
         "created_utc": datetime.now(UTC).isoformat(),
         "topology_endpoint_contract": {
             "homology_coefficients": "GF(2)",
@@ -608,16 +951,286 @@ def main(argv: Sequence[str] | None = None) -> int:
             "request_binding": "SHA256_of_canonical_request_must_be_echoed",
             "coordinate_model": "binary64_values_as_exact_rationals",
             "response_connectivity": "tetrahedron_vertex_indices",
+            "backend_modes": ["external_executable", "builtin_python_exact"],
             "backend_attestation": "name_version_kernel_exact_construction_true",
             "host_validation": [
                 "all_points_used_and_face_incidence",
                 "exact_convex_hull_support_and_volume_coverage",
                 "exact_orientation_and_in_sphere_predicates",
             ],
-            "construction_effect": "validated_connectivity_not_applied",
+            "construction_effect": "validated_connectivity_available_for_shadow_only",
             "selection_effect": "none",
             "fail_closed": "missing_failed_or_rejected_backend_blocks_promotion",
             "held_out_tuning": "prohibited",
+        },
+        "exact_python_backend_contract": {
+            "role": "small_panel_exact_construction_backend_no_selection",
+            "algorithm": (
+                "enumerate_all_four_point_candidates_and_retain_exact_empty_spheres"
+            ),
+            "candidate_connectivity_source": "none",
+            "scipy_qhull_connectivity_use": False,
+            "arithmetic": "common_scale_exact_integers",
+            "predicates": ["orientation_3", "circumsphere_power_3"],
+            "max_point_count": 64,
+            "coplanar_candidate_rule": "skip",
+            "empty_cosphere_rule": "fail_closed_no_symbolic_perturbation",
+            "construction_effect": "validated_connectivity_available_for_shadow_only",
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "claim_boundary": (
+                "exact Euclidean Delaunay connectivity only; filtration values "
+                "are evaluated separately in floating and exact-rounded shadows; "
+                "not CGAL and not deployed"
+            ),
+        },
+        "exact_connectivity_shadow_contract": {
+            "role": "evaluation_only_shadow_no_selection",
+            "input_connectivity": "host_validated_exact_backend_tetrahedra",
+            "filtration_construction": "AlphaFiltration.from_top_simplices",
+            "filtration_value_arithmetic": "floating_point_intrinsic_circumspheres",
+            "evaluated_methods": "requested_B0_P2_methods",
+            "comparison": "all_method_outputs_except_runtime_plus_bridge_risk_probe",
+            "comparison_float_relative_tolerance": 1.0e-12,
+            "comparison_float_absolute_tolerance": 1.0e-15,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_or_structurally_invalid_connectivity_produces_"
+                "no_shadow_report"
+            ),
+            "claim_boundary": (
+                "exact connectivity with floating filtration values; not an exact "
+                "alpha complex and not deployed"
+            ),
+        },
+        "exact_filtration_value_audit_contract": {
+            "role": "exact_rational_filtration_value_audit_no_selection",
+            "input_connectivity": "host_validated_exact_backend_tetrahedra",
+            "coordinate_model": "binary64_values_as_exact_rationals",
+            "simplex_dimensions": [0, 1, 2, 3],
+            "arithmetic": "fractions_Fraction_over_common_scale_exact_integers",
+            "intrinsic_sphere": "exact_affine_hull_Gram_system",
+            "gabriel_test": "exact_all_point_squared_distance_comparison",
+            "non_gabriel_rule": "minimum_exact_immediate_coface_value",
+            "comparison": [
+                "correctly_rounded_float_value",
+                "exact_Gabriel_flag",
+                "critical_value_counts_and_ties",
+                "adjacent_exact_order_violations",
+            ],
+            "critical_value_count_scope": "all_simplex_values_including_zero",
+            "artifact_storage": "canonical_exact_record_SHA256_plus_summary_counts",
+            "exact_values_applied_to_primary": False,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_or_arithmetically_invalid_connectivity_produces_"
+                "no_exact_value_audit"
+            ),
+            "claim_boundary": (
+                "exact rational audit of simplex filtration values only; values "
+                "are not deployed into selection and this is not CGAL"
+            ),
+        },
+        "exact_value_shadow_contract": {
+            "role": "evaluation_only_exact_rounded_value_shadow_no_selection",
+            "prerequisites": [
+                "host_validated_exact_backend_connectivity",
+                "verified_exact_filtration_value_audit",
+                "same_connectivity_floating_value_shadow",
+            ],
+            "filtration_value_source": "correctly_rounded_exact_rationals",
+            "runtime_value_type": "binary64",
+            "evaluated_methods": "requested_B0_P2_methods",
+            "comparison": [
+                "all_nonruntime_outputs_vs_primary",
+                "all_nonruntime_outputs_vs_same_connectivity_floating_value_shadow",
+                "bridge_risk_probe",
+            ],
+            "comparison_float_relative_tolerance": 1.0e-12,
+            "comparison_float_absolute_tolerance": 1.0e-15,
+            "threshold_and_objective_arithmetic": "floating_point",
+            "difference_classification": {
+                "selected_alpha": "alpha_and_declared_selection_parameter_fields",
+                "objective": "objective_total_and_terms",
+                "endpoint": "complete_surface_and_topology_endpoint_payload",
+                "candidate_bookkeeping": "candidate_counts_and_range_fields",
+            },
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_digest_mismatched_or_arithmetically_invalid_"
+                "prerequisites_produce_no_exact_value_shadow_report"
+            ),
+            "claim_boundary": (
+                "exact rational simplex values are correctly rounded into an "
+                "evaluation-only binary64 filtration; thresholds, objectives, and "
+                "surface evaluation remain floating-point, so this is not an "
+                "end-to-end exact alpha complex, CGAL, or a deployed fallback"
+            ),
+        },
+        "exact_critical_index_audit_contract": {
+            "role": "evaluation_only_exact_critical_index_identity_audit",
+            "prerequisites": [
+                "exact_construction_backend",
+                "exact_filtration_value_audit",
+                "same_connectivity_floating_value_shadow",
+                "exact_rounded_value_shadow",
+            ],
+            "methods": ["B2", "B3"],
+            "critical_identity": [
+                "ordered_top_simplex_birth_groups",
+                "selected_critical_rank",
+                "selected_full_complex_SHA256",
+                "selected_regularized_boundary_SHA256",
+            ],
+            "b3_trace": [
+                "component_Euler_signature_sequence",
+                "budgeted_candidate_index_sequence",
+                "normalized_log_radius_plateau_persistence",
+            ],
+            "comparison_float_relative_tolerance": 1.0e-12,
+            "comparison_float_absolute_tolerance": 1.0e-15,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_digest_mismatched_or_inconsistent_prerequisites_"
+                "produce_no_critical_index_audit"
+            ),
+            "claim_boundary": (
+                "audits critical identity and isolates numeric-radius effects; "
+                "does not replace B2/B3 selection, make resampling exact, provide "
+                "an end-to-end exact alpha complex, or establish CGAL parity"
+            ),
+        },
+        "exact_resampling_threshold_audit_contract": {
+            "role": "evaluation_only_exact_selected_threshold_resampling_audit",
+            "prerequisites": [
+                "exact_construction_backend",
+                "exact_filtration_value_audit",
+                "same_connectivity_floating_value_shadow",
+                "exact_rounded_value_shadow",
+                "exact_critical_index_identity_audit",
+                "shared_B3_selected_index_complex_and_boundary",
+            ],
+            "method": "B3",
+            "controlled_variables": [
+                "selected_full_complex",
+                "full_surface_samples",
+                "resampled_point_subsets",
+                "resampled_floating_connectivity",
+                "resampled_floating_filtration_values",
+                "surface_sampling_seeds",
+            ],
+            "treatment": (
+                "floating_selected_alpha_vs_exact_rounded_selected_alpha_applied_"
+                "to_the_same_floating_resampled_filtration"
+            ),
+            "observations": [
+                "resampled_full_complex_SHA256",
+                "resampled_regularized_boundary_SHA256",
+                "per_repeat_stability_loss",
+                "reported_mean_stability_reproduction",
+            ],
+            "comparison_float_relative_tolerance": 1.0e-12,
+            "comparison_float_absolute_tolerance": 1.0e-15,
+            "exact_resampled_connectivity_constructed": False,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_digest_mismatched_or_nonidentical_selection_"
+                "prerequisites_produce_no_resampling_threshold_audit"
+            ),
+            "claim_boundary": (
+                "isolates the selected-threshold effect on shared floating "
+                "resamples; does not construct exact resampled connectivity, make "
+                "resampling exact, deploy selection, establish end-to-end exact "
+                "alpha evaluation, or provide CGAL parity"
+            ),
+        },
+        "exact_resampling_filtration_audit_contract": {
+            "role": (
+                "evaluation_only_exact_resampling_connectivity_and_filtration_audit"
+            ),
+            "prerequisites": [
+                "exact_resampling_threshold_audit",
+                "host_validated_exact_construction_backend",
+                "deterministic_B3_resampled_point_subsets",
+            ],
+            "method": "B3",
+            "controlled_variables": [
+                "selected_exact_rounded_alpha",
+                "exact_full_surface_samples",
+                "resampled_point_subsets",
+                "surface_sampling_seeds",
+            ],
+            "treatment": (
+                "floating_connectivity_and_filtration_vs_host_validated_exact_"
+                "connectivity_and_correctly_rounded_exact_filtration"
+            ),
+            "observations": [
+                "resampled_connectivity_identity",
+                "exact_filtration_SHA256",
+                "selected_complex_SHA256",
+                "selected_boundary_SHA256",
+                "per_repeat_stability_loss",
+            ],
+            "exact_resampled_connectivity_constructed": True,
+            "exact_resampled_filtration_values_constructed": True,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_or_nonidentical_schema_23_prerequisites_or_"
+                "resample_backend_failures_produce_no_case_level_exact_result"
+            ),
+            "claim_boundary": (
+                "constructs and evaluates exact resampled connectivity and "
+                "correctly rounded exact filtration values as an audit; does not "
+                "deploy B3 selection, make objective or surface arithmetic exact, "
+                "establish a general false-safe certificate, or provide CGAL parity"
+            ),
+        },
+        "exact_b3_selection_shadow_contract": {
+            "role": "evaluation_only_exact_resampling_B3_selection_shadow",
+            "prerequisites": [
+                "exact_rounded_full_filtration",
+                "schema_24_exact_resampling_filtrations",
+                "reproduced_exact_value_B3_reference",
+            ],
+            "method": "B3",
+            "candidate_source": "same_budgeted_exact_full_critical_values",
+            "controlled_variables": [
+                "exact_full_filtration",
+                "candidate_indices",
+                "geometry_sampling_seeds",
+                "endpoint_sampling_seed",
+            ],
+            "treatment": (
+                "floating_resampled_filtrations_vs_exact_resampled_filtrations_"
+                "for_every_budgeted_candidate"
+            ),
+            "observations": [
+                "per_candidate_stability_and_objective",
+                "selected_critical_index",
+                "selected_full_complex_SHA256",
+                "selected_boundary_SHA256",
+                "selected_objective_and_endpoints",
+            ],
+            "comparison_float_relative_tolerance": 1.0e-12,
+            "comparison_float_absolute_tolerance": 1.0e-15,
+            "primary_cases_effect": "none",
+            "selection_effect": "none",
+            "fail_closed": (
+                "missing_rejected_or_nonidentical_schema_24_prerequisites_or_"
+                "B3_reference_reproduction_failures_produce_no_case_shadow"
+            ),
+            "claim_boundary": (
+                "reselects B3 only in an evaluation shadow using exact full and "
+                "resampled filtrations; does not deploy selection, make objective "
+                "or surface arithmetic exact, establish a general false-safe "
+                "certificate, or provide CGAL parity"
+            ),
         },
         "selection_contract": {
             "B0": "no selection",
@@ -728,7 +1341,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             "enabled": exact_predicate_audit is not None,
             "source_split": split.value if exact_predicate_audit is not None else None,
             "result": (
-                exact_predicate_audit.to_dict()
+                exact_predicate_audit.to_dict(
+                    exact_construction_backend_integrated=(
+                        exact_construction_result is not None
+                        and exact_construction_result.backend_handoff_validated
+                    )
+                )
                 if exact_predicate_audit is not None
                 else None
             ),
@@ -738,11 +1356,92 @@ def main(argv: Sequence[str] | None = None) -> int:
             "source_split": split.value
             if exact_construction_result is not None
             else None,
+            "backend_mode": (
+                "builtin_python_exact"
+                if args.exact_python_backend
+                else "external_executable"
+                if args.exact_backend is not None
+                else "none"
+            ),
+            "builtin_python_backend_requested": args.exact_python_backend,
             "backend_executable_explicit": args.exact_backend is not None,
             "requested_timeout_seconds": args.exact_backend_timeout,
             "result": (
                 exact_construction_result.to_dict()
                 if exact_construction_result is not None
+                else None
+            ),
+        },
+        "exact_connectivity_shadow": {
+            "enabled": exact_connectivity_shadow is not None,
+            "source_split": (
+                split.value if exact_connectivity_shadow is not None else None
+            ),
+            "result": (
+                exact_connectivity_shadow.to_dict()
+                if exact_connectivity_shadow is not None
+                else None
+            ),
+        },
+        "exact_filtration_value_audit": {
+            "enabled": exact_filtration_audit is not None,
+            "source_split": (
+                split.value if exact_filtration_audit is not None else None
+            ),
+            "result": (
+                exact_filtration_audit.to_dict()
+                if exact_filtration_audit is not None
+                else None
+            ),
+        },
+        "exact_value_shadow": {
+            "enabled": exact_value_shadow is not None,
+            "source_split": split.value if exact_value_shadow is not None else None,
+            "result": (
+                exact_value_shadow.to_dict() if exact_value_shadow is not None else None
+            ),
+        },
+        "exact_critical_index_audit": {
+            "enabled": exact_critical_index_audit is not None,
+            "source_split": (
+                split.value if exact_critical_index_audit is not None else None
+            ),
+            "result": (
+                exact_critical_index_audit.to_dict()
+                if exact_critical_index_audit is not None
+                else None
+            ),
+        },
+        "exact_resampling_threshold_audit": {
+            "enabled": exact_resampling_threshold_audit is not None,
+            "source_split": (
+                split.value if exact_resampling_threshold_audit is not None else None
+            ),
+            "result": (
+                exact_resampling_threshold_audit.to_dict()
+                if exact_resampling_threshold_audit is not None
+                else None
+            ),
+        },
+        "exact_resampling_filtration_audit": {
+            "enabled": exact_resampling_filtration_audit is not None,
+            "source_split": (
+                split.value if exact_resampling_filtration_audit is not None else None
+            ),
+            "result": (
+                exact_resampling_filtration_audit.to_dict()
+                if exact_resampling_filtration_audit is not None
+                else None
+            ),
+        },
+        "exact_b3_selection_shadow": {
+            "enabled": exact_b3_selection_shadow is not None,
+            "source_split": (
+                split.value if exact_b3_selection_shadow is not None else None
+            ),
+            "result": (
+                exact_b3_selection_shadow.to_dict()
+                if exact_b3_selection_shadow is not None
                 else None
             ),
         },

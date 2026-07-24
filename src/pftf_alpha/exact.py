@@ -65,30 +65,51 @@ class ExactPredicatePanelAudit:
     def all_unique_delaunay_combinatorics_supported(self) -> bool:
         return all(case.unique_delaunay_combinatorics_supported for case in self.cases)
 
-    @property
-    def blocking_reasons(self) -> tuple[str, ...]:
-        reasons = ["no_exact_construction_backend"]
+    def _blocking_reasons(
+        self,
+        *,
+        exact_construction_backend_integrated: bool,
+    ) -> tuple[str, ...]:
+        reasons = []
+        if not exact_construction_backend_integrated:
+            reasons.append("no_exact_construction_backend")
         if not self.all_predicates_consistent:
             reasons.append("supplied_connectivity_failed_exact_predicate_audit")
         if not self.all_unique_delaunay_combinatorics_supported:
             reasons.append("unique_exact_delaunay_combinatorics_not_supported")
         return tuple(reasons)
 
-    def to_dict(self) -> dict[str, object]:
+    @property
+    def blocking_reasons(self) -> tuple[str, ...]:
+        return self._blocking_reasons(exact_construction_backend_integrated=False)
+
+    def to_dict(
+        self,
+        *,
+        exact_construction_backend_integrated: bool = False,
+    ) -> dict[str, object]:
         return {
             "role": "readiness_audit_no_selection",
             "evaluation_split": self.evaluation_split,
             "coordinate_model": "binary64_values_as_exact_rationals",
             "triangulation_source": "SciPy_Qhull_floating_point",
             "predicates": ["orientation_3", "in_sphere_3"],
-            "exact_construction_backend_integrated": False,
+            "exact_construction_backend_integrated": (
+                exact_construction_backend_integrated
+            ),
             "changes_benchmark_selection": False,
             "all_predicates_consistent": self.all_predicates_consistent,
             "all_unique_delaunay_combinatorics_supported": (
                 self.all_unique_delaunay_combinatorics_supported
             ),
             "promotion_supported": False,
-            "blocking_reasons": list(self.blocking_reasons),
+            "blocking_reasons": list(
+                self._blocking_reasons(
+                    exact_construction_backend_integrated=(
+                        exact_construction_backend_integrated
+                    )
+                )
+            ),
             "totals": {
                 "case_count": len(self.cases),
                 "point_count": sum(case.point_count for case in self.cases),

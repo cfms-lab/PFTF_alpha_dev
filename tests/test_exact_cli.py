@@ -37,7 +37,7 @@ def test_cli_audits_predicates_without_claiming_exact_construction(
 
     assert exit_code == 0
     payload = json.loads(output.read_text(encoding="utf-8"))
-    assert payload["schema_version"] == 17
+    assert payload["schema_version"] == 25
     contract = payload["exact_predicate_audit_contract"]
     assert contract["role"] == "readiness_audit_no_selection"
     assert contract["construction_effect"] == "none"

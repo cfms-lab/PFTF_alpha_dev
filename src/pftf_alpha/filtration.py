@@ -139,7 +139,63 @@ class AlphaFiltration:
                 raise ValueError(f"Delaunay triangulation failed: {error}") from error
             top_simplices = np.asarray(triangulation.simplices, dtype=np.int64)
 
-        simplices = _all_simplices(top_simplices, ambient_dimension)
+        return cls.from_top_simplices(
+            point_array,
+            top_simplices,
+            empty_ball_tolerance=empty_ball_tolerance,
+        )
+
+    @classmethod
+    def from_top_simplices(
+        cls,
+        points: ArrayLike,
+        top_simplices: ArrayLike,
+        *,
+        empty_ball_tolerance: float = 1.0e-12,
+    ) -> AlphaFiltration:
+        """Construct a filtration from caller-validated top connectivity.
+
+        Filtration values remain floating-point circumsphere computations.  The
+        caller is responsible for establishing that the supplied connectivity
+        is a Delaunay triangulation; this method validates only the structural
+        invariants needed by the filtration.
+        """
+
+        point_array = as_point_array(points)
+        if not np.isfinite(empty_ball_tolerance) or empty_ball_tolerance < 0.0:
+            raise ValueError("empty_ball_tolerance must be finite and non-negative")
+
+        ambient_dimension = point_array.shape[1]
+        raw_top_simplices = np.asarray(top_simplices)
+        if (
+            raw_top_simplices.ndim != 2
+            or raw_top_simplices.shape[0] == 0
+            or raw_top_simplices.shape[1] != ambient_dimension + 1
+        ):
+            raise ValueError(
+                "top_simplices must have shape "
+                f"(m, {ambient_dimension + 1}) with m >= 1"
+            )
+        if raw_top_simplices.dtype.kind not in "iu":
+            raise ValueError("top_simplices must contain integer vertex indices")
+        top_simplex_array = np.asarray(raw_top_simplices, dtype=np.int64)
+        if np.any(top_simplex_array < 0) or np.any(
+            top_simplex_array >= point_array.shape[0]
+        ):
+            raise ValueError("top_simplices contains an out-of-range vertex index")
+
+        canonical_top_simplices = np.sort(top_simplex_array, axis=1)
+        if np.any(np.diff(canonical_top_simplices, axis=1) == 0):
+            raise ValueError("top_simplices contains a repeated vertex")
+        if np.unique(canonical_top_simplices, axis=0).shape[0] != len(
+            canonical_top_simplices
+        ):
+            raise ValueError("top_simplices contains duplicate cells")
+        used_vertices = np.unique(canonical_top_simplices)
+        if used_vertices.size != point_array.shape[0]:
+            raise ValueError("top_simplices must use every input point")
+
+        simplices = _all_simplices(top_simplex_array, ambient_dimension)
         cofaces = _immediate_cofaces(simplices, ambient_dimension)
         alpha_squared: dict[Simplex, float] = {}
         gabriel: dict[Simplex, bool] = {}
@@ -191,7 +247,7 @@ class AlphaFiltration:
             for dimension in range(ambient_dimension + 1)
             for simplex in sorted(simplices[dimension])
         )
-        return cls(point_array, top_simplices, records)
+        return cls(point_array, np.ascontiguousarray(top_simplex_array), records)
 
     @property
     def records(self) -> tuple[SimplexRecord, ...]:

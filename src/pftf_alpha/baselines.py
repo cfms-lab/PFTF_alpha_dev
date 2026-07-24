@@ -558,6 +558,61 @@ def _plateau_persistence(
     return widths / maximum
 
 
+@dataclass(frozen=True)
+class _B3CriticalTrace:
+    candidates: np.ndarray
+    signatures: tuple[tuple[int, int], ...]
+    persistence: np.ndarray
+    selected_indices: np.ndarray
+
+
+def _b3_critical_trace(
+    filtration: AlphaFiltration,
+    candidate_budget: int,
+) -> _B3CriticalTrace:
+    """Record the exact candidate-index path used by B3 selection."""
+
+    candidates = filtration.critical_values(dimensions=[filtration.ambient_dimension])
+    if candidates.size == 0:
+        raise ValueError("B3 requires at least one top-simplex critical value")
+
+    signatures = []
+    for alpha_squared in candidates:
+        statistics = mesh_statistics(alpha_surface(filtration, float(alpha_squared)))
+        signatures.append(
+            (
+                statistics.connected_components,
+                statistics.euler_characteristic,
+            )
+        )
+    persistence = _plateau_persistence(candidates, signatures)
+    priority_indices = []
+    plateau_start = 0
+    while plateau_start < len(signatures):
+        plateau_end = plateau_start
+        while (
+            plateau_end + 1 < len(signatures)
+            and signatures[plateau_end + 1] == signatures[plateau_start]
+        ):
+            plateau_end += 1
+        representative = (plateau_start + plateau_end) // 2
+        if persistence[representative] > 0.0:
+            priority_indices.append(representative)
+        plateau_start = plateau_end + 1
+    priority_indices.sort(key=lambda index: persistence[index], reverse=True)
+    selected_indices = _candidate_indices(
+        candidates.shape[0],
+        candidate_budget,
+        priority=priority_indices,
+    )
+    return _B3CriticalTrace(
+        candidates=candidates,
+        signatures=tuple(signatures),
+        persistence=persistence,
+        selected_indices=selected_indices,
+    )
+
+
 def _unlabeled_geometry_loss(
     mesh: SurfaceMesh,
     observed_points: np.ndarray,
@@ -609,63 +664,54 @@ def _stability_loss(
     return float(np.mean(losses))
 
 
+def _resampled_point_sets(
+    case: SyntheticCase,
+    config: BenchmarkConfig,
+) -> tuple[np.ndarray, ...]:
+    """Regenerate the deterministic point subsets used by B3 stability."""
+
+    rng = np.random.default_rng(config.seed + case.seed + 30_000)
+    sample_size = max(4, int(round(config.resample_fraction * case.points.shape[0])))
+    result = []
+    for _ in range(config.resample_repeats):
+        indices = rng.choice(case.points.shape[0], size=sample_size, replace=False)
+        result.append(np.ascontiguousarray(case.points[indices], dtype=np.float64))
+    return tuple(result)
+
+
 def _resampled_filtrations(
     case: SyntheticCase,
     config: BenchmarkConfig,
 ) -> tuple[AlphaFiltration, ...]:
-    rng = np.random.default_rng(config.seed + case.seed + 30_000)
-    sample_size = max(4, int(round(config.resample_fraction * case.points.shape[0])))
-    result: list[AlphaFiltration] = []
-    for _ in range(config.resample_repeats):
-        indices = rng.choice(case.points.shape[0], size=sample_size, replace=False)
-        result.append(AlphaFiltration.from_points(case.points[indices]))
-    return tuple(result)
+    return tuple(
+        AlphaFiltration.from_points(points)
+        for points in _resampled_point_sets(case, config)
+    )
 
 
-def _b3(
+@dataclass(frozen=True)
+class _B3SelectionTrace:
+    result: BaselineResult
+    candidate_indices: tuple[int, ...]
+    evaluations: tuple[AlphaEvaluation, ...]
+
+
+def _b3_with_resampled_filtrations(
     filtration: AlphaFiltration,
     case: SyntheticCase,
     config: BenchmarkConfig,
-) -> BaselineResult:
-    """Unlabeled topology-persistence and resampling-stability selection."""
+    resampled_filtrations: Iterable[AlphaFiltration],
+) -> _B3SelectionTrace:
+    """Evaluate B3 while making the resampled filtration source explicit."""
 
     started = perf_counter()
-    all_candidates = filtration.critical_values(
-        dimensions=[filtration.ambient_dimension]
-    )
-    if all_candidates.size == 0:
-        raise ValueError("B3 requires at least one top-simplex critical value")
-
-    signatures: list[tuple[int, int]] = []
-    for alpha_squared in all_candidates:
-        statistics = mesh_statistics(alpha_surface(filtration, float(alpha_squared)))
-        signatures.append(
-            (
-                statistics.connected_components,
-                statistics.euler_characteristic,
-            )
-        )
-    persistence = _plateau_persistence(all_candidates, signatures)
-    priority_indices: list[int] = []
-    plateau_start = 0
-    while plateau_start < len(signatures):
-        plateau_end = plateau_start
-        while (
-            plateau_end + 1 < len(signatures)
-            and signatures[plateau_end + 1] == signatures[plateau_start]
-        ):
-            plateau_end += 1
-        representative = (plateau_start + plateau_end) // 2
-        if persistence[representative] > 0.0:
-            priority_indices.append(representative)
-        plateau_start = plateau_end + 1
-    priority_indices.sort(key=lambda index: persistence[index], reverse=True)
-    selected_indices = _candidate_indices(
-        all_candidates.shape[0],
-        config.b3_candidate_budget,
-        priority=priority_indices,
-    )
-    resampled = _resampled_filtrations(case, config)
+    trace = _b3_critical_trace(filtration, config.b3_candidate_budget)
+    all_candidates = trace.candidates
+    persistence = trace.persistence
+    selected_indices = trace.selected_indices
+    resampled = tuple(resampled_filtrations)
+    if len(resampled) != config.resample_repeats:
+        raise ValueError("B3 requires config.resample_repeats filtrations")
 
     materialized: list[tuple[int, float, SurfaceMesh, float, np.ndarray]] = []
     maximum_faces = 1
@@ -736,7 +782,7 @@ def _b3(
         if alpha_squared == selected.alpha_squared
     )
     endpoints = _endpoint_metrics(selected_mesh, case, config, seed_offset=60_000)
-    return BaselineResult(
+    result = BaselineResult(
         method=BaselineID.B3_PERSISTENCE_STABILITY,
         selection_mode="unlabeled_persistence_resampling",
         uses_reference_for_selection=False,
@@ -753,6 +799,26 @@ def _b3(
         endpoints=endpoints,
         runtime_seconds=perf_counter() - started,
     )
+    return _B3SelectionTrace(
+        result=result,
+        candidate_indices=tuple(int(index) for index in selected_indices),
+        evaluations=tuple(evaluations),
+    )
+
+
+def _b3(
+    filtration: AlphaFiltration,
+    case: SyntheticCase,
+    config: BenchmarkConfig,
+) -> BaselineResult:
+    """Unlabeled topology-persistence and resampling-stability selection."""
+
+    return _b3_with_resampled_filtrations(
+        filtration,
+        case,
+        config,
+        _resampled_filtrations(case, config),
+    ).result
 
 
 def _adaptive_objective_terms(
@@ -943,6 +1009,7 @@ def run_case_benchmarks(
     *,
     config: BenchmarkConfig | None = None,
     methods: Iterable[BaselineID | str] = tuple(BaselineID),
+    filtration: AlphaFiltration | None = None,
 ) -> CaseBenchmark:
     """Run selected B0-P2 methods on one frozen synthetic case."""
     if config is None:
@@ -954,7 +1021,13 @@ def run_case_benchmarks(
     needs_filtration = any(
         method is not BaselineID.B0_CONVEX_HULL for method in selected_methods
     )
-    filtration = AlphaFiltration.from_points(case.points) if needs_filtration else None
+    if filtration is not None and (
+        filtration.points.shape != case.points.shape
+        or not np.array_equal(filtration.points, case.points)
+    ):
+        raise ValueError("filtration points must exactly match case.points")
+    if needs_filtration and filtration is None:
+        filtration = AlphaFiltration.from_points(case.points)
     bridge_risk = (
         None if filtration is None else _bridge_risk_probe(filtration, case, config)
     )

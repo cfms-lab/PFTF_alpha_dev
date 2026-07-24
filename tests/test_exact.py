@@ -93,3 +93,8 @@ def test_panel_audit_blocks_promotion_without_exact_construction_backend() -> No
     assert not payload["promotion_supported"]
     assert payload["blocking_reasons"] == ["no_exact_construction_backend"]
     assert payload["totals"]["case_count"] == 1
+
+    integrated_payload = result.to_dict(exact_construction_backend_integrated=True)
+    assert integrated_payload["exact_construction_backend_integrated"]
+    assert integrated_payload["blocking_reasons"] == []
+    assert not integrated_payload["promotion_supported"]
