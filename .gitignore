@@ -11,3 +11,5 @@ dist/
 *.egg-info/
 graphify-out/
 benchmark-out/
+
+.vscode/settings.json
