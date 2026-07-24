@@ -531,3 +531,68 @@ target to output topology and false bridges; expanding the exact numeric audit
 chain or merely increasing P2 fallback use would not by itself satisfy the
 promotion rule. Real higher-fidelity held-out evidence and a validated
 fail-closed G4 fallback are still required.
+
+### P1 output-topology candidate — negative result (2026-07-24)
+
+The output-level false-bridge intervention direction was pursued with three
+predeclared, calibration-only pre-flight probes, all negative, so no candidate
+was built or frozen:
+
+1. Per-cell resampling persistence does not separate labeled bridge from
+   non-bridge boundary cells (instability AUC≈0.50) — Delaunay connectivity is
+   locally stable, so a bridge tetrahedron re-forms whenever its points survive
+   subsampling (`pftf_alpha.bridge_persistence_probe`).
+2. Conservative multiplier backoff is family-dependent: it fully fixes large-gap
+   `disconnected_parts` (bridge 28→0, Betti 2→0, F 0.37→0.62) but never removes
+   the thin-gap `opposing_sheets` bridge; the single frozen global multiplier is
+   badly miscalibrated per-family.
+3. A global reference-free fail-closed backoff router cannot pass the
+   both-B4-and-B5 bar, because the reference-free signals revealing the good
+   backoff also silently favour destroying legitimate single-component topology.
+
+Localization was never the blocker (schema-13 boundary risk AUC≈0.99);
+intervention is. Per-cell penalties (12), owner peeling (14), region cuts (15),
+resampling gates, multiplier backoff, and reference-free routing have now all
+failed the declared gates. Predeclaration: `docs/P3_BRIDGE_EXCISION_DESIGN.md`.
+
+### G4 deployed exact/validated fail-closed fallback (2026-07-24)
+
+`pftf_alpha.g4_fallback` deploys the exact-construction work as an actual
+selection path (the schema 16-25 chain was all `selection_effect: none`).
+`route_case_filtration` runs the built-in exact Euclidean Delaunay backend under
+host validation and injects accepted connectivity through
+`run_case_benchmarks(filtration=...)`; on any refusal (64-point cap, exact
+cospherical ambiguity, host rejection, external timeout/malformed/nonzero) it
+fails closed to a floating Qhull construction explicitly labeled non-exact, with
+the reason recorded. `is_exact_certified` is unreachable without full validation;
+nine failure-mode tests prove no silent false-safe. Artifact schema
+`pftf_alpha_g4_fail_closed/v1`. It certifies only the base Delaunay connectivity,
+not the anisotropic PFTF complex, and the 64-point cap routes the default
+96-point panel entirely to the conservative fallback by design. This satisfies
+the "exact or validated fallback with no unreported false-safe cases" half of the
+promotion rule for the base construction only; `promotion_supported` stays false
+because frozen higher-fidelity held-out value beyond both B4 and B5 is still
+unmet, and the P1 probes indicate it is not reachable with synthetic output
+heuristics. Design: `docs/G4_FAIL_CLOSED_DEPLOYMENT_DESIGN.md`.
+
+### M1 weighted / regular alpha complex (2026-07-25)
+
+`pftf_alpha.weighted_alpha` is the first method that changes the **connectivity**
+instead of rescoring one fixed Delaunay triangulation: it builds the regular
+(weighted / power) triangulation via a 4D lift with density weights
+`w_i = (s * spacing_i)^2`, scores cells by the proper weighted-power circumradius
+over kNN spacing, and selects with the existing adaptive machinery (`s = 0`
+equals B4). Scoring the weighted connectivity with B4's ordinary circumradius
+caused nonmanifold / Betti regressions; the proper weighted-power circumradius
+removed them. In the predeclared calibration ablation
+(`s in {0, 0.125, 0.25, 0.375, 0.5}`, reference-free frozen multiplier), `s =
+0.375` **strictly dominates B4 on every declared endpoint** (F 0.365 -> 0.384,
+geometry 0.1802 -> 0.1730, bridge edges 48 -> 46; component error, Betti error 9,
+and nonmanifold edges 0 all unchanged) — the first improvement over B4. It does
+not clear the strict beyond-both-B4-and-B5 bar (B5 keeps a 0.007 F-score edge and
+one lower component error while being far worse on Betti 105 vs 9 and
+manifoldness 175 vs 0), and a post-hoc sweep confirmed the F gap cannot be closed
+without sacrificing the topology advantage, leaving it to M2 (oriented normals).
+`promotion_supported` stays false. Artifact schema
+`pftf_alpha_m1_weighted_alpha_ablation/v1`; design
+`docs/M1_WEIGHTED_ALPHA_DESIGN.md`.

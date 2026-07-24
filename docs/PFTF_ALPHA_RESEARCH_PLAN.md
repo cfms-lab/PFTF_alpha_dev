@@ -678,6 +678,74 @@ Real family:
   bytes; SHA-256
   `ca1fee74276635b4848ead5a09710d4857c4d232a42aa077b50f6251c62dde69`).
 
+### P1 output-topology candidate — negative result (2026-07-24)
+
+- Goal: an output-level false-bridge intervention beating B4/B5 on the G5
+  envelope. Localization was never the blocker (schema-13 boundary risk AUC≈0.99);
+  intervention was. Three cheap, predeclared calibration-only probes were run
+  before any full build, and all three were negative:
+  - Per-cell resampling persistence does not separate labeled bridge from
+    non-bridge boundary cells (instability AUC≈0.50): Delaunay connectivity is
+    locally stable, so a bridge tetrahedron re-forms whenever its points survive
+    subsampling. Probe: `pftf_alpha.bridge_persistence_probe`.
+  - Conservative multiplier backoff is family-dependent: it fixes large-gap
+    `disconnected_parts` entirely (bridge 28→0, Betti 2→0, F 0.37→0.62) but never
+    removes the thin-gap `opposing_sheets` bridge. The single frozen global
+    multiplier is badly miscalibrated per-family.
+  - A global reference-free fail-closed backoff router cannot pass the both-B4-and-B5
+    bar: the reference-free signals that reveal the good `disconnected_parts`
+    backoff (unlabeled fit and boundary risk) also silently favour destroying
+    legitimate single-component topology (torus Betti 2→15).
+- Conclusion: synthetic output heuristics keep hitting the same wall as schemas
+  12/14/15. Predeclaration `docs/P3_BRIDGE_EXCISION_DESIGN.md` (annotated with the
+  falsification). `promotion_supported` stays false.
+
+### G4 deployed exact/validated fail-closed fallback (2026-07-24)
+
+- Added `pftf_alpha.g4_fallback`: the first path that actually routes the
+  selection filtration, unlike the schema 16-25 shadows (all `selection_effect:
+  none`). `route_case_filtration` runs the built-in exact Euclidean Delaunay
+  backend under host validation and, on acceptance, injects the validated
+  connectivity through `run_case_benchmarks(filtration=...)`.
+- Observed-data-only trigger (3D, 4≤n≤64). On any refusal — over the 64-point
+  cap, exact cospherical ambiguity, host rejection, external backend
+  timeout/malformed/nonzero — it fails closed to a floating Qhull construction
+  explicitly labeled non-exact, recording the reason. `is_exact_certified` is
+  unreachable without full validation; nine failure-mode tests prove no silent
+  false-safe. Artifact schema `pftf_alpha_g4_fail_closed/v1`.
+- G4 certifies only the base Delaunay connectivity B4/B5/P1/P2 score, not the
+  anisotropic PFTF complex, so it does not describe the PFTF complex as exact. The
+  64-point cap means the default 96-point panel routes entirely to the
+  conservative fallback by design. `promotion_supported` stays false: promotion
+  still additionally requires frozen higher-fidelity held-out value beyond both B4
+  and B5, which the P1 probes indicate is not reachable with synthetic output
+  heuristics. Design: `docs/G4_FAIL_CLOSED_DEPLOYMENT_DESIGN.md`.
+
+### M1 weighted / regular alpha complex (2026-07-25)
+
+- Added `pftf_alpha.weighted_alpha`, the first method that changes the
+  **connectivity** rather than rescoring one fixed Delaunay triangulation. It
+  builds the regular (weighted / power) triangulation via a 4D lift with density
+  weights `w_i = (s * spacing_i)^2`, scores cells by the proper weighted-power
+  circumradius over kNN spacing, and selects with the existing adaptive
+  machinery. `s = 0` reproduces B4 exactly.
+- Manifold refinement was required: scoring the weighted connectivity with B4's
+  ordinary circumradius produced nonmanifold / Betti regressions; the proper
+  weighted-power circumradius removed them (e.g. `missing_patch` Betti 36 -> 11).
+- Predeclared calibration ablation over `s in {0, 0.125, 0.25, 0.375, 0.5}` with a
+  reference-free frozen multiplier. At `s = 0.375` M1 **strictly dominates B4 on
+  every declared endpoint** (F 0.365 -> 0.384, geometry loss 0.1802 -> 0.1730,
+  labeled bridge edges 48 -> 46, identical component error 2, Betti error 9, and
+  nonmanifold edges 0) — the first method improvement over B4 in the
+  investigation (`m1_dominates_b4 = true`).
+- It does not clear the strict "beyond both B4 and B5 on every endpoint" bar: B5
+  has 0.007 higher mean F-score and one lower component error while being far
+  worse on Betti error (105 vs 9) and manifoldness (175 vs 0). A post-hoc sweep
+  confirmed M1 cannot close the F gap without sacrificing its topology advantage
+  (`s = 0.45` reaches F 0.421 but Betti 36 / nonmanifold 22), so the residual gap
+  is left to M2 (oriented normals). `promotion_supported` stays false. Design:
+  `docs/M1_WEIGHTED_ALPHA_DESIGN.md`.
+
 ## 10. 근거
 
 - H. Edelsbrunner and E. P. Mücke, “Three-dimensional alpha shapes,”
