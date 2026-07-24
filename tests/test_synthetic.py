@@ -27,11 +27,25 @@ def test_minimal_panel_contains_six_deterministic_3d_families() -> None:
         assert left.points.shape == (32, 3)
         assert left.reference_points.shape == (96, 3)
         assert np.unique(left.points, axis=0).shape[0] == 32
+        assert left.point_component_labels.shape == (32,)
+        assert np.issubdtype(left.point_component_labels.dtype, np.integer)
+        assert np.all(left.point_component_labels >= 0)
+        assert np.all(left.point_component_labels < left.expected_components)
         assert left.expected_surface_betti == expected_betti[left.family]
         assert left.expected_surface_betti[0] == left.expected_components
         assert right.expected_surface_betti == left.expected_surface_betti
         np.testing.assert_array_equal(left.points, right.points)
         np.testing.assert_array_equal(left.reference_points, right.reference_points)
+        np.testing.assert_array_equal(
+            left.point_component_labels, right.point_component_labels
+        )
+
+    disconnected = next(
+        case for case in first if case.family is SyntheticFamily.DISCONNECTED_PARTS
+    )
+    np.testing.assert_array_equal(
+        np.bincount(disconnected.point_component_labels), [16, 16]
+    )
 
 
 def test_held_out_split_changes_shape_and_noise_conditions() -> None:
@@ -53,6 +67,8 @@ def test_held_out_split_changes_shape_and_noise_conditions() -> None:
     assert calibration.variation["sheet_gap"] > held_out.variation["sheet_gap"]
     assert calibration.variation["noise"] < held_out.variation["noise"]
     assert calibration.expected_components == held_out.expected_components == 2
+    assert set(calibration.point_component_labels) == {0, 1}
+    assert set(held_out.point_component_labels) == {0, 1}
 
 
 def test_synthetic_case_rejects_too_few_points() -> None:

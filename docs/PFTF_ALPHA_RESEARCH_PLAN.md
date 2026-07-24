@@ -294,6 +294,136 @@ Real family:
   P1 25, P2 25였고, P1/P2는 torus만 `(1,2,1)`로 정확히 복원했다. 기존
   component 지표가 놓친 위상 실패가 확인되었으므로 이 결과 역시 승격
   근거가 아니다.
+- 합성 관측점의 선언 surface-component label을 보존하고, 출력 mesh에서 서로
+  다른 label을 잇는 고유 edge와 혼합 face 수를 evaluation-only endpoint로
+  추가했다. P2는 opposing sheets에서 39 edge/39 face, disconnected parts에서
+  18 edge/19 face를 남겨 두 multi-component case 모두 false-bridge witness가
+  관측됐다. B2도 opposing sheets의 component 수는 2였지만 cross-sheet edge
+  46개를 남겼으므로 기존 component proxy의 false negative가 확인됐다. 라벨을
+  바꾸어도 adaptive multiplier와 P2 confidence threshold는 동일했고, 이전
+  schema-9 smoke와 selection 및 기존 endpoint가 완전히 일치했다. 따라서 현재
+  guard는 topology safety certificate가 아니며 general exact G4는 남아 있다.
+
+### Schema-11 bridge-risk checkpoint (2026-07-24)
+
+- Added an evaluation-only per-cell geometric bridge-risk probe. Its risk path
+  consumes observed points and fixed Delaunay cells only; references and
+  synthetic labels cannot affect selection or risk.
+- Globally coherent unoriented normals route to a planar parallel-normal signal;
+  other fields route to a density-normalized second-longest-edge signal.
+- At frozen thresholds `(0.9, 0.02, 1.8)`, held-out opposing sheets achieved
+  AUC 0.99490/recall 0.87402/FPR 0.02817 and disconnected parts achieved
+  AUC 1.0/recall 1.0/FPR 0.0.
+- All 48 pre-existing non-runtime B0-P2 results matched schema 10, but
+  single-component cell flag rates reached 32.98%. The probe therefore remains
+  diagnostic and is not a hard guard.
+- The calibration-only aggregation/soft-penalty test is now complete; see the
+  schema-12 checkpoint below.
+
+### Schema-12 bridge-penalty ablation checkpoint (2026-07-24)
+
+- Added a zero-strength-exact, label-free soft penalty and calibration-only
+  audit. The audit never freezes or deploys a strength and leaves requested
+  B0-P2 selection unchanged.
+- The frozen strength curve `[0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.8]` found
+  no promotion-eligible point. Strength 0.01 improved mean geometry/objective
+  but increased labeled false-bridge edges from 34 to 35; strength 0.8 reduced
+  edges to 25 but regressed geometry and Betti error.
+- Selected flagged-cell count and selected mean risk each had Spearman
+  correlation -0.26998 with output false-bridge edges. Independent cell-risk
+  suppression therefore does not certify boundary bridge suppression.
+- The boundary/dual-connectivity localization diagnostic is now complete; see
+  the schema-13 checkpoint below.
+
+### Schema-13 boundary bridge-localization checkpoint (2026-07-24)
+
+- Added an evaluation-only frozen-P2 localizer. Boundary edges use the
+  route-specific observed-geometry signal and boundary faces use their maximum
+  incident-edge risk. Neither references nor component labels enter risk.
+- At the unchanged `risk > 1` rule, the frozen held-out panel reached face
+  AUC/recall/FPR 0.99523/0.96552/0.02439 over 550 faces and edge
+  AUC/recall/FPR 0.98905/0.89474/0.00933 over 807 edges.
+- The localizer found all 19 mixed disconnected-parts faces and 37 of 39 mixed
+  opposing-sheets faces. Labels were applied only afterward for evaluation.
+- Selected-cell dual articulation/bridge structure is recorded separately. Its
+  pooled face AUC was only 0.58274, and opposing sheets had no dual cut signal,
+  so dual bottlenecks are audit-only and are not fused into geometric risk.
+- All 48 pre-existing non-runtime B0-P2 results and the schema-11 cell probe
+  matched schema 12. This is localization evidence, not a deployed repair or
+  an exact false-safe certificate.
+- Next work should test a calibration-only boundary-owner intervention that
+  recomputes the boundary after each change and passes geometry, component,
+  Betti, and labeled-bridge non-regression gates. Exact integration is pending.
+
+### Schema-14 boundary-owner intervention checkpoint (2026-07-24)
+
+- Added a calibration-only layered intervention. Each round removes all unique
+  owners of current boundary faces with `risk > 1` and then recomputes the
+  boundary. References and component labels are used only by the promotion gate.
+- Depths `[0, 1, 2, 4]` started from objective/geometry 0.41890/0.20157, Betti
+  error 25, and labeled false-bridge edges/faces 34/35.
+- One round improved objective/geometry to 0.41450/0.19798 and Betti error to 23,
+  but exposed 50/53 labeled bridge edges/faces. Two rounds regressed both
+  objective/geometry and Betti while still exceeding baseline bridge counts.
+- Four rounds removed 121 of 579 selected cells and reduced bridges to 11/12,
+  but objective/geometry regressed to 0.45821/0.24757. No positive depth passed
+  all objective, geometry, component, Betti, and strict bridge-improvement gates.
+- No intervention depth was frozen or deployed. All 48 held-out non-runtime
+  B0-P2 results, the schema-11 cell probe, and schema-13 boundary localization
+  remained exactly unchanged.
+- This rejects local boundary-owner peeling as the next repair. The connected
+  region/cut hypotheses are evaluated in the schema-15 checkpoint below.
+
+### Schema-15 boundary region/cut checkpoint (2026-07-24)
+
+- Added fixed calibration-only `baseline`, `largest_risk_region`, and
+  `safe_backbone_cut` strategies. Flagged faces join only through flagged edges;
+  labels and reference geometry are absent from candidate construction.
+- The calibration panel contained 13 connected risk regions, with a largest
+  region of 25 faces. The largest-region candidate removed 28 cells across five
+  cases and improved Betti error from 25 to 22.
+- That candidate nevertheless regressed objective/geometry from
+  0.41018/0.19247 to 0.41441/0.19727 and increased labeled bridge edges/faces
+  from 34/35 to 43/45, so it failed the global promotion gate.
+- Removing flagged edges left seven safe-edge vertex components in total, but no
+  flagged edge connected distinct safe components. The safe-backbone strategy
+  therefore generated no candidate and remained exactly equal to baseline.
+- No strategy was frozen or deployed. All 48 held-out non-runtime B0-P2 results,
+  the schema-11 cell probe, and schema-13 boundary localization remained exactly
+  unchanged.
+- Per-cell, layered-owner, connected-region, and simple safe-backbone-cut
+  heuristics have now failed the declared gates. Exact-construction fallback is
+  the next implementation path and must remain separately audited before use.
+
+### Schema-16 exact-predicate readiness checkpoint (2026-07-24)
+
+- Added `--evaluate-exact-predicates`, which converts each binary64 coordinate
+  to its exact rational value and audits exact 3D orientation and interior-facet
+  in-sphere signs on supplied SciPy/Qhull connectivity.
+- The frozen held-out audit covered 288 points, 1,131 tetrahedra, and 2,094
+  interior facets. It found zero exact degeneracies, cospherical facets,
+  local-Delaunay violations, non-manifold facets, or float/exact sign conflicts.
+- This is a predicate-consistency preflight for the supplied connectivity, not
+  an exact triangulation, alpha-complex construction, or CGAL certificate.
+- The JSON records `exact_construction_backend_integrated=false`; promotion is
+  blocked until that backend exists. All 48 prior non-runtime B0-P2 results and
+  the bridge probe remained exactly unchanged.
+
+### Schema-17 exact-backend handoff checkpoint (2026-07-24)
+
+- Added a versioned stdin/stdout JSON protocol for an explicitly supplied exact
+  backend. Requests carry exact rational coordinate pairs; responses echo the
+  canonical-request SHA-256 and attest backend identity, kernel, and exactness.
+- Host validation requires all input points, manifold face incidence,
+  convex-hull supporting boundary facets, exact cell/boundary volume equality,
+  and exact orientation/in-sphere consistency.
+- The frozen held-out run supplied no backend, accepted zero cases, changed no
+  selection, and recorded `no_exact_construction_backend`. Schema-16 exact
+  predicate results and all 48 non-runtime B0-P2 results were unchanged.
+- Protocol fixtures cover a valid complete bipyramid plus request-binding,
+  missing-point, and local-Delaunay rejection. Injected Qhull cells are test
+  fixtures only and are not evidence of exact Qhull construction.
+- Validated backend cells are not yet applied to B0-P2; promotion stays blocked.
 
 ## 10. 근거
 

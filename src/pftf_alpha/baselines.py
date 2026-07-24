@@ -13,6 +13,7 @@ import numpy as np
 from .adaptive import (
     AdaptiveCellFiltration,
     density_scaled_filtration,
+    geometric_bridge_risk,
     pca_anisotropic_filtration,
     pftf_confidence_fallback_filtration,
     pftf_local_metric_filtration,
@@ -69,6 +70,9 @@ class BenchmarkConfig:
     p1_receiver_imbalance_weight: float = 0.5
     p2_scale_multiplier: float | None = None
     p2_confidence_threshold: float = 0.5
+    bridge_probe_normal_coherence_threshold: float = 0.9
+    bridge_probe_normal_edge_threshold: float = 0.02
+    bridge_probe_length_edge_threshold: float = 1.8
     b2_weights: ObjectiveWeights = ObjectiveWeights(
         geometry=1.0,
         topology=1.0,
@@ -141,6 +145,22 @@ class BenchmarkConfig:
             0.0 <= self.p2_confidence_threshold <= 1.0
         ):
             raise ValueError("p2_confidence_threshold must lie in [0, 1]")
+        if not math.isfinite(self.bridge_probe_normal_coherence_threshold) or not (
+            0.0 < self.bridge_probe_normal_coherence_threshold <= 1.0
+        ):
+            raise ValueError(
+                "bridge_probe_normal_coherence_threshold must lie in (0, 1]"
+            )
+        for name, value in {
+            "bridge_probe_normal_edge_threshold": (
+                self.bridge_probe_normal_edge_threshold
+            ),
+            "bridge_probe_length_edge_threshold": (
+                self.bridge_probe_length_edge_threshold
+            ),
+        }.items():
+            if not math.isfinite(value) or value <= 0.0:
+                raise ValueError(f"{name} must be finite and positive")
 
 
 @dataclass(frozen=True)
@@ -190,6 +210,40 @@ class BaselineResult:
 
 
 @dataclass(frozen=True)
+class BridgeRiskProbeResult:
+    """Evaluation-only summary of a label-free geometric bridge-risk probe."""
+
+    selection_role: str
+    risk_inputs: str
+    uses_reference_or_labels_for_risk: bool
+    uses_component_labels_for_evaluation: bool
+    route: str
+    k_neighbors: int
+    normal_coherence: float
+    normal_coherence_threshold: float
+    normal_edge_threshold: float
+    length_edge_threshold: float
+    cell_count: int
+    flagged_cell_count: int
+    flagged_fraction: float
+    risk_min: float
+    risk_median: float
+    risk_max: float
+    labeled_mixed_cell_count: int
+    labeled_same_component_cell_count: int
+    labeled_auc: float | None
+    labeled_true_positive_count: int
+    labeled_false_positive_count: int
+    labeled_false_negative_count: int
+    labeled_true_negative_count: int
+    labeled_recall: float | None
+    labeled_false_positive_rate: float | None
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class CaseBenchmark:
     family: str
     split: str
@@ -199,7 +253,9 @@ class CaseBenchmark:
     expected_components: int
     characteristic_length: float
     expected_surface_betti: tuple[int, int, int]
+    point_component_sizes: tuple[int, ...]
     variation: dict[str, float]
+    bridge_risk_probe: BridgeRiskProbeResult | None
     results: tuple[BaselineResult, ...]
 
     def to_dict(self) -> dict[str, object]:
@@ -212,7 +268,13 @@ class CaseBenchmark:
             "expected_components": self.expected_components,
             "characteristic_length": self.characteristic_length,
             "expected_surface_betti": list(self.expected_surface_betti),
+            "point_component_sizes": list(self.point_component_sizes),
             "variation": self.variation,
+            "bridge_risk_probe": (
+                None
+                if self.bridge_risk_probe is None
+                else self.bridge_risk_probe.to_dict()
+            ),
             "results": [result.to_dict() for result in self.results],
         }
 
@@ -229,10 +291,97 @@ def _endpoint_metrics(
         case.reference_points,
         expected_components=case.expected_components,
         expected_betti=case.expected_surface_betti,
+        vertex_component_labels=case.point_component_labels,
         characteristic_length=case.characteristic_length,
         sample_count=config.surface_sample_count,
         threshold_fraction=config.fscore_threshold_fraction,
         seed=config.seed + case.seed + seed_offset,
+    )
+
+
+def _binary_auc(
+    scores: np.ndarray,
+    positive_mask: np.ndarray,
+) -> float | None:
+    score_array = np.asarray(scores, dtype=np.float64)
+    mask = np.asarray(positive_mask, dtype=np.bool_)
+    if score_array.ndim != 1 or mask.shape != score_array.shape:
+        raise ValueError("AUC scores and labels must be aligned one-dimensional arrays")
+    positive_count = int(np.count_nonzero(mask))
+    negative_count = int(mask.size - positive_count)
+    if positive_count == 0 or negative_count == 0:
+        return None
+
+    order = np.argsort(score_array, kind="mergesort")
+    sorted_scores = score_array[order]
+    ranks = np.empty(score_array.size, dtype=np.float64)
+    start = 0
+    while start < sorted_scores.size:
+        end = start + 1
+        while end < sorted_scores.size and sorted_scores[end] == sorted_scores[start]:
+            end += 1
+        average_rank = 0.5 * (start + 1 + end)
+        ranks[order[start:end]] = average_rank
+        start = end
+
+    positive_rank_sum = float(np.sum(ranks[mask]))
+    mann_whitney_u = positive_rank_sum - positive_count * (positive_count + 1) / 2
+    return float(mann_whitney_u / (positive_count * negative_count))
+
+
+def _bridge_risk_probe(
+    filtration: AlphaFiltration,
+    case: SyntheticCase,
+    config: BenchmarkConfig,
+) -> BridgeRiskProbeResult:
+    probe = geometric_bridge_risk(
+        filtration,
+        k_neighbors=config.adaptive_k_neighbors,
+        normal_coherence_threshold=config.bridge_probe_normal_coherence_threshold,
+        normal_edge_threshold=config.bridge_probe_normal_edge_threshold,
+        length_edge_threshold=config.bridge_probe_length_edge_threshold,
+    )
+    cell_labels = case.point_component_labels[filtration.top_simplices]
+    mixed_mask = np.any(cell_labels != cell_labels[:, :1], axis=1)
+    flagged_mask = probe.risk > 1.0
+
+    true_positive_count = int(np.count_nonzero(flagged_mask & mixed_mask))
+    false_positive_count = int(np.count_nonzero(flagged_mask & ~mixed_mask))
+    false_negative_count = int(np.count_nonzero(~flagged_mask & mixed_mask))
+    true_negative_count = int(np.count_nonzero(~flagged_mask & ~mixed_mask))
+    mixed_count = int(np.count_nonzero(mixed_mask))
+    same_count = int(mixed_mask.size - mixed_count)
+    recall = None if mixed_count == 0 else float(true_positive_count / mixed_count)
+    false_positive_rate = (
+        None if same_count == 0 else float(false_positive_count / same_count)
+    )
+
+    return BridgeRiskProbeResult(
+        selection_role="evaluation_only",
+        risk_inputs="observed_points_only",
+        uses_reference_or_labels_for_risk=False,
+        uses_component_labels_for_evaluation=True,
+        route=probe.route,
+        k_neighbors=probe.k_neighbors,
+        normal_coherence=probe.normal_coherence,
+        normal_coherence_threshold=probe.normal_coherence_threshold,
+        normal_edge_threshold=probe.normal_edge_threshold,
+        length_edge_threshold=probe.length_edge_threshold,
+        cell_count=int(probe.risk.size),
+        flagged_cell_count=int(np.count_nonzero(flagged_mask)),
+        flagged_fraction=float(np.mean(flagged_mask)),
+        risk_min=float(np.min(probe.risk)),
+        risk_median=float(np.median(probe.risk)),
+        risk_max=float(np.max(probe.risk)),
+        labeled_mixed_cell_count=mixed_count,
+        labeled_same_component_cell_count=same_count,
+        labeled_auc=_binary_auc(probe.risk, mixed_mask),
+        labeled_true_positive_count=true_positive_count,
+        labeled_false_positive_count=false_positive_count,
+        labeled_false_negative_count=false_negative_count,
+        labeled_true_negative_count=true_negative_count,
+        labeled_recall=recall,
+        labeled_false_positive_rate=false_positive_rate,
     )
 
 
@@ -806,6 +955,9 @@ def run_case_benchmarks(
         method is not BaselineID.B0_CONVEX_HULL for method in selected_methods
     )
     filtration = AlphaFiltration.from_points(case.points) if needs_filtration else None
+    bridge_risk = (
+        None if filtration is None else _bridge_risk_probe(filtration, case, config)
+    )
 
     results: list[BaselineResult] = []
     for method in selected_methods:
@@ -843,6 +995,14 @@ def run_case_benchmarks(
         expected_components=case.expected_components,
         characteristic_length=case.characteristic_length,
         expected_surface_betti=case.expected_surface_betti,
+        point_component_sizes=tuple(
+            int(count)
+            for count in np.bincount(
+                case.point_component_labels,
+                minlength=case.expected_components,
+            )
+        ),
         variation=dict(case.variation),
         results=tuple(results),
+        bridge_risk_probe=bridge_risk,
     )

@@ -11,6 +11,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 FloatArray = NDArray[np.float64]
+IntArray = NDArray[np.int64]
 
 
 class SyntheticFamily(StrEnum):
@@ -51,6 +52,7 @@ class SyntheticCase:
     variation: Mapping[str, float]
     seed: int
     expected_surface_betti: tuple[int, int, int]
+    point_component_labels: IntArray
 
     def __post_init__(self) -> None:
         points = np.asarray(self.points, dtype=np.float64)
@@ -64,6 +66,17 @@ class SyntheticCase:
             raise ValueError("synthetic observed points must be unique")
         if self.expected_components < 1:
             raise ValueError("expected_components must be positive")
+        raw_labels = np.asarray(self.point_component_labels)
+        if raw_labels.shape != (points.shape[0],):
+            raise ValueError("point_component_labels must have shape (point_count,)")
+        if not np.issubdtype(raw_labels.dtype, np.integer):
+            raise ValueError("point_component_labels must contain integers")
+        labels = np.asarray(raw_labels, dtype=np.int64)
+        if np.any(labels < 0) or np.any(labels >= self.expected_components):
+            raise ValueError(
+                "point_component_labels must be between zero and "
+                "expected_components - 1"
+            )
         raw_expected_betti = tuple(self.expected_surface_betti)
         if len(raw_expected_betti) != 3 or any(
             not isinstance(value, (int, np.integer)) or value < 0
@@ -83,6 +96,7 @@ class SyntheticCase:
         object.__setattr__(self, "expected_surface_betti", expected_betti)
         object.__setattr__(self, "points", np.ascontiguousarray(points))
         object.__setattr__(self, "reference_points", np.ascontiguousarray(reference))
+        object.__setattr__(self, "point_component_labels", np.ascontiguousarray(labels))
 
 
 _SPLIT_VARIATIONS: dict[PanelSplit, dict[str, float]] = {
@@ -236,6 +250,7 @@ def make_synthetic_case(
     reference_rng = np.random.default_rng(seed + 1_000_003)
     expected_surface_betti = _EXPECTED_SURFACE_BETTI[selected_family]
     expected_components = expected_surface_betti[0]
+    point_component_labels = np.zeros(point_count, dtype=np.int64)
 
     if selected_family is SyntheticFamily.U_CONCAVITY:
         key = "opening_width"
@@ -248,6 +263,7 @@ def make_synthetic_case(
     elif selected_family is SyntheticFamily.OPPOSING_SHEETS:
         key = "sheet_gap"
         observed = _opposing_sheet_points(point_count, observed_rng, gap=variation[key])
+        point_component_labels = (observed[:, 2] > 0.0).astype(np.int64)
         reference = _opposing_sheet_points(
             reference_count, reference_rng, gap=variation[key]
         )
@@ -284,6 +300,12 @@ def make_synthetic_case(
                     center=(offset, 0.0, 0.0),
                     radius=0.7,
                 ),
+            )
+        )
+        point_component_labels = np.concatenate(
+            (
+                np.zeros(observed_count_left, dtype=np.int64),
+                np.ones(point_count - observed_count_left, dtype=np.int64),
             )
         )
         reference = np.vstack(
@@ -333,6 +355,7 @@ def make_synthetic_case(
         variation=relevant_variation,
         seed=seed,
         expected_surface_betti=expected_surface_betti,
+        point_component_labels=point_component_labels,
     )
 
 

@@ -88,6 +88,46 @@ def test_surface_rejects_duplicate_unoriented_faces() -> None:
         SurfaceMesh(vertices=_tetrahedron(), faces=np.array([[0, 1, 2], [2, 1, 0]]))
 
 
+def test_labeled_false_bridge_counts_cross_component_edges_and_faces() -> None:
+    mesh = SurfaceMesh(
+        vertices=_tetrahedron(),
+        faces=np.array([[0, 1, 2], [1, 2, 3]]),
+    )
+    endpoints = evaluate_surface(
+        mesh,
+        _tetrahedron(),
+        expected_components=2,
+        vertex_component_labels=np.array([0, 0, 1, 1]),
+        characteristic_length=2.0,
+        sample_count=32,
+        threshold_fraction=0.01,
+        seed=2,
+    )
+
+    assert endpoints.false_bridges == 1
+    assert endpoints.labeled_false_bridge_edges == 3
+    assert endpoints.labeled_false_bridge_faces == 2
+    assert endpoints.labeled_false_bridge_present
+
+
+def test_labeled_false_bridge_rejects_invalid_label_shape() -> None:
+    mesh = SurfaceMesh(
+        vertices=_tetrahedron(),
+        faces=np.array([[0, 1, 2]]),
+    )
+    with pytest.raises(ValueError, match="surface vertex count"):
+        evaluate_surface(
+            mesh,
+            _tetrahedron(),
+            expected_components=2,
+            vertex_component_labels=np.array([0, 0, 1]),
+            characteristic_length=2.0,
+            sample_count=16,
+            threshold_fraction=0.01,
+            seed=3,
+        )
+
+
 def test_empty_surface_receives_finite_failure_penalty() -> None:
     mesh = SurfaceMesh(
         vertices=_tetrahedron(),
@@ -115,3 +155,6 @@ def test_empty_surface_receives_finite_failure_penalty() -> None:
         endpoints.expected_betti_2,
     ) == (1, 0, 1)
     assert endpoints.betti_error == 2
+    assert endpoints.labeled_false_bridge_edges is None
+    assert endpoints.labeled_false_bridge_faces is None
+    assert endpoints.labeled_false_bridge_present is None

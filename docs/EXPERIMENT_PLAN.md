@@ -1,7 +1,7 @@
 # PFTF-alpha first benchmark plan
 
-Status: B0-P2 frozen held-out smoke complete; exact CGAL fallback not
-implemented.
+Status: B0-P2 frozen held-out smoke, exact-predicate readiness preflight, and
+fail-closed backend-handoff validation complete; exact construction not applied.
 
 ## Objective
 
@@ -70,6 +70,51 @@ pipeline and information-boundary check, not a promotion result:
 - For each low-confidence top cell P2 uses `max(P1 score, B4 score)`, so the cell
   must pass both tests under one frozen multiplier. Confident cells retain the
   P1 score. This is a conservative fixed-complex guard, not exact CGAL fallback.
+- Schema 11 adds an evaluation-only geometric bridge-risk probe. The risk path
+  fits kNN PCA normals and planarity, then routes by the largest eigenvalue of
+  the mean unoriented normal outer product. A coherent field uses the mean
+  planar parallel-normal edge signal; other fields use the second-longest edge
+  normalized by the geometric mean endpoint kNN scale. Dividing by frozen
+  route-specific thresholds makes `risk > 1` the diagnostic flag. The risk
+  function reads neither references nor component labels; labels are applied
+  only afterward for AUC, recall, and FPR.
+- Schema 12 adds a zero-strength-exact multiplicative penalty
+  `score * (1 + strength * max(risk - 1, 0))` and an optional
+  `--evaluate-bridge-penalty` calibration curve. It records reference/label
+  endpoints only for evaluation gates, never freezes a strength, and never
+  modifies requested B0-P2 selection.
+- Schema 13 adds `--evaluate-boundary-bridges` on a frozen P2 output. It scores
+  each output boundary edge with the existing route-specific observed-geometry
+  signal and assigns each boundary face its maximum incident-edge risk. The
+  selected-cell dual graph is audited for articulation cells and bridge edges,
+  but that weak cut signal is not fused into the geometric risk. Component
+  labels enter only after localization for AUC, recall, and FPR; the diagnostic
+  cannot change P2 selection.
+- Schema 14 adds `--evaluate-boundary-intervention`, a calibration-only layered
+  ablation. Each round removes every unique owner of a current boundary face
+  with `risk > 1` and recomputes the boundary. Labels and reference geometry are
+  absent from the intervention order and appear only in the objective, geometry,
+  component, Betti, and strict labeled edge/face bridge promotion gate. No depth
+  is frozen or applied to held-out P2 selection.
+- Schema 15 adds `--evaluate-boundary-region-cuts`, a calibration-only structural
+  audit with fixed `baseline`, `largest_risk_region`, and `safe_backbone_cut`
+  strategies. Risk regions join flagged faces only through flagged edges. The
+  safe-backbone strategy removes flagged edges, labels safe-edge vertex
+  components, and retains only flagged edges crossing those components. Neither
+  references nor component labels enter either candidate construction.
+- Schema 16 adds `--evaluate-exact-predicates`, a requested-split readiness
+  audit. It converts every finite binary64 coordinate to its exact rational
+  value and evaluates exact 3D orientation and interior-facet in-sphere signs on
+  supplied SciPy/Qhull connectivity. It changes neither construction nor
+  selection, is not an exact alpha-complex or CGAL certificate, and keeps
+  promotion blocked until an exact construction backend is integrated.
+- Schema 17 adds `--evaluate-exact-construction` and an optional explicit
+  backend executable. Canonical requests use exact rational coordinate pairs;
+  responses must echo the request SHA-256 and attest backend name, version,
+  kernel, and exact construction. The host independently checks point coverage,
+  face incidence, convex-hull support, exact volume coverage, orientation, and
+  in-sphere predicates. Missing, failed, or rejected backends fail closed, and
+  validated cells are not yet used by benchmark selection.
 - P1 uses the same fixed Euclidean Delaunay top-cell closure as B4/B5, so it is
   not an exact spatially varying anisotropic triangulation.
 - `--calibrate-adaptive` first freezes P2 confidence without dense references,
@@ -94,6 +139,39 @@ pipeline and information-boundary check, not a promotion result:
   reconstructed the torus as `(1,2,1)` exactly, but missed the other five
   declared targets; the missing-patch full-sphere target alone had error 14.
   The topology endpoint therefore exposes failures hidden by component count.
+- Synthetic input vertices now retain evaluation-only ground-truth surface
+  component labels. P2 produced 39 cross-sheet edges/39 mixed faces on opposing
+  sheets and 18 cross-part edges/19 mixed faces on disconnected parts, so both
+  multi-component cases remain labeled false-bridge failures.
+- B2 reported the requested two components on opposing sheets while retaining
+  46 cross-sheet edges/47 mixed faces. This is a concrete false negative of the
+  old component-count proxy. The labeled endpoint did not change any selection
+  parameter or prior endpoint.
+- With frozen probe thresholds `(0.9, 0.02, 1.8)`, opposing sheets reached AUC
+  0.99490, recall 0.87402, and FPR 0.02817; disconnected parts reached AUC 1.0,
+  recall 1.0, and FPR 0.0. The four single-component cases still flagged
+  6.25-32.98% of their cells. All 48 pre-existing non-runtime B0-P2 results
+  matched the schema-10 artifact exactly, so the probe is informative but is
+  not enabled as a hard guard.
+- The frozen calibration-only strength curve
+  `[0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.8]` found no promotion-eligible
+  point. Strength 0.01 improved mean geometry/objective but changed labeled
+  false-bridge edges from 34 to 35. Strength 0.8 reduced edges to 25 but
+  regressed geometry and Betti error. Selected flagged-cell count and selected
+  mean risk each had Spearman correlation -0.26998 with output false-bridge
+  edges. The schema-12 run again preserved all 48 pre-existing non-runtime
+  B0-P2 results.
+- The frozen schema-13 held-out localization inspected 550 P2 boundary faces
+  and 807 boundary edges. At the unchanged `risk > 1` rule, face AUC/recall/FPR
+  were 0.99523/0.96552/0.02439 and edge AUC/recall/FPR were
+  0.98905/0.89474/0.00933. It found 19/19 mixed disconnected-parts faces and
+  37/39 mixed opposing-sheets faces.
+- The separate dual-bottleneck face score reached pooled AUC 0.58274. In
+  particular, opposing sheets had no selected-dual articulation or bridge edge,
+  so graph cuts alone cannot localize that failure mode. The dual signal remains
+  audit-only and is not combined with the geometric boundary risk.
+- All 48 pre-existing non-runtime B0-P2 results and the schema-11 cell probe
+  again matched the schema-12 artifact.
 - P1's maximum observed metric condition number was 1.64114 under the bound of
   9.0. Median point confidence ranged from 0.34275 to 0.43049 across cases, and
   numeric fallback fraction was zero.
@@ -103,26 +181,77 @@ pipeline and information-boundary check, not a promotion result:
   0.42308 of selected cells, so the nearly-all-fallback failure was removed.
 - Score-level and selected-set B4 guard violations were zero. Every selected
   top-cell set reported complete downward closure and no face incidence above
-  two. These invariants do not establish zero false-safe cases because that
-  endpoint and exact fallback are still pending.
+  two. Nevertheless, the labeled endpoint finds false bridges in both P2
+  multi-component cases. The score guard is relative to B4 and is not a
+  topology-safety certificate; general exact fallback remains pending.
 - Every result records the selected generic parameter, complete candidate
   range, selection objective, reference-use flag, runtime, surface endpoints,
   and method diagnostics. Alpha-specific fields remain populated for B1-B3.
 - GF(2) surface Betti numbers and L1 target error are implemented for the
   triangular output complex, with Euler-Poincare consistency checked in tests.
-  Exact semantic hole/cavity localization, exact false-bridge/false-safe,
-  normal-consistency, volume, and memory endpoints are not implemented yet.
-  The existing `false_bridges`/`false_splits` fields are component-count proxies.
+- Labeled cross-component edge/face counts are implemented for the synthetic
+  partition and are evaluation-only. They are direct discrete witnesses for
+  declared multi-component surfaces, not general handle or CGAL certificates.
+- Exact semantic hole/cavity localization, general exact false-safe,
+  normal-consistency, volume, and memory endpoints remain pending. The existing
+  `false_bridges`/`false_splits` fields remain component-count proxies.
 - Surface-sampling sliver tetrahedra can produce very large critical values;
   these remain visible in the candidate range and are not silently removed.
 
 The P2 conservative fallback path has run, but the project remains **ToDo**
 because the selective fallback smoke does not improve P1 geometry or topology,
-and exact/false-safe evaluation is still pending.
+retains labeled false bridges, and lacks general exact fallback certification.
+
+The per-cell soft penalty and the boundary-owner peeling intervention are both
+rejected, while the evaluation-only boundary localizer remains diagnostic only.
+Schema 14 tested depths `[0, 1, 2, 4]` on the calibration panel. One round
+improved objective/geometry from 0.41890/0.20157 to 0.41450/0.19798 but worsened
+labeled bridge edges/faces from 34/35 to 50/53. Four rounds removed 121 of 579
+selected cells and reduced bridges to 11/12, but objective/geometry regressed to
+0.45821/0.24757. No positive depth passed every promotion gate, so no depth was
+frozen or deployed. The 48 held-out non-runtime B0-P2 results, schema-11 cell
+probe, and schema-13 boundary localization remained unchanged.
+Schema 15 evaluated the fixed `largest_risk_region` and `safe_backbone_cut`
+strategies under the same gates. The calibration panel contained 13
+flagged-edge-connected face regions, and the largest contained 25 faces. The
+largest-region strategy removed 28 cells across five cases and improved Betti
+error from 25 to 22, but regressed objective/geometry from 0.41018/0.19247 to
+0.41441/0.19727 and increased labeled bridge edges/faces from 34/35 to 43/45.
+Removing every flagged edge left seven safe-edge vertex components across the
+panel, but no flagged edge connected distinct safe components. Consequently the
+safe-backbone strategy generated no candidate and was exactly equal to the
+baseline. No strategy passed all promotion gates or was frozen.
+
+All 48 held-out non-runtime B0-P2 results, the schema-11 cell probe, and the
+schema-13 boundary localization again remained unchanged. Per-cell penalties,
+layered owner peeling, connected-region removal, and simple safe-backbone cuts
+have now all failed the declared gates. The next safe implementation path is an
+exact-construction fallback rather than another heuristic removal rule; it must
+remain separately audited before promotion.
+
+Schema 16 audited the frozen held-out split with exact rational predicates over
+the binary64 inputs: 288 points, 1,131 supplied Qhull tetrahedra, and 2,094
+interior facets. It found zero degenerate tetrahedra, exact cospherical facets,
+local-Delaunay violations, non-manifold facets, or float/exact sign
+disagreements. All 48 prior non-runtime B0-P2 results and the bridge probe were
+exactly unchanged. This preflight certifies only predicate consistency of the
+supplied connectivity on this dataset; it does not construct an exact
+triangulation or alpha complex. No exact backend is integrated, so promotion
+remains blocked.
+
+Schema 17 froze the optional backend protocol without providing a backend.
+Consequently `backend_requested=false`, zero cases were accepted, and
+selection remained unchanged under `no_exact_construction_backend` blocking.
+Protocol fixtures accepted one complete bipyramid and rejected request-hash,
+missing-point, and exact local-Delaunay failures. The host structural validator
+also accepted all six frozen-panel Qhull connectivities when injected as test
+fixtures, including exact hull-volume equality; that is validator coverage, not
+evidence that Qhull constructed them exactly. The schema-16 predicate result,
+config, bridge probe, and all 48 non-runtime results remained exactly unchanged.
 
 ## Primary endpoints
 
-1. Exact false bridges per shape (the current component proxy is provisional).
+1. General false bridges per shape (labeled synthetic witnesses now exist).
 2. Betti/component error.
 3. Surface F-score and Hausdorff distance.
 4. Stability under 10% subsampling and calibrated noise.

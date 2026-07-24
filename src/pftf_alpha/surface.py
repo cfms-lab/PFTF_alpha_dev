@@ -89,6 +89,9 @@ class SurfaceEndpointMetrics:
     betti_error: int | None
     false_bridges: int
     false_splits: int
+    labeled_false_bridge_edges: int | None
+    labeled_false_bridge_faces: int | None
+    labeled_false_bridge_present: bool | None
     used_vertices: int
     edges: int
     faces: int
@@ -321,6 +324,45 @@ def surface_distance_metrics(
     )
 
 
+def _labeled_false_bridge_counts(
+    mesh: SurfaceMesh,
+    vertex_component_labels: ArrayLike | None,
+    *,
+    expected_components: int,
+) -> tuple[int | None, int | None]:
+    """Count mesh edges/faces spanning declared surface-component labels."""
+
+    if vertex_component_labels is None:
+        return None, None
+    raw_labels = np.asarray(vertex_component_labels)
+    if raw_labels.shape != (mesh.vertices.shape[0],):
+        raise ValueError(
+            "vertex_component_labels must have shape (surface vertex count,)"
+        )
+    if not np.issubdtype(raw_labels.dtype, np.integer):
+        raise ValueError("vertex_component_labels must contain integers")
+    labels = np.asarray(raw_labels, dtype=np.int64)
+    if np.any(labels < 0) or np.any(labels >= expected_components):
+        raise ValueError(
+            "vertex_component_labels must be between zero and expected_components - 1"
+        )
+
+    edges: set[tuple[int, int]] = set()
+    mixed_faces = 0
+    for face in mesh.faces:
+        first, second, third = (int(vertex) for vertex in face)
+        edges.update(
+            (
+                tuple(sorted((first, second))),
+                tuple(sorted((second, third))),
+                tuple(sorted((third, first))),
+            )
+        )
+        mixed_faces += len({int(labels[index]) for index in face}) > 1
+    mixed_edges = sum(labels[left] != labels[right] for left, right in edges)
+    return int(mixed_edges), int(mixed_faces)
+
+
 def evaluate_surface(
     mesh: SurfaceMesh,
     reference_points: ArrayLike,
@@ -331,6 +373,7 @@ def evaluate_surface(
     threshold_fraction: float,
     seed: int,
     expected_betti: tuple[int, int, int] | None = None,
+    vertex_component_labels: ArrayLike | None = None,
 ) -> SurfaceEndpointMetrics:
     """Evaluate a mesh against a dense reference without hiding empty outputs."""
 
@@ -350,6 +393,11 @@ def evaluate_surface(
         raise ValueError("threshold_fraction must be finite and positive")
 
     statistics = mesh_statistics(mesh)
+    labeled_bridge_edges, labeled_bridge_faces = _labeled_false_bridge_counts(
+        mesh,
+        vertex_component_labels,
+        expected_components=expected_components,
+    )
     predicted = sample_triangle_mesh(mesh, sample_count, seed=seed)
     if predicted.shape[0] == 0:
         distances = SurfaceDistanceMetrics(
@@ -403,6 +451,11 @@ def evaluate_surface(
         betti_error=betti_error,
         false_bridges=max(expected_components - statistics.connected_components, 0),
         false_splits=max(statistics.connected_components - expected_components, 0),
+        labeled_false_bridge_edges=labeled_bridge_edges,
+        labeled_false_bridge_faces=labeled_bridge_faces,
+        labeled_false_bridge_present=(
+            None if labeled_bridge_edges is None else labeled_bridge_edges > 0
+        ),
         used_vertices=statistics.used_vertices,
         edges=statistics.edges,
         faces=statistics.faces,
