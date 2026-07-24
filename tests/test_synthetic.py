@@ -78,3 +78,41 @@ def test_synthetic_case_rejects_too_few_points() -> None:
             point_count=8,
             reference_count=32,
         )
+
+
+def test_frozen_variation_overrides_are_scoped_and_deterministic() -> None:
+    first = make_synthetic_case(
+        SyntheticFamily.OPPOSING_SHEETS,
+        split=PanelSplit.HELD_OUT,
+        point_count=32,
+        reference_count=64,
+        seed=19,
+        variation_overrides={"sheet_gap": 0.12, "noise": 0.02},
+    )
+    second = make_synthetic_case(
+        SyntheticFamily.OPPOSING_SHEETS,
+        split=PanelSplit.HELD_OUT,
+        point_count=32,
+        reference_count=64,
+        seed=19,
+        variation_overrides={"sheet_gap": 0.12, "noise": 0.02},
+    )
+
+    assert first.variation == {"sheet_gap": 0.12, "noise": 0.02}
+    np.testing.assert_array_equal(first.points, second.points)
+    np.testing.assert_array_equal(first.reference_points, second.reference_points)
+
+    with pytest.raises(ValueError, match="unsupported variation"):
+        make_synthetic_case(
+            SyntheticFamily.OPPOSING_SHEETS,
+            point_count=32,
+            reference_count=64,
+            variation_overrides={"opening_width": 0.5},
+        )
+    with pytest.raises(ValueError, match="non-negative"):
+        make_synthetic_case(
+            SyntheticFamily.TORUS,
+            point_count=32,
+            reference_count=64,
+            variation_overrides={"noise": -0.1},
+        )

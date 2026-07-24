@@ -472,6 +472,39 @@ exact construction, or CGAL parity. The fixed artifact is
 bytes; SHA-256
 `5d153c584c6400f3ca5ea8b4a62bbf6dc2069a43ecf3c784d0b8b146d22a61dc`).
 
+### G5 frozen held-out robustness preflight
+
+Run the separate deterministic preflight with:
+
+```powershell
+uv run python -m pftf_alpha.g5_validation
+```
+
+The command freezes the P2 confidence threshold and one B4/B5/P1/P2
+multiplier on the six-case calibration panel, then leaves them unchanged for
+four held-out profiles: base, two-thirds-density sparse, doubled-noise, and a
+family-specific harder-geometry shift. The default artifact contains three
+paired seeds per family and profile (72 held-out cases total). Dense references
+and synthetic labels are evaluation-only.
+
+The frozen default run selected confidence threshold `0.2632006823` with
+calibration fallback fraction `0.2514417532`. Across profiles, P2 mean fallback
+fractions ranged from `0.22717` to `0.28956`, and the B4 guard had zero score-level
+violations. That invariant did not translate into endpoint promotion: P2 failed
+the strict casewise B4/B5 endpoint envelope in all four profiles. Its mean
+F-score margins were `-0.047907`, `+0.000172`, `-0.048930`, and `-0.049247` for
+base, sparse, noisy, and hard geometry; its geometry-loss margins were negative
+in every profile. Topology burden exceeded the envelope by one in the first
+three profiles and tied it in hard geometry, while labeled false-bridge edges
+still exceeded the envelope by 86, 55, 80, and 4.
+
+Accordingly, `endpoint_preflight_supported` and `promotion_supported` are both
+false. This is a synthetic G5 preflight, not higher-fidelity real held-out
+evidence, and it does not close the undeployed exact/fail-closed G4 fallback.
+The artifact is
+`benchmark-out/g5_frozen_held_out_preflight.json` (1,078,057 bytes; SHA-256
+`ca1fee74276635b4848ead5a09710d4857c4d232a42aa077b50f6251c62dde69`).
+
 ## Core decision
 
 A single global alpha is a scalar scale-selection problem. Because an

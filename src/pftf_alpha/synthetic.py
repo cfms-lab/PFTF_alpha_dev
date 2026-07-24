@@ -235,8 +235,13 @@ def make_synthetic_case(
     point_count: int = 96,
     reference_count: int = 2048,
     seed: int = 0,
+    variation_overrides: Mapping[str, float] | None = None,
 ) -> SyntheticCase:
-    """Generate one deterministic observed/reference pair."""
+    """Generate one deterministic observed/reference pair.
+
+    ``variation_overrides`` is reserved for frozen evaluation panels. Only the
+    selected family's geometry variable and ``noise`` may be changed.
+    """
 
     selected_family = SyntheticFamily(family)
     selected_split = PanelSplit(split)
@@ -246,6 +251,30 @@ def make_synthetic_case(
         raise ValueError("reference_count must be at least point_count")
 
     variation = dict(_SPLIT_VARIATIONS[selected_split])
+    family_variation_key = {
+        SyntheticFamily.U_CONCAVITY: "opening_width",
+        SyntheticFamily.OPPOSING_SHEETS: "sheet_gap",
+        SyntheticFamily.TORUS: "torus_minor_radius",
+        SyntheticFamily.DISCONNECTED_PARTS: "part_separation",
+        SyntheticFamily.SHARP_CREASE: "crease_angle_degrees",
+        SyntheticFamily.MISSING_PATCH: "cap_height",
+    }[selected_family]
+    if variation_overrides is not None:
+        unknown = set(variation_overrides) - {family_variation_key, "noise"}
+        if unknown:
+            names = ", ".join(sorted(unknown))
+            raise ValueError(f"unsupported variation override(s): {names}")
+        for name, raw_value in variation_overrides.items():
+            value = float(raw_value)
+            if not math.isfinite(value) or value < 0.0:
+                raise ValueError(
+                    f"variation override {name!r} must be finite and non-negative"
+                )
+            if name != "noise" and value == 0.0:
+                raise ValueError(
+                    f"variation override {name!r} must be strictly positive"
+                )
+            variation[name] = value
     observed_rng = np.random.default_rng(seed)
     reference_rng = np.random.default_rng(seed + 1_000_003)
     expected_surface_betti = _EXPECTED_SURFACE_BETTI[selected_family]
@@ -253,7 +282,7 @@ def make_synthetic_case(
     point_component_labels = np.zeros(point_count, dtype=np.int64)
 
     if selected_family is SyntheticFamily.U_CONCAVITY:
-        key = "opening_width"
+        key = family_variation_key
         observed = _u_side_points(
             point_count, observed_rng, opening_width=variation[key]
         )
@@ -261,14 +290,14 @@ def make_synthetic_case(
             reference_count, reference_rng, opening_width=variation[key]
         )
     elif selected_family is SyntheticFamily.OPPOSING_SHEETS:
-        key = "sheet_gap"
+        key = family_variation_key
         observed = _opposing_sheet_points(point_count, observed_rng, gap=variation[key])
         point_component_labels = (observed[:, 2] > 0.0).astype(np.int64)
         reference = _opposing_sheet_points(
             reference_count, reference_rng, gap=variation[key]
         )
     elif selected_family is SyntheticFamily.TORUS:
-        key = "torus_minor_radius"
+        key = family_variation_key
         observed = _torus_points(
             point_count,
             observed_rng,
@@ -282,7 +311,7 @@ def make_synthetic_case(
             minor_radius=variation[key],
         )
     elif selected_family is SyntheticFamily.DISCONNECTED_PARTS:
-        key = "part_separation"
+        key = family_variation_key
         observed_count_left = point_count // 2
         reference_count_left = reference_count // 2
         offset = 0.5 * variation[key]
@@ -325,7 +354,7 @@ def make_synthetic_case(
             )
         )
     elif selected_family is SyntheticFamily.SHARP_CREASE:
-        key = "crease_angle_degrees"
+        key = family_variation_key
         observed = _crease_points(
             point_count, observed_rng, angle_degrees=variation[key]
         )
@@ -333,7 +362,7 @@ def make_synthetic_case(
             reference_count, reference_rng, angle_degrees=variation[key]
         )
     else:
-        key = "cap_height"
+        key = family_variation_key
         candidates = _sphere_points(point_count * 4, observed_rng)
         observed = candidates[candidates[:, 2] <= variation[key]][:point_count]
         if observed.shape[0] < point_count:

@@ -518,3 +518,16 @@ both B4 and B5 on declared geometry and topology endpoints, and an exact or
 validated fallback demonstrates no unreported
 false-safe cases. A mean F-score gain in this small smoke alone is insufficient
 for promotion.
+
+### Frozen G5 preflight status (2026-07-24)
+
+The deterministic `pftf_alpha_g5_preflight/v1` panel now exercises four
+declared held-out density/noise/geometry profiles over three paired seeds. All
+P2 confidence and B4/B5/P1/P2 multipliers are frozen on calibration first.
+The default 72-case artifact reports zero P2/B4 guard violations, but P2 fails
+the strict casewise B4/B5 endpoint envelope in all four profiles. The project
+therefore remains **ToDo**. This result narrows the next method-development
+target to output topology and false bridges; expanding the exact numeric audit
+chain or merely increasing P2 fallback use would not by itself satisfy the
+promotion rule. Real higher-fidelity held-out evidence and a validated
+fail-closed G4 fallback are still required.

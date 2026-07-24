@@ -649,6 +649,35 @@ Real family:
   bytes; SHA-256
   `5d153c584c6400f3ca5ea8b4a62bbf6dc2069a43ecf3c784d0b8b146d22a61dc`).
 
+### G5 frozen held-out robustness preflight (2026-07-24)
+
+- Added `python -m pftf_alpha.g5_validation` as a separate deterministic
+  `pftf_alpha_g5_preflight/v1` artifact. It freezes the reference-free P2
+  confidence threshold and one B4/B5/P1/P2 multiplier on calibration before
+  any held-out profile is evaluated.
+- The declared profiles are base, two-thirds-density sparse, doubled-noise, and
+  family-geometry parameter times 0.75. Three paired seeds across six families
+  give 72 held-out cases. References and component labels remain
+  evaluation-only, and held-out tuning is prohibited.
+- The default calibration froze threshold `0.2632006823297974`, achieved
+  fallback fraction `0.25144175317185696`, and selected multipliers B4
+  `72.1450536742484`, B5 `1.91928528060946`, and P1/P2
+  `71.93897148061905`.
+- P2 preserved the B4 score guard with zero violations and profile-mean
+  fallback fractions 0.27815, 0.28956, 0.22717, and 0.25652. However, it did
+  not match the strict per-endpoint B4/B5 envelope in any profile. Mean
+  F-score margins were -0.047907, +0.000172, -0.048930, and -0.049247;
+  geometry-loss margins were negative in all four profiles. Topology burden
+  excess was 1, 1, 1, and 0, and labeled false-bridge-edge excess was 86, 55,
+  80, and 4.
+- Therefore `endpoint_preflight_supported=false` and
+  `promotion_supported=false`. The result is a synthetic robustness preflight,
+  not a substitute for real higher-fidelity held-out data, confirmatory
+  uncertainty estimates, or the exact/validated fail-closed G4 fallback.
+- Artifact: `benchmark-out/g5_frozen_held_out_preflight.json` (1,078,057
+  bytes; SHA-256
+  `ca1fee74276635b4848ead5a09710d4857c4d232a42aa077b50f6251c62dde69`).
+
 ## 10. 근거
 
 - H. Edelsbrunner and E. P. Mücke, “Three-dimensional alpha shapes,”
