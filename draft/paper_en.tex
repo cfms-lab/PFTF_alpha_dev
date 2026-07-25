@@ -1,0 +1,201 @@
+% Submission version (peer-blind; body <= 4000 words).
+% Author identity intentionally omitted for double-anonymous review.
+\documentclass[11pt]{article}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Does a Local SPD Metric Help Anisotropic Alpha-Complex Surface
+Reconstruction? A Frozen Held-Out Evaluation and a Negative Result}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Scale selection for alpha-complex surface reconstruction is already well served
+by density-adaptive (density-scaled) and normal-based anisotropic baselines. We
+ask whether a local symmetric-positive-definite (SPD) metric derived from a
+directed relation-tensor field adds value beyond these baselines, and answer it
+with a predeclared, frozen held-out protocol on both a synthetic six-family panel
+and a real-mesh corpus. The primary result is negative: on real held-out meshes
+the prior-art normal-anisotropic baseline attains the best mean surface F-score
+(0.868), and none of the local-metric variants exceeds it (the closest candidate
+trails by $0.094$ in F-score, bootstrap 95\% CI $[-0.11,-0.08]$, clearing the
+casewise baseline envelope in only 2 of 40 cases). Two secondary contributions
+survive: a weighted (regular/power) alpha complex that changes connectivity
+rather than rescoring a fixed triangulation strictly improves the density
+baseline on both synthetic and real data, and a deployed fail-closed
+exact-construction fallback provably never certifies an unvalidated result. We
+also report that removal-based false-bridge interventions fail universally. We do
+not claim to beat prior art.
+\end{abstract}
+
+\section{Introduction}
+The alpha complex is a classical tool for reconstructing a surface from a point
+cloud, but a single global scale cannot simultaneously avoid over-fill and
+topology loss when sampling density varies in space. Established remedies include
+(i) \emph{density-adaptive} alpha, which normalizes each tetrahedron's
+circumradius by the local $k$-nearest-neighbour (kNN) spacing (denoted B4), and
+(ii) \emph{normal-anisotropic} alpha, which forms a regularized local
+principal-component SPD metric with a planarity-weighted normal penalty (B5). A
+recently proposed field construction yields a signed, trace-free relation tensor
+from directed kNN scale contrast and receiver-direction imbalance, mapped through
+bounded log-eigenvalues to a local SPD metric (P1), with a confidence-gated
+conservative variant that falls back to the density baseline on low-confidence
+cells (P2).
+
+\paragraph{Question.} Does the added complexity of a local SPD metric provide
+reconstruction value beyond the existing density (B4) and normal-anisotropic (B5)
+baselines?
+
+\paragraph{Contributions.} (1) A predeclared frozen held-out protocol with strict
+information boundaries, applied to a synthetic panel and to real meshes. (2) A
+quantitative, \emph{negative} answer: the local SPD metric does not beat the
+normal-anisotropic baseline on real held-out data. (3) A weighted regular alpha
+complex (M1) that changes connectivity and strictly improves the density baseline.
+(4) A deployed fail-closed exact-construction fallback with a no-silent-false-safe
+guarantee, and a comprehensive negative map of removal-based false-bridge
+interventions.
+
+\section{Related Work}
+Our baselines instantiate standard ideas: alpha shapes and their weighted
+(regular/power) generalization; density-adaptive and normal-based anisotropic
+reconstruction; and persistence- and resampling-stability-based automatic scale
+selection. Watertight reconstruction via inside/outside labelling of Delaunay
+tetrahedra is a distinct family we discuss but do not implement. Rather than
+proposing a new reconstructor, we stress-test the \emph{added value} of a local
+SPD metric with a rigorous frozen held-out comparison.
+
+\section{Methods}
+\subsection{Baselines and candidates}
+B0--B3 are a convex hull, a fixed normalized-radius alpha, an exhaustive
+critical-scale oracle (allowed to use the dense reference), and an unlabeled
+persistence-plus-resampling-stability selector. B4 divides each tetrahedron's
+Euclidean circumradius by the geometric-mean kNN spacing of its vertices. B5
+combines a regularized local PCA SPD metric with the density normalization and a
+planarity-weighted normal penalty. P1 forms the relation-tensor SPD metric; P2
+adds a $\max(\mathrm{P1},\mathrm{B4})$ guard on low-confidence cells. Critically,
+B4, B5, P1 and P2 all select subcomplexes of \emph{one fixed isotropic Delaunay
+triangulation} by a per-cell scalar threshold, so a false-bridge tetrahedron
+already present in that triangulation cannot be removed by rescoring without
+collateral damage.
+
+\subsection{M1: weighted regular alpha complex}
+M1 changes the connectivity itself. Each point receives a density weight
+$w_i=(s\cdot \mathrm{spacing}_i)^2$, and the regular (weighted) triangulation is
+obtained as the lower convex hull of the lift
+$p_i\mapsto(p_i,\lVert p_i\rVert^2-w_i)$; with $w=0$ this reproduces the ordinary
+Delaunay triangulation, so M1 strictly generalizes B4. Cells are scored by the
+\emph{proper} weighted (power) circumradius normalized by kNN spacing. Scoring the
+weighted connectivity with the ordinary circumradius introduces nonmanifold and
+Betti regressions; the power circumradius removes them. Large weights submerge
+points from the triangulation, so the weight scale is capped.
+
+\subsection{G4: deployed fail-closed exact fallback}
+A built-in exact Euclidean Delaunay backend is run under host validation and, on
+acceptance, its validated connectivity is injected into the actual selection path.
+On any refusal---a point-count cap, exact cospherical ambiguity, host rejection,
+or backend timeout/malformed output---the method fails closed to a floating
+construction that is explicitly labelled non-exact, recording the specific reason.
+The certified outcome is reachable only after full validation; every failure mode
+records a reason and is never silently treated as safe. This certifies only the
+base Delaunay connectivity, not the anisotropic complex.
+
+\subsection{Frozen held-out protocol}
+Every method's scale (and M1's weight scale) is frozen on a \emph{calibration}
+set; no tuning is permitted on the held-out set. On the synthetic panel we freeze
+on a six-family calibration set and evaluate four held-out density/noise/geometry
+profiles over three paired seeds, testing each candidate against the strict
+casewise per-endpoint baseline envelope. On real data we freeze on a calibration
+mesh set and evaluate a disjoint held-out mesh set across density and noise
+splits. References and labels enter calibration and evaluation only, never
+held-out selection.
+
+\section{Experiments and Results}
+\subsection{Synthetic preflight}
+The frozen confidence-fallback variant P2 preserves the density guard (zero
+violations) but fails the strict casewise envelope on all four held-out profiles
+(mean F-score margins $-0.048$, $+0.0002$, $-0.049$, $-0.049$): a small mean
+F-score gain is not evidence of value. On calibration, M1 at weight scale
+$s=0.375$ strictly dominates B4 on every endpoint (Table~\ref{tab:syn}), whereas
+the normal-anisotropic baseline is topologically degenerate on this panel (Betti
+error 105, 175 nonmanifold edges). On the held-out envelope M1 is 4--5$\times$
+closer than the previous best (per-profile F-margins
+$-0.0105/{-}0.0005/{-}0.0003/{-}0.0109$) but does not clear it; the residual gap
+is dominated by one family's false bridges.
+
+\begin{table}[t]\centering
+\caption{Synthetic calibration, frozen multipliers. M1 ($s{=}0.375$) strictly
+dominates the density baseline B4.}
+\label{tab:syn}
+\begin{tabular}{lccccc}
+\toprule
+Method & F-score & Geom.\ loss & Betti err. & Bridge edges & Nonmanifold \\
+\midrule
+B4              & 0.365 & 0.1802 & 9   & 48 & 0 \\
+M1 ($s{=}0.375$) & \textbf{0.384} & \textbf{0.1730} & 9 & \textbf{46} & 0 \\
+B5              & 0.391 & 0.1824 & 105 & 61 & 175 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Real held-out data}
+Table~\ref{tab:real} is the central result. On real meshes the normal-anisotropic
+baseline B5 is clearly the strongest (mean F-score 0.868), and no local-metric
+candidate exceeds it; the closest, M1, trails by $0.094$ with a bootstrap 95\% CI
+that excludes zero. This reverses the synthetic picture: on smooth real meshes the
+well-defined normals make B5 excel, while its synthetic degeneracy was an artifact
+of a panel pathology.
+
+\begin{table}[t]\centering
+\caption{Real held-out corpus (40 cases): mean performance and margin against the
+casewise baseline envelope.}
+\label{tab:real}
+\begin{tabular}{lccc}
+\toprule
+Method & Mean F-score & Mean geom.\ loss & F-margin vs.\ $\max(\mathrm{B4},\mathrm{B5})$ \\
+\midrule
+B4 & 0.728 & 0.094 & --- \\
+\textbf{B5} & \textbf{0.868} & \textbf{0.058} & --- \\
+P1 & 0.727 & 0.092 & $-0.14$ (0/40 cleared) \\
+P2 & 0.728 & 0.092 & $-0.14$ (0/40) \\
+M1 & 0.774 & 0.078 & $-0.094$, CI $[-0.11,-0.08]$ (2/40) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{A negative map of false-bridge interventions}
+Attempts to remove false bridges by deletion fail universally. Per-cell penalties,
+layered boundary-owner peeling, connected risk-region removal, a resampling
+persistence gate (discrimination AUC $\approx 0.50$), global multiplier backoff,
+reference-free fail-closed routing, and oriented-normal removal/offset/signed
+labelling all regress geometry or topology. Two causes: removing a cell from a
+fixed complex exposes its interior faces as new boundary; and in the hardest
+family the inter-surface gap is smaller than the sample spacing (41\% of kNN edges
+cross the two ground-truth sheets), so no \emph{local} method can separate them.
+Only the connectivity change (M1) helps, and it does not resolve that
+under-resolved case.
+
+\section{Discussion}
+The real held-out evaluation shows quantitatively that the local SPD metric
+(P1/P2) provides no value beyond the established normal-anisotropic baseline. The
+synthetic panel misleads by unfairly weakening that baseline through an
+under-resolved pathology. What remains useful is that changing connectivity (M1)
+improves the density baseline, and that an exact-construction fallback can be
+deployed safely on the actual selection path.
+
+\section{Limitations and Conclusion}
+The evaluation uses a local corpus, not a licensed leaderboard, and topology
+endpoints on complex shells are noisy. The one untested path is a global graph-cut
+inside/outside tetrahedron labelling, which requires a separate large
+implementation. We conclude that a PFTF-derived local SPD metric does not surpass
+prior-art anisotropic alpha on real held-out data. The improved density baseline
+(M1) and the fail-closed exact fallback are reusable contributions, and the
+universal failure of removal-based bridge interventions is useful negative
+evidence for future work.
+
+\end{document}
