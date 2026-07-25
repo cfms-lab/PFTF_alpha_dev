@@ -171,9 +171,27 @@ area-weighted samples with additive noise, and dense reference clouds come from
 the same meshes. Table~\ref{tab:real} is the central result. On real meshes the
 normal-anisotropic baseline B5 is clearly the strongest (mean F-score 0.868), and
 no local-metric candidate exceeds it; the closest, M1, trails by $0.094$ with a
-bootstrap 95\% CI that excludes zero. This reverses the synthetic picture: on smooth real meshes the
-well-defined normals make B5 excel, while its synthetic degeneracy was an artifact
-of a panel pathology.
+bootstrap 95\% CI that excludes zero. Figure~\ref{fig:fscore} shows the ranking and Figure~\ref{fig:margin} the
+candidate margins against the baseline envelope with 95\% confidence intervals;
+all candidate intervals lie entirely below zero. This reverses the synthetic
+picture: on smooth real meshes the well-defined normals make B5 excel, while its
+synthetic degeneracy was an artifact of a panel pathology.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{pics/real_fscore.png}
+\caption{Mean surface F-score on the real held-out corpus. The normal-anisotropic
+baseline (B5) is best; the weighted regular alpha (M1) improves the density
+baseline (B4) but no local-metric candidate (P1, P2, M1) reaches B5.}
+\label{fig:fscore}
+\end{figure}
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{pics/real_margin.png}
+\caption{F-score margin of each candidate against the casewise B4/B5 envelope,
+with 95\% bootstrap confidence intervals. Every interval is below the zero
+envelope, so no candidate clears the held-out gate.}
+\label{fig:margin}
+\end{figure}
 
 \begin{table}[t]\centering
 \caption{Real held-out corpus (40 cases): mean performance and margin against the
@@ -222,8 +240,8 @@ prior-art anisotropic alpha on real held-out data. The improved density baseline
 universal failure of removal-based bridge interventions is useful negative
 evidence for future work.
 
-% References in Harvard (author-date) style, per RPJ. Bibliographic details to be
-% verified against the publisher record at final submission.
+% References in Harvard (author-date) style, per RPJ.
+% Bibliographic details verified against publisher/DOI records (2026-07-25).
 \begin{thebibliography}{}
 \bibitem[Edelsbrunner(1992)]{edelsbrunner1992}
 Edelsbrunner, H. (1992), ``Weighted alpha shapes'', Technical Report UIUCDCS-R-92-1760,

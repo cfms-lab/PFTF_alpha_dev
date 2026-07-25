@@ -153,8 +153,24 @@ M1 & 0.774 & 0.078 & $-0.094$, CI$[-0.11,-0.08]$ (2/40) \\
 \end{tabular}
 \end{table}
 
-이는 합성 패널의 그림을 \emph{뒤집는다}: 합성에서 퇴화했던 B5가 실메시에서는 매끄러운
-표면의 잘 정의된 법선 덕분에 최상이 된다.
+그림~\ref{fig:fscore}이 순위를, 그림~\ref{fig:margin}이 후보들의 포락선 대비 마진(95\%
+신뢰구간)을 보이며, 모든 후보의 구간이 0 아래에 놓인다. 이는 합성 패널의 그림을
+\emph{뒤집는다}: 합성에서 퇴화했던 B5가 실메시에서는 매끄러운 표면의 잘 정의된 법선
+덕분에 최상이 된다.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{pics/real_fscore.png}
+\caption{실데이터 홀드아웃 평균 표면 F-점수. 법선 이방성 기준선 B5가 최상이며, 가중 정규
+알파(M1)는 밀도 기준선 B4를 개선하지만 어떤 국소-계량 후보(P1/P2/M1)도 B5에 이르지 못한다.}
+\label{fig:fscore}
+\end{figure}
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{pics/real_margin.png}
+\caption{각 후보의 casewise B4/B5 포락선 대비 F-점수 마진과 95\% 부트스트랩 신뢰구간.
+모든 구간이 0(포락선) 아래에 있어 어떤 후보도 홀드아웃 게이트를 통과하지 못한다.}
+\label{fig:margin}
+\end{figure}
 
 \subsection{거짓 다리 개입의 음성 지도}
 거짓 다리를 제거로 없애려는 시도는 보편적으로 실패한다. 셀 단위 벌점, 층별 owner peeling,

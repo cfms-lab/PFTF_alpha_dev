@@ -13,3 +13,11 @@ graphify-out/
 benchmark-out/
 
 .vscode/settings.json
+
+# LaTeX build artifacts (keep .tex, pics/, and the final .pdf)
+draft/*.aux
+draft/*.fdb_latexmk
+draft/*.fls
+draft/*.log
+draft/*.out
+draft/*.xdv
