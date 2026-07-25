@@ -614,3 +614,18 @@ interventions fail universally by exposing new boundary; only a principled
 connectivity change works (M1), which is powerless on the thin-gap case. The one
 untested path is a global graph-cut tetrahedron inside/outside labeling
 (Labatut-style), a separate multi-day build. `promotion_supported` stays false.
+
+### P3 real-data held-out — Gate 1 not met (2026-07-25)
+
+`pftf_alpha.real_heldout` is a frozen higher-fidelity held-out evaluation on real
+meshes (local Thingi10K + CAD corpus): B4/B5/P1/P2/M1 are frozen on a calibration
+mesh set and evaluated on a disjoint held-out set across density/noise splits
+(artifact `pftf_alpha_p3_real_heldout/v1`). **Gate 1 is not met.** On real
+held-out meshes B5 (PCA-anisotropic) is the clear best method — mean F-score 0.868
+vs B4 0.728, P1 0.727, P2 0.728, M1 0.774 — and no PFTF candidate exceeds the
+casewise B4/B5 envelope (P1/P2 F-margins ≈ −0.14, 0/40 cleared; M1 −0.094 with
+bootstrap CI95 [−0.11, −0.08], 2/40). This reverses the synthetic picture: on
+smooth real meshes normal-based anisotropy shines and the PFTF local SPD metric
+adds no value beyond it, quantitatively confirming the prior-art novelty concern.
+M1 stays a better density baseline than B4 but does not beat B5.
+`promotion_supported` stays false.

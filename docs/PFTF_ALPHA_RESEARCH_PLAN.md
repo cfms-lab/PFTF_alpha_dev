@@ -772,6 +772,24 @@ untested path is a global graph-cut tetrahedron inside/outside labeling
 (Labatut-style) — a separate multi-day build with uncertain payoff.
 `promotion_supported` stays false.
 
+### P3 real-data held-out — Gate 1 not met (2026-07-25)
+
+- Added `pftf_alpha.real_heldout`, a frozen higher-fidelity held-out evaluation on
+  real meshes (local Thingi10K + CAD corpus). B4/B5/P1/P2/M1 are frozen on a
+  calibration mesh set and evaluated on a disjoint held-out set across density and
+  noise splits; artifact schema `pftf_alpha_p3_real_heldout/v1`.
+- **Gate 1 is not met.** On real held-out meshes B5 (PCA-anisotropic) is the clear
+  best method: mean F-score 0.868 vs B4 0.728, P1 0.727, P2 0.728, M1 0.774. No
+  PFTF candidate exceeds the casewise B4/B5 envelope — P1/P2 F-margins ≈ −0.14
+  (0/40 cases cleared), M1 −0.094 with bootstrap CI95 [−0.11, −0.08] (2/40). M1
+  remains a better density baseline than B4 but does not beat B5.
+- This reverses the synthetic picture (where B5 was topologically degenerate and
+  M1 dominated B4): on smooth real meshes normal-based anisotropy shines, and the
+  PFTF local SPD metric (P1/P2) shows no value beyond it. This quantitatively
+  confirms the prior-art novelty concern. `promotion_supported` stays false — the
+  honest conclusion is that PFTF-alpha does not beat established anisotropic-alpha
+  baselines on real higher-fidelity held-out data.
+
 ## 10. 근거
 
 - H. Edelsbrunner and E. P. Mücke, “Three-dimensional alpha shapes,”
