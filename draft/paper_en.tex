@@ -5,10 +5,14 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
+% RPJ (Emerald) house style: Roman-numeral tables, Harvard (author-date) citations,
+% structured abstract, double-anonymous (author identity omitted below).
+\renewcommand{\thetable}{\Roman{table}}
 
-\title{Does a Local SPD Metric Help Anisotropic Alpha-Complex Surface
-Reconstruction? A Frozen Held-Out Evaluation and a Negative Result}
+\title{Does a Local Metric Help Anisotropic Alpha-Complex Surface
+Reconstruction for Additive Manufacturing? A Frozen Held-Out Evaluation}
 \author{}
 \date{}
 
@@ -16,37 +20,52 @@ Reconstruction? A Frozen Held-Out Evaluation and a Negative Result}
 \maketitle
 
 \begin{abstract}
-Scale selection for alpha-complex surface reconstruction is already well served
-by density-adaptive (density-scaled) and normal-based anisotropic baselines. We
-ask whether a local symmetric-positive-definite (SPD) metric derived from a
-directed relation-tensor field adds value beyond these baselines, and answer it
-with a predeclared, frozen held-out protocol on both a synthetic six-family panel
-and a real-mesh corpus. The primary result is negative: on real held-out meshes
-the prior-art normal-anisotropic baseline attains the best mean surface F-score
-(0.868), and none of the local-metric variants exceeds it (the closest candidate
-trails by $0.094$ in F-score, bootstrap 95\% CI $[-0.11,-0.08]$, clearing the
-casewise baseline envelope in only 2 of 40 cases). Two secondary contributions
-survive: a weighted (regular/power) alpha complex that changes connectivity
-rather than rescoring a fixed triangulation strictly improves the density
-baseline on both synthetic and real data, and a deployed fail-closed
-exact-construction fallback provably never certifies an unvalidated result. We
-also report that removal-based false-bridge interventions fail universally. We do
-not claim to beat prior art.
+\noindent\textbf{Purpose.} In additive-manufacturing (AM) reverse-engineering and
+scan-to-print workflows a surface mesh must be reconstructed from a scanned point
+cloud, where scale selection for alpha-complex reconstruction is central. This
+paper asks whether a local symmetric-positive-definite (SPD) metric derived from a
+directed relation-tensor field adds reconstruction value beyond established
+density-adaptive and normal-anisotropic alpha baselines.
+
+\noindent\textbf{Design/methodology/approach.} A predeclared, frozen held-out
+protocol with strict information boundaries evaluates the baseline and candidate
+methods on a synthetic six-family panel and a real-mesh corpus, testing each
+candidate against a strict casewise per-endpoint baseline envelope.
+
+\noindent\textbf{Findings.} The primary result is negative: on real held-out
+meshes the normal-anisotropic baseline attains the best mean surface F-score
+(0.868) and no local-metric variant exceeds it (the closest trails by $0.094$,
+bootstrap 95\% CI $[-0.11,-0.08]$, clearing the envelope in 2 of 40 cases). A
+weighted (regular/power) alpha complex that changes connectivity strictly improves
+the density baseline, and a deployed fail-closed exact-construction fallback never
+certifies an unvalidated result.
+
+\noindent\textbf{Research limitations/implications.} The evaluation uses a local
+corpus and topology endpoints on complex shells are noisy; removal-based
+false-bridge interventions are shown to fail universally.
+
+\noindent\textbf{Originality/value.} A rigorous, reproducible held-out comparison
+that quantifies the (non-)value of a local-metric anisotropic alpha for AM
+reconstruction, together with a better density baseline and a safety fallback.
 \end{abstract}
 
 \section{Introduction}
-The alpha complex is a classical tool for reconstructing a surface from a point
-cloud, but a single global scale cannot simultaneously avoid over-fill and
-topology loss when sampling density varies in space. Established remedies include
-(i) \emph{density-adaptive} alpha, which normalizes each tetrahedron's
-circumradius by the local $k$-nearest-neighbour (kNN) spacing (denoted B4), and
-(ii) \emph{normal-anisotropic} alpha, which forms a regularized local
-principal-component SPD metric with a planarity-weighted normal penalty (B5). A
-recently proposed field construction yields a signed, trace-free relation tensor
-from directed kNN scale contrast and receiver-direction imbalance, mapped through
-bounded log-eigenvalues to a local SPD metric (P1), with a confidence-gated
-conservative variant that falls back to the density baseline on low-confidence
-cells (P2).
+Reverse engineering and scan-to-print pipelines in additive manufacturing (AM)
+begin by reconstructing a surface mesh from a scanned point cloud; the geometric
+fidelity and topological soundness (e.g.\ watertightness) of that reconstruction
+directly affect the printed part. The alpha complex \citep{edelsbrunner1994} is a
+classical reconstruction tool, but a single global scale cannot simultaneously
+avoid over-fill and topology loss when sampling density varies in space.
+Established remedies include (i) \emph{density-adaptive} alpha, which normalizes
+each tetrahedron's circumradius by the local $k$-nearest-neighbour (kNN) spacing
+(denoted B4), and (ii) \emph{normal-anisotropic} alpha, which forms a regularized
+local principal-component SPD metric with a planarity-weighted normal penalty
+(B5). A recently proposed field construction yields a signed, trace-free relation
+tensor from directed kNN scale contrast and receiver-direction imbalance, mapped
+through bounded log-eigenvalues to a local SPD metric (P1), with a
+confidence-gated conservative variant that falls back to the density baseline on
+low-confidence cells (P2). The practical AM question is whether this added
+machinery reconstructs scanned parts any better than the existing baselines.
 
 \paragraph{Question.} Does the added complexity of a local SPD metric provide
 reconstruction value beyond the existing density (B4) and normal-anisotropic (B5)
@@ -62,13 +81,15 @@ guarantee, and a comprehensive negative map of removal-based false-bridge
 interventions.
 
 \section{Related Work}
-Our baselines instantiate standard ideas: alpha shapes and their weighted
-(regular/power) generalization; density-adaptive and normal-based anisotropic
-reconstruction; and persistence- and resampling-stability-based automatic scale
-selection. Watertight reconstruction via inside/outside labelling of Delaunay
-tetrahedra is a distinct family we discuss but do not implement. Rather than
-proposing a new reconstructor, we stress-test the \emph{added value} of a local
-SPD metric with a rigorous frozen held-out comparison.
+Our baselines instantiate standard ideas: alpha shapes \citep{edelsbrunner1994}
+and their weighted (regular/power) generalization \citep{edelsbrunner1992};
+density-adaptive and normal-based anisotropic reconstruction, the latter building
+on consistently oriented normals \citep{hoppe1992}; and persistence- and
+resampling-stability-based automatic scale selection. Watertight reconstruction
+via inside/outside labelling of Delaunay tetrahedra \citep{labatut2009} is a
+distinct family we discuss but do not implement. Rather than proposing a new
+reconstructor, we stress-test the \emph{added value} of a local SPD metric with a
+rigorous frozen held-out comparison.
 
 \section{Methods}
 \subsection{Baselines and candidates}
@@ -144,10 +165,13 @@ B5              & 0.391 & 0.1824 & 105 & 61 & 175 \\
 \end{table}
 
 \subsection{Real held-out data}
-Table~\ref{tab:real} is the central result. On real meshes the normal-anisotropic
-baseline B5 is clearly the strongest (mean F-score 0.868), and no local-metric
-candidate exceeds it; the closest, M1, trails by $0.094$ with a bootstrap 95\% CI
-that excludes zero. This reverses the synthetic picture: on smooth real meshes the
+The real corpus draws watertight meshes from a public 3D-printing model set
+\citep{zhou2016thingi10k} together with CAD primitives; observed clouds are
+area-weighted samples with additive noise, and dense reference clouds come from
+the same meshes. Table~\ref{tab:real} is the central result. On real meshes the
+normal-anisotropic baseline B5 is clearly the strongest (mean F-score 0.868), and
+no local-metric candidate exceeds it; the closest, M1, trails by $0.094$ with a
+bootstrap 95\% CI that excludes zero. This reverses the synthetic picture: on smooth real meshes the
 well-defined normals make B5 excel, while its synthetic degeneracy was an artifact
 of a panel pathology.
 
@@ -197,5 +221,31 @@ prior-art anisotropic alpha on real held-out data. The improved density baseline
 (M1) and the fail-closed exact fallback are reusable contributions, and the
 universal failure of removal-based bridge interventions is useful negative
 evidence for future work.
+
+% References in Harvard (author-date) style, per RPJ. Bibliographic details to be
+% verified against the publisher record at final submission.
+\begin{thebibliography}{}
+\bibitem[Edelsbrunner(1992)]{edelsbrunner1992}
+Edelsbrunner, H. (1992), ``Weighted alpha shapes'', Technical Report UIUCDCS-R-92-1760,
+Department of Computer Science, University of Illinois at Urbana-Champaign.
+
+\bibitem[Edelsbrunner and M\"ucke(1994)]{edelsbrunner1994}
+Edelsbrunner, H. and M\"ucke, E.P. (1994), ``Three-dimensional alpha shapes'',
+\textit{ACM Transactions on Graphics}, Vol.~13 No.~1, pp.~43--72.
+
+\bibitem[Hoppe et al.(1992)]{hoppe1992}
+Hoppe, H., DeRose, T., Duchamp, T., McDonald, J. and Stuetzle, W. (1992),
+``Surface reconstruction from unorganized points'', \textit{Computer Graphics
+(SIGGRAPH)}, Vol.~26 No.~2, pp.~71--78.
+
+\bibitem[Labatut et al.(2009)]{labatut2009}
+Labatut, P., Pons, J.-P. and Keriven, R. (2009), ``Robust and efficient surface
+reconstruction from range data'', \textit{Computer Graphics Forum}, Vol.~28
+No.~8, pp.~2275--2290.
+
+\bibitem[Zhou and Jacobson(2016)]{zhou2016thingi10k}
+Zhou, Q. and Jacobson, A. (2016), ``Thingi10K: a dataset of 10{,}000 3D-printing
+models'', arXiv:1605.04797.
+\end{thebibliography}
 
 \end{document}
