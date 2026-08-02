@@ -549,6 +549,121 @@ Only the symmetric positive-definite part may define a metric. Signed or
 asymmetric PFTF information must be mapped to scale, confidence, or a separate
 penalty; it must not be presented directly as a geometric distance.
 
+## Risk-localized reacquisition Phase 0
+
+`pftf_alpha.reacquisition` runs a paired synthetic ROI-rescan experiment on the
+held-out thin-gap case. It compares uniform and boundary-risk-targeted added
+samples at exactly the same point budget while keeping component labels and the
+evaluation reference out of selection.
+
+```powershell
+python -m pftf_alpha.reacquisition `
+  --output benchmark-out/risk_targeted_reacquisition_phase0.json
+```
+
+The frozen 8-repeat panel did not pass: 1.25x--1.75x total density never removed
+the false bridge. A separate exploratory sweep reduced targeted cross-component
+kNN mixing to `0.0189` at 640 total points, but unchanged B5 still merged the
+sheets in all three repeats. This falsifies the direct `risk -> rescan -> rerun
+B5` path; it supports using reacquisition as a sampling-sufficiency diagnostic
+followed by a fail-closed or connectivity-changing reconstruction. See
+[docs/ACTIVE_REACQUISITION_PHASE0.md](docs/ACTIVE_REACQUISITION_PHASE0.md).
+
+`pftf_alpha.sampling_gate` implements the next observed-only diagnostic. Across
+the 40-case Phase 1 calibration panel and a disjoint 40-case Phase 1b held-out
+panel, its inferred sufficient/insufficient sampling class matched the
+evaluation labels in all 80 cases and it made zero false-safe accepts. Exact
+three-way held-out routing accuracy was only `0.875`, however, because five
+under-resolved cases failed closed as `unsupported` rather than
+`rescan_required`. B5 produced no safe positive output, so acceptance coverage
+cannot be tested and deployment remains unsupported. See
+[docs/SAMPLING_SUFFICIENCY_GATE_PHASE1.md](docs/SAMPLING_SUFFICIENCY_GATE_PHASE1.md).
+
+`pftf_alpha.two_layer_connectivity` supplies the first safe positive
+reconstruction candidate for the declared parallel-sheet regime. It infers two
+layers from observed coordinates, constructs one 2D Delaunay surface in each
+layer tangent plane, and blocks cross-layer faces by construction. On a new
+40-case synthetic held-out panel, all 16 sampling-sufficient cases were accepted
+and truly safe (false-safe 0); mean F-score improved from B5 `0.3922` to `0.7564`,
+while component error, labeled bridge edges, and Betti error fell to zero. The
+result is parallel-sheet-specific and remains non-deployable; see
+[docs/TWO_LAYER_CONNECTIVITY_PHASE2.md](docs/TWO_LAYER_CONNECTIVITY_PHASE2.md).
+
+`pftf_alpha.two_layer_stress` tests that candidate on a separately frozen
+48-case Phase-3 panel. All 32 positive rotated, shallow-curved, varying-gap, and
+partial-overlap cases were accepted and truly safe, with mean F-score improving
+from B5 `0.4714` to `0.8256` and Betti-error sum falling from `1159` to zero.
+All 16 declared out-of-scope near-contact and crossing cases were rejected;
+false-safe count was zero. This broadens the synthetic claim to globally
+separable, approximately parallel two-layer surfaces, but real-scan and
+deployment support remain false. See
+[docs/TWO_LAYER_STRESS_PHASE3.md](docs/TWO_LAYER_STRESS_PHASE3.md).
+
+`pftf_alpha.two_layer_boundary` then maps the operating boundary on a frozen
+192-case Phase-4 sweep. Tilt and near-contact stresses fail closed, and every
+tested overlap offset remains safe. Curvature is the critical blind spot:
+curvature `0.36`, `0.48`, and `0.60` produce 6, 6, and 3 false-safe accepts.
+The last fully reliable tested curvature is `0.24`; the current global
+normal-coordinate gate does not detect the later layer-assignment failure.
+Accordingly `phase4_diagnostic_supported=false` and the candidate remains
+non-deployable. See
+[docs/TWO_LAYER_BOUNDARY_PHASE4.md](docs/TWO_LAYER_BOUNDARY_PHASE4.md).
+
+`pftf_alpha.curvature_guard` repairs that specific safety failure with an
+observed-only orientation-tensor coherence guard. Threshold `0.82` was frozen
+from Phase-4 calibration, then evaluated on a new 192-case seed. The base router
+reproduced 14 false-safe accepts; the guard removed all 14 while retaining 116
+of 117 safe accepts (`99.15%`). This supports a synthetic fail-closed safety
+envelope, not a universal curvature certificate or PFTF-SPD claim. See
+[docs/CURVATURE_GUARD_PHASE4B.md](docs/CURVATURE_GUARD_PHASE4B.md).
+
+`pftf_alpha.guard_domain_shift` tests that fixed threshold under crossed point
+density, noise, and curvature-shape shifts. The 360-case Phase-5 panel fails:
+false-safe accepts fall from 57 to 12 but do not reach zero, and safe-accept
+retention is only `79.03%`. Sparse 96-point safe cases are over-rejected, while
+dense asymmetric-converging cases can exceed coherence `0.82` and remain
+false-safe. A single global coherence cutoff therefore does not transfer; see
+[docs/CURVATURE_GUARD_DOMAIN_SHIFT_PHASE5.md](docs/CURVATURE_GUARD_DOMAIN_SHIFT_PHASE5.md).
+
+`pftf_alpha.local_order_guard` replaces the global cutoff with density-binned
+normal coherence plus a density-normalized tangent-plane layer-order margin.
+On the frozen 360-case Phase-6 held-out it retains 174/190 safe accepts
+(`91.58%`) and removes 59/61 false-safe accepts, including every false-safe at
+N=160 and N=256. Two sparse N=96 false-safe cases remain, however, so the
+predeclared zero-false-safe gate fails and `phase6_supported=false`. Thresholds
+were not retuned after inspection; see
+[docs/LOCAL_ORDER_GUARD_PHASE6.md](docs/LOCAL_ORDER_GUARD_PHASE6.md).
+
+`pftf_alpha.shared_trend_inference` addresses the upstream failure instead of
+adding another rejection threshold. It removes one shared quadratic tangent-
+plane trend, clusters the residual layer offsets, recomputes the sampling gate,
+and triangulates the inferred layers. On a frozen 360-case Phase-7 seed it
+retains all 186 base-safe accepts, reduces false-safe accepts from 60 to zero,
+and repairs 58/60 base false-safe cases into accepted safe outputs (`96.67%`).
+The other two fail closed as `rescan_required`. Thus `phase7_supported=true`
+within the generator-matched synthetic two-layer regime, while deployment and
+PFTF-SPD novelty remain unsupported. See
+[docs/SHARED_TREND_INFERENCE_PHASE7.md](docs/SHARED_TREND_INFERENCE_PHASE7.md).
+
+`pftf_alpha.sensor_stress` then freezes that candidate and tests 216 cases with
+one-sided occlusion, 75:25 layer imbalance, anisotropic noise, 1-5% spatial
+outliers, and sinusoidal/local-bump surfaces. Phase 8 fails: all 56 candidate
+false-safe accepts are contaminated cases, showing that the current route has
+no outlier policy. A useful operating boundary nevertheless appears: at N=160
+and N=256 all 96 non-outlier stress cases are accepted safely, including every
+nonquadratic case, while sparse N=96 coverage is only `43.75%`.
+`phase8_supported=false`; see
+[docs/SENSOR_STRESS_PHASE8.md](docs/SENSOR_STRESS_PHASE8.md).
+
+`pftf_alpha.outlier_guard` adds a frozen MAD/leverage-studentized shared-trend
+residual score multiplied by local-density anomaly. Phase 9 removes 54/58
+outlier false-safe accepts, including every accepted 3% and 5% contamination
+case, but four 1% cases remain and safe retention is only `88.70%`. The guard
+also over-rejects localized nonquadratic bumps (9/22 retained), demonstrating
+that a shared-quadratic residual is not a shape-agnostic outlier certificate.
+`phase9_supported=false`; see
+[docs/OUTLIER_GUARD_PHASE9.md](docs/OUTLIER_GUARD_PHASE9.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
