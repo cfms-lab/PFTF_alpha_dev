@@ -1,5 +1,48 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 36
+
+Phase 35 was committed and pushed to `origin/main` as `32cbeeb` (`Add six-scene
+rotation validation phase 35`).
+
+Phase 36 in `docs/INDEPENDENT_METHOD_TRANSFER_PHASE36.md` freezes and evaluates
+the unchanged p90 scene-relative rotation rule on two different descriptor
+methods and a different benchmark. The source is the official 3DMatch toolbox
+commit `4c6b2f613adb8bdcc9a62cb04134b7e1379b1a36`, which contains FPFH and
+Spin-Images prediction logs plus official labels for four ICL-NUIM synthetic
+scenes. All 16 required file sizes and SHA-256 values are frozen. The evaluator
+verifies every identity, decodes all eight prediction logs, and materializes all
+eight decision sets before decoding any `gt.log` or `gt.info`.
+
+Every method-scene block independently passes precision improvement, at least
+90% correct retention, and at least 10% incorrect rejection. Precision gains
+range from 1.95 to 2.63 percentage points, correct retention is 100% in all
+eight blocks, and incorrect rejection ranges from 12.20% to 13.19%. FPFH pools
+1,735 eligible predictions and changes precision from 19.08% to 21.20%; Spin
+pools 1,680 and changes precision from 21.90% to 24.35%. Across both methods,
+all 699 correct predictions are retained and 343/2,716 incorrect predictions
+are rejected.
+
+Therefore `phase36_panel_supported=true`,
+`independent_method_transfer_supported=true`, and
+`cross_benchmark_transfer_supported=true`. This is a descriptor-method transfer
+claim, not a fully independent pipeline claim: FPFH and Spin logs share the
+3DMatch toolbox RANSAC/log-generation pipeline, and those generation steps were
+not rerun. Accordingly
+`independent_end_to_end_pipeline_transfer_supported=false`, correspondence
+identity, alpha-shape reconstruction, and deployment remain unsupported.
+
+Implementation: `src/pftf_alpha/independent_method_rotation_transfer.py`;
+tests: `tests/test_independent_method_rotation_transfer.py`; artifact:
+`benchmark-out/independent_method_rotation_transfer_phase36.json`, SHA-256
+`9157e15adccdf8dea98e14f96124f826389d3c35bc3ddf04bbcc51e0a00ec24d`.
+
+The next scientifically distinct step is Phase 37: use an independently
+implemented end-to-end registration pipeline, freeze its generation parameters
+before labels, and apply the unchanged p90 rule. Do not use the Phase-36 labels
+to revise the cutoff or gates. If no such pipeline can be reproduced, stop at
+the fixed-log descriptor-transfer claim.
+
 ## Latest continuation: Phase 35
 
 Phase 34 was committed and pushed to `origin/main` as `e2dff56` (`Add

@@ -984,6 +984,19 @@ correspondence identity, alpha-shape reconstruction, transfer to another
 registration algorithm, and deployment remain unsupported. See
 [docs/SCENE_RELATIVE_ROTATION_VALIDATION_PHASE35.md](docs/SCENE_RELATIVE_ROTATION_VALIDATION_PHASE35.md).
 
+`pftf_alpha.independent_method_rotation_transfer` next applies the same frozen
+p90 rule to the official toolbox's FPFH and Spin-Images predictions on four
+ICL-NUIM synthetic scenes. All eight method-scene blocks pass independently:
+precision rises by 1.95--2.63 percentage points, all 699 correct predictions are
+retained, and each block rejects 12.20--13.19% of incorrect predictions. Thus
+`independent_method_transfer_supported=true` and
+`cross_benchmark_transfer_supported=true` for these fixed logs. FPFH and Spin
+are distinct descriptors but share the toolbox's RANSAC registration pipeline;
+the external generation was not rerun, so independent end-to-end pipeline
+transfer, correspondence identity, alpha-shape reconstruction, and deployment
+remain unsupported. See
+[docs/INDEPENDENT_METHOD_TRANSFER_PHASE36.md](docs/INDEPENDENT_METHOD_TRANSFER_PHASE36.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
