@@ -1,6 +1,6 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Latest continuation: Phase 38 preregistration
+## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
 validation. The official archive `plain_01-Sep-2011-16_39_18.zip` is
@@ -27,9 +27,21 @@ The separate label-free decision materializer accepts 391 and rejects 44;
 decision artifact SHA-256:
 `26f069fa77841dfb446185d01809a062b242af3f1517e605d68105aab43850c0`.
 Both artifacts state that labels were not opened/accessed. The next action is
-to commit this complete pre-label state, then implement a separate evaluator
-that first verifies both hashes and only then opens the Leica member. Do not
-tune any threshold after labels.
+the now-completed separate evaluator, which first verified both hashes and only
+then opened the Leica member. Its fixed result is 0/435 correct before and
+after the guard, 391 accepted and 44 rejected, base/guarded precision both 0%,
+correct retention 0%, and incorrect rejection 10.11%. Seventy-five predictions
+pass the RRE threshold, but none passes RTE < 0.30 m; minimum RTE is 0.6124 m.
+Thus `fresh_label_blind_validation_supported=false` and
+`fresh_external_pipeline_transfer_supported=false`. Final audit SHA-256:
+`0e27568e7b7e9e1dfe98708b7984a437635836fde1b51693aca4daa992496f2b`.
+
+Do not tune or rerun Mountain Plain as fresh validation. The next distinct
+step is an explicit calibration/diagnostic phase on this now-opened scene,
+followed by a once-only validation on another untouched ETH scene. The likely
+bottleneck is translation accuracy of the unchanged cross-domain FPFH+FGR
+pipeline, not the label-blind boundary. Phase 37's positive 3DMatch result
+remains scoped to its benchmark.
 
 ## Latest continuation: Phase 37
 

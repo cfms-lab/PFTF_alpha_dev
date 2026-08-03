@@ -67,6 +67,15 @@ materialize the complete midrank p90 decision set. It accepts 391 and rejects
 Only after these two artifacts and their code are committed may the evaluator
 open `leica/pose_scanner_leica.csv` and join the frozen correctness labels.
 
+## Post-label result
+
+The separate evaluator has now completed. None of the 435 fixed predictions
+meets both RRE < 15 degrees and RTE < 0.30 m. The p90 guard rejects 44/435
+incorrect predictions (10.11%), but there are no correct predictions to retain
+and no precision gain. Therefore the fresh external transfer gate fails
+without revising the preregistration. See
+`docs/FRESH_EXTERNAL_ROTATION_AUDIT_PHASE38.md`.
+
 ## Evidence boundary
 
 This phase can test fresh label-blind transfer of the fixed rotation guard to a

@@ -1022,10 +1022,15 @@ Leica-pose member name are present, but the pose member's values have not been
 opened or decoded. `docs/FRESH_EXTERNAL_PROTOCOL_PHASE38.md` fixes all 435
 nonconsecutive pairs, the unchanged Phase-37 Open3D pipeline, a strict
 15-degree/0.30-m correctness rule, and the unchanged p90/gate requirements.
-The full pre-label execution is complete: all 435 predictions were generated
-after the preregistration commit, and the hash-locked p90 decision artifact
-accepts 391 and rejects 44 without opening the pose values. The next separate
-evaluator may now decode those values and report the unchanged gate result.
+The full pre-label execution generated all 435 predictions after the
+preregistration commit, and the hash-locked p90 decision artifact accepted 391
+and rejected 44 before pose values were opened. The subsequent fixed audit is
+negative: the unchanged cross-domain FPFH+FGR predictor has 0/435 registrations
+within RRE < 15 degrees and RTE < 0.30 m. The guard rejects 10.11% of incorrect
+predictions, but there are no correct predictions to retain and precision
+stays at zero. Consequently `fresh_label_blind_validation_supported=false`
+and `fresh_external_pipeline_transfer_supported=false`; see
+[docs/FRESH_EXTERNAL_ROTATION_AUDIT_PHASE38.md](docs/FRESH_EXTERNAL_ROTATION_AUDIT_PHASE38.md).
 
 ## Novelty boundary
 
