@@ -339,15 +339,15 @@ def read_binary_ply_xyz(path: str | Path) -> FloatArray:
     return np.ascontiguousarray(result)
 
 
-def _nonempty_lines(path: str | Path) -> list[str]:
-    lines = Path(path).read_text(encoding="ascii").splitlines()
+def _nonempty_text_lines(payload: str) -> list[str]:
+    lines = payload.splitlines()
     return [line.strip() for line in lines if line.strip()]
 
 
-def read_registration_log(path: str | Path) -> tuple[RegistrationLogEntry, ...]:
-    """Read a 3DMatch/ElasticReconstruction five-line registration log."""
+def parse_registration_log(payload: str) -> tuple[RegistrationLogEntry, ...]:
+    """Parse a 3DMatch/ElasticReconstruction five-line registration log."""
 
-    lines = _nonempty_lines(path)
+    lines = _nonempty_text_lines(payload)
     if len(lines) % 5 != 0:
         raise ValueError("registration log must contain five-line records")
     entries = []
@@ -380,10 +380,16 @@ def read_registration_log(path: str | Path) -> tuple[RegistrationLogEntry, ...]:
     return tuple(entries)
 
 
-def read_registration_info(path: str | Path) -> tuple[RegistrationInfoEntry, ...]:
-    """Read seven-line pair headers and 6x6 information matrices."""
+def read_registration_log(path: str | Path) -> tuple[RegistrationLogEntry, ...]:
+    """Read a 3DMatch/ElasticReconstruction five-line registration log."""
 
-    lines = _nonempty_lines(path)
+    return parse_registration_log(Path(path).read_text(encoding="ascii"))
+
+
+def parse_registration_info(payload: str) -> tuple[RegistrationInfoEntry, ...]:
+    """Parse seven-line pair headers and 6x6 information matrices."""
+
+    lines = _nonempty_text_lines(payload)
     if len(lines) % 7 != 0:
         raise ValueError("registration info must contain seven-line records")
     entries = []
@@ -414,6 +420,12 @@ def read_registration_info(path: str | Path) -> tuple[RegistrationInfoEntry, ...
     if len(set(pairs)) != len(pairs):
         raise ValueError("registration info contains duplicate pairs")
     return tuple(entries)
+
+
+def read_registration_info(path: str | Path) -> tuple[RegistrationInfoEntry, ...]:
+    """Read seven-line pair headers and 6x6 information matrices."""
+
+    return parse_registration_info(Path(path).read_text(encoding="ascii"))
 
 
 def official_transformation_error(

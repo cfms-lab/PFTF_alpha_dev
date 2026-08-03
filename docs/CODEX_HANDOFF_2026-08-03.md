@@ -1,5 +1,56 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 35
+
+Phase 34 was committed and pushed to `origin/main` as `e2dff56` (`Add
+scene-relative rotation guard design phase 34`).
+
+Phase 35 in `docs/SCENE_RELATIVE_ROTATION_VALIDATION_PHASE35.md` opens all six
+previously frozen 3DMatch validation scenes as one panel. Because the frozen
+feature uses only the predicted transform rotation, it downloads only the six
+official evaluation ZIPs and does not access fragment PLY coordinates. The
+evaluator verifies the exact Phase-34 artifact SHA-256
+`805f056fdf50c80aa89fd74d1bba67968ab8405279b481bf9051494f655ea9d8`,
+all archive identities, and exact member allowlists. It then reads all six
+`3dmatch.log` files and materializes every rotation angle, midrank percentile,
+and p90 decision before any `gt.log` or `gt.info` member is decompressed or
+decoded.
+
+Every scene independently passes the unchanged requirements of precision
+improvement, at least 90% correct retention, and at least 10% incorrect
+rejection:
+
+- home_at scan1: precision 35.17% -> 38.68%, retention 98.80%, rejection
+  15.03%;
+- home_md scan9: 28.61% -> 31.80%, retention 100%, rejection 14.05%;
+- hotel_uc scan3: 71.86% -> 75.98%, retention 95.10%, rejection 23.21%;
+- Maryland hotel1: 41.44% -> 46.00%, retention 100%, rejection 16.92%;
+- MIT studyroom: 26.91% -> 29.90%, retention 100%, rejection 13.68%;
+- MIT lab: 20.00% -> 22.33%, retention 100%, rejection 13.04%.
+
+Therefore `held_out_validation_artifacts_accessed=true`,
+`phase35_validation_supported=true`, `held_out_validation_supported=true`, and
+the narrow fixed-predictor claim `cross_scene_real_registration_supported=true`.
+Official real-registration labels are present, so
+`real_registration_labels_supported=true`.
+The rule rejects approximately 10% of each batch by construction and requires a
+complete scene prediction set. Transfer to another registration algorithm,
+physical correspondence identity, alpha-shape reconstruction, and deployment
+remain unsupported.
+
+Implementation:
+`src/pftf_alpha/scene_relative_rotation_validation.py`; parsing shared through
+`src/pftf_alpha/threedmatch_redkitchen.py`; tests:
+`tests/test_scene_relative_rotation_validation.py`; artifact:
+`benchmark-out/scene_relative_rotation_validation_phase35.json`, SHA-256
+`c07cb04e82ef597f5c7480fad1181fd3d8141e2d7fbc2ab8d0a3c4e644179372`.
+
+The next step should not retune this six-scene panel. A scientifically useful
+Phase 36 would freeze the p90 rule and test it on prediction logs from a
+different registration method or benchmark. If no independently generated
+predictions are available, stop at the Phase-35 fixed-predictor claim rather
+than treating these validation labels as new design data.
+
 ## Latest continuation: Phase 34
 
 Phase 33 was committed and pushed to `origin/main` as `47126f1` (`Add

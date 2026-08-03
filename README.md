@@ -970,6 +970,20 @@ untouched Phase-35 validation, while `held_out_validation_supported=false` and
 deployment remains unsupported. See
 [docs/SCENE_RELATIVE_ROTATION_GUARD_PHASE34.md](docs/SCENE_RELATIVE_ROTATION_GUARD_PHASE34.md).
 
+`pftf_alpha.scene_relative_rotation_validation` then opens all six frozen
+3DMatch validation scenes as one panel without changing the p90 rule, midrank
+ties, or gates. It verifies every evaluation ZIP exactly and materializes all
+six blind decision sets from `3dmatch.log` before decoding any `gt.log` or
+`gt.info`. All six scenes independently improve precision by 2.33--4.56
+percentage points, retain 95.10--100% of correct predictions, and reject
+13.04--23.21% of incorrect predictions. Thus
+`held_out_validation_supported=true` and the narrow
+`cross_scene_real_registration_supported=true` claim applies to the fixed
+external 3DMatch predictor. The rule remains batch-relative, and real
+correspondence identity, alpha-shape reconstruction, transfer to another
+registration algorithm, and deployment remain unsupported. See
+[docs/SCENE_RELATIVE_ROTATION_VALIDATION_PHASE35.md](docs/SCENE_RELATIVE_ROTATION_VALIDATION_PHASE35.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
