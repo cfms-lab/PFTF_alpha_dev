@@ -21,6 +21,15 @@ from .adaptive import (
     pftf_confidence_fallback_filtration,
     pftf_local_metric_filtration,
 )
+from .affine_spd_alpha import (
+    AffineSPDAlphaConstruction,
+    GlobalMetricCompatibility,
+    IncompatibleLocalMetricError,
+    audit_global_metric_compatibility,
+    compatible_global_metric,
+    global_affine_spd_alpha,
+    global_affine_spd_alpha_from_field,
+)
 from .baselines import (
     BaselineID,
     BaselineResult,
@@ -181,6 +190,7 @@ from .synthetic import (
 )
 
 __all__ = [
+    "AffineSPDAlphaConstruction",
     "AdaptiveCalibrationResult",
     "BoundaryBridgeCaseResult",
     "BoundaryBridgeLocalizationResult",
@@ -197,6 +207,8 @@ __all__ = [
     "BoundaryBridgeLocalization",
     "boundary_bridge_localization",
     "GeometricBridgeRisk",
+    "GlobalMetricCompatibility",
+    "IncompatibleLocalMetricError",
     "BoundaryOwnerIntervention",
     "iterative_boundary_owner_intervention",
     "BoundaryRegionCutIntervention",
@@ -254,9 +266,11 @@ __all__ = [
     "SimplexMetricDecision",
     "SimplexRecord",
     "alpha_to_squared_radius",
+    "audit_global_metric_compatibility",
     "audit_delaunay_predicates",
     "audit_exact_predicate_panel",
     "audit_exact_filtration_case",
+    "compatible_global_metric",
     "evaluate_exact_construction_panel",
     "evaluate_exact_b3_selection_shadow",
     "evaluate_exact_connectivity_shadow",
@@ -267,6 +281,8 @@ __all__ = [
     "evaluate_exact_value_shadow",
     "exact_construction_request",
     "hard_alpha_gate",
+    "global_affine_spd_alpha",
+    "global_affine_spd_alpha_from_field",
     "decode_exact_request",
     "exact_backend_response",
     "exact_delaunay_tetrahedra",
