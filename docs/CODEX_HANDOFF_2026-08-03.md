@@ -1,6 +1,42 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 41 local-support shadow complete and negative
+## Current work: Phase 42 anchor-relative shadow complete and negative
+
+Phase 42 layers observed-only nearest-anchor distance, anchor-plane residual,
+and unsigned 12-NN PCA normal alignment after the Phase-41 support/dispersion
+gate. The development grid was committed as `6c04859`. Sources 0 and the opened
+Phase-41 failure source 17 select `anchor_d150_p050_n075`: distance <=1.50 m,
+plane residual <=0.50 m, and normal alignment >=0.75. Calibration SHA-256:
+`ddf119166d119e376acc21b0d73ba078616d6356a9a0f2093944dd7b1fb2f16f`.
+
+Commit `a14474f` then froze the only three remaining endpoint-unopened sources
+with at least three direct predictions: 25, 26, and 27. Protocol SHA-256:
+`1b304d0c62251e1f572ab65295f5903b29e820ee1c9557edf8b6c54424b3efac`.
+
+All nine meshes materialize. Phase 42 retains 135/648 Phase-41 candidate cells.
+The F-score and recall tolerances pass, but geometry does not:
+
+- geometry loss: anchor 0.147269, Phase 41 0.143611, Phase 42 0.148807;
+- F-score: anchor 0.656327, Phase 41 0.583448, Phase 42 0.640541;
+- recall: anchor 0.684616, Phase 41 0.647052, Phase 42 0.676635.
+
+It beats anchor geometry in 0/3 cases and Phase-41 geometry in 1/3, so
+`anchor_relative_shadow_supported=false`. Result SHA-256:
+`f23e441bbbfa29bcb6cc54eac1bb21a813ec0b25a3248760cf5f3a6526dd0aa8`;
+a second run reproduces it byte for byte.
+
+Do not add or tune another Gazebo threshold. All sources with at least three
+direct predictions have now entered development or validation. The next
+scientifically distinct phase requires a new panel frozen before method
+development, preferably with a reference surface or known simulated ground
+truth. Test a continuous confidence-to-alpha field or confidence-weighted
+construction rather than another binary deletion gate. Keep
+`point_local_alpha_field_supported=false`,
+`topology_correctness_supported=false`,
+`real_trimmed_reconstruction_supported=false`, and
+`deployment_supported=false`.
+
+## Previous continuation: Phase 41 local-support shadow complete and negative
 
 Phase 41 introduces observed-only point-local evidence. The source-0
 development grid was committed as `d66c3ff`; it selected target-only 0.75 m

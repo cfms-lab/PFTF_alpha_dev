@@ -1093,6 +1093,19 @@ coherent but anchor-misaligned cluster. Thus support and within-cell dispersion
 alone are not a safe reconstruction certificate. See
 [docs/ETH_GAZEBO_LOCAL_SUPPORT_SHADOW_PHASE41.md](docs/ETH_GAZEBO_LOCAL_SUPPORT_SHADOW_PHASE41.md).
 
+Phase 42 adds target-to-anchor distance, anchor-plane residual, and unsigned
+local PCA-normal alignment after the Phase-41 support gate. Calibration on the
+opened sources 0 and 17 selects distance <=1.50 m, plane residual <=0.50 m,
+and alignment >=0.75. A separate protocol freezes the only three remaining
+endpoint-unopened sources with at least three direct predictions: 25, 26, and
+27. The route retains 135/648 Phase-41 candidate cells and passes its F-score
+and recall tolerances, but geometry remains negative: anchor-only 0.147269,
+Phase 41 0.143611, and Phase 42 0.148807. It beats anchor geometry in 0/3 cases
+and Phase 41 in 1/3, so `anchor_relative_shadow_supported=false`. The result
+shows that anchor-relative binary filtering recovers coverage but still does
+not dominate the anchor/scan-fusion trade-off. See
+[docs/ETH_GAZEBO_ANCHOR_RELATIVE_SHADOW_PHASE42.md](docs/ETH_GAZEBO_ANCHOR_RELATIVE_SHADOW_PHASE42.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
