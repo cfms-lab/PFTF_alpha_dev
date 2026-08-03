@@ -1,0 +1,67 @@
+{
+  "artifact_schema": "pftf_alpha_s3dis_two_layer_intake_phase51/v1",
+  "calibration_areas": [
+    "Area_1",
+    "Area_2",
+    "Area_3",
+    "Area_4",
+    "Area_6"
+  ],
+  "claim_boundary": "a true intake flag verifies archive structure and leakage-controlled calibration extraction only; it is not a real-scan efficacy result",
+  "deployment_supported": false,
+  "external_archive_intake_supported": true,
+  "extracted_member_count": 1300,
+  "extracted_root": "D:\\__PFTF_Projects(2026)\\PFTF_alpha_dev\\benchmark-data\\s3dis\\calibration",
+  "extracted_uncompressed_bytes": 1804672883,
+  "extraction_rule": "open only calibration-area Annotations/board*.txt and Annotations/wall*.txt members; never open an Area-5 member",
+  "held_out_validation_supported": false,
+  "inventory": {
+    "archive_bytes": 4394701719,
+    "archive_name": "Stanford3dDataset_v1.2_Aligned_Version.zip",
+    "archive_path": "D:\\__PFTF_Projects(2026)\\PFTF_alpha_dev\\benchmark-data\\s3dis\\Stanford3dDataset_v1.2_Aligned_Version.zip",
+    "archive_sha256": "f16db73310983e6b4df9b3d5290d20315e0cdf56c14f0d795f96d372378fce94",
+    "area_member_counts": {
+      "Area_1": 1874,
+      "Area_2": 1911,
+      "Area_3": 920,
+      "Area_4": 1853,
+      "Area_5": 2708,
+      "Area_6": 1989
+    },
+    "calibration_target_member_count": 1300,
+    "member_count": 11257,
+    "member_metadata_sha256": "7302c9aa47965e89493c0273bb2e45640da8674d32c77e6b902c169176e03887",
+    "reserved_target_member_count": 385,
+    "target_member_counts": {
+      "Area_1": {
+        "board": 27,
+        "wall": 234
+      },
+      "Area_2": {
+        "board": 17,
+        "wall": 283
+      },
+      "Area_3": {
+        "board": 12,
+        "wall": 159
+      },
+      "Area_4": {
+        "board": 10,
+        "wall": 282
+      },
+      "Area_5": {
+        "board": 42,
+        "wall": 343
+      },
+      "Area_6": {
+        "board": 29,
+        "wall": 247
+      }
+    }
+  },
+  "pftf_superiority_supported": false,
+  "real_scan_supported": false,
+  "reserved_content_opened": false,
+  "reserved_held_out_area": "Area_5",
+  "role": "metadata_audit_and_calibration_only_extraction"
+}
