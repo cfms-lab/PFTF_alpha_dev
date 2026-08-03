@@ -1,5 +1,22 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Current work: Phase 39 calibration protocol
+
+Phase 39 begins from the negative Phase-38 ETH result without revising it.
+`docs/ETH_PIPELINE_CALIBRATION_PROTOCOL_PHASE39.md` freezes an eight-candidate
+grid on the now-opened Mountain Plain calibration scene: voxel sizes 0.10,
+0.20, 0.30, and 0.50 m, each with FGR-only and FGR followed by point-to-plane
+ICP. Candidate selection uses only the count satisfying the unchanged strict
+RRE < 15 degrees and RTE < 0.30 m; p90 performance is excluded. Ties prefer a
+smaller voxel and then no ICP. If every candidate has zero correct predictions,
+stop without touching another scene's labels.
+
+The next action is to commit this calibration protocol, run
+`pftf_alpha.eth_pipeline_calibration` in the isolated Open3D 0.19.0
+environment, and freeze the selected parameter dictionary. A viable result may
+then proceed to predictions and pre-label p90 decisions on a different
+untouched ETH scene.
+
 ## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
