@@ -306,10 +306,14 @@ def _farthest_anchor_indices(points: FloatArray, count: int) -> IntArray:
         raise ValueError("anchor count must lie within the point count")
     order = np.lexsort((points[:, 2], points[:, 1], points[:, 0]))
     anchors = [int(order[0])]
+    selected = np.zeros(points.shape[0], dtype=np.bool_)
+    selected[anchors[0]] = True
     minimum_squared = np.sum((points - points[anchors[0]]) ** 2, axis=1)
     for _ in range(1, count):
-        next_index = int(np.argmax(minimum_squared))
+        candidates = np.where(selected, -np.inf, minimum_squared)
+        next_index = int(np.argmax(candidates))
         anchors.append(next_index)
+        selected[next_index] = True
         squared = np.sum((points - points[next_index]) ** 2, axis=1)
         minimum_squared = np.minimum(minimum_squared, squared)
     return np.asarray(anchors, dtype=np.int64)

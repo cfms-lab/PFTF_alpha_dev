@@ -933,6 +933,20 @@ correspondence, guard safety, reconstruction, and deployment remain
 unsupported. See
 [docs/OPEN3D_REAL_PAIR_INTAKE_PHASE31.md](docs/OPEN3D_REAL_PAIR_INTAKE_PHASE31.md).
 
+`pftf_alpha.threedmatch_registration_guard` then evaluates the frozen observed
+guard on the official 3DMatch `7-scenes-redkitchen` real-fragment registration
+benchmark. All guard observations are materialized from fragment coordinates
+and the external `3dmatch.log` predictions before `gt.log`/`gt.info` are read.
+The official-label baseline has 383/531 correct predictions, 72.13% precision,
+and 85.30% recall. The full global/local/tail route raises precision to 88.73%
+at 2 cm and 77.78% at 5 cm, but retains only 16.45% and 10.97% of the correct
+predictions. Tail evidence removes no additional incorrect prediction at 2 cm;
+at 5 cm it removes four incorrect and seventeen correct predictions. Thus
+`phase32_supported=false` and
+`tail_sensitive_real_registration_supported=false`. The Phase-30 synthetic
+result does not transfer to a useful real-registration guard. See
+[docs/THREEDMATCH_REGISTRATION_GUARD_PHASE32.md](docs/THREEDMATCH_REGISTRATION_GUARD_PHASE32.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

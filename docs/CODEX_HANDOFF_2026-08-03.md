@@ -1,5 +1,49 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 32
+
+Phase 31 was committed on `main` as `72e4d0d` (`Add Open3D real scan intake
+phase 31`) and was not pushed.
+
+Phase 32 in `docs/THREEDMATCH_REGISTRATION_GUARD_PHASE32.md` uses the official
+3DMatch `7-scenes-redkitchen` real-fragment geometric-registration benchmark.
+The verified 39,950,111-byte fragment archive contains 60 binary XYZ PLY files;
+the 140,319-byte evaluation archive contains `3dmatch.log`, `gt.log`, and
+`gt.info`. Their SHA-256 values are respectively
+`7cb9a1c9236e6833e910692b1d3f572b970c3fc3493e7641c28f1a45841fa51c`
+and `ff3eaa243025a0cdf6dd1ca5364a726acf7c08b36444e49c685e1f014bc4f16e`.
+The official page marks 7-Scenes data as non-commercial-use only.
+
+The evaluator enforces a label-blind order: it first materializes every
+reciprocal-pair, four-patch, global/local/tail observation from external
+`3dmatch.log` predictions and fragment coordinates. Only afterward does it read
+and join the official ground-truth transform and information files. The official
+non-consecutive filter leaves 531 predictions and 449 ground-truth overlap
+pairs. The reproduced baseline has 383 correct and 148 incorrect predictions,
+72.13% precision, and 85.30% recall.
+
+The frozen full route accepts 71 predictions at 2 cm: 63 correct and 8 incorrect,
+for 88.73% precision but only 14.03% recall and 16.45% base-correct retention.
+At 5 cm it accepts 54: 42 correct and 12 incorrect, for 77.78% precision, 9.35%
+recall, and 10.97% retention. Both fail the predeclared >=90% correct-retention
+gate. Tail evidence removes one correct and zero incorrect predictions at 2 cm;
+at 5 cm it removes seventeen correct and four incorrect predictions relative to
+the global/local predecessor. Therefore `phase32_supported=false` and
+`tail_sensitive_real_registration_supported=false`.
+
+The observed global/local/tail stack is too conservative for real fragment
+registration, and the local/tail ordering does not align with official
+correctness. Do not tune thresholds on opened redkitchen. If work continues,
+use separate 3DMatch scenes for design and untouched scenes for validation, or
+run the unchanged negative route on a second scene only as a transfer audit.
+
+Implementation: `src/pftf_alpha/threedmatch_redkitchen.py` and
+`src/pftf_alpha/threedmatch_registration_guard.py`; tests:
+`tests/test_threedmatch_registration_guard.py`; artifact:
+`benchmark-out/threedmatch_registration_guard_phase32.json`, SHA-256
+`b7653adda0f0b93f14fda54bb57a4559c4a00863e4f22702b4bc14650442cb4d`.
+No push has been performed.
+
 ## Latest continuation: Phase 31
 
 Phase 30 was committed on `main` as `d9d40c7` (`Add tail-sensitive local guard
