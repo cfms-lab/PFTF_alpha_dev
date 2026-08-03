@@ -1,11 +1,17 @@
 # PFTF-alpha — claim / evidence matrix for the negative-limits paper (framing b)
 
-Paper framing (confirmed 2026-07-25): **honest negative / limits result.** The
+Earlier paper framing (confirmed 2026-07-25): **honest negative / limits
+result.** The
 manuscript does not claim the PFTF local SPD metric beats prior-art anisotropic
 alpha; it reports a rigorous frozen held-out evaluation whose primary finding is
 negative, plus two real secondary contributions (a strictly better density
 baseline, and a deployed fail-closed exact-construction fallback). Every claim
 below is bounded by committed evidence; `promotion_supported` is false throughout.
+
+Current manuscript decision (2026-08-04): prepare the specialized two-layer
+line as a **separate positive paper** centered on the untouched Phase-50 result.
+The negative PFTF/local-SPD evidence remains an explicit boundary, not the
+positive paper's headline.
 
 ## Primary claim (negative, the headline)
 
@@ -35,7 +41,7 @@ below is bounded by committed evidence; `promotion_supported` is false throughou
 | Frozen PFTF summaries do **not** identify the coefficient of the declared invertible quadratic-shear family better than simple controls. | Phase 48: all 45 held-out maps pass the inverse/determinant audit, but PFTF coefficient MAE/RMS/Jaccard are `0.115118/0.098199/0.576518`, behind the TRAIN mean (`0.100000/0.085432/0.601368`) and non-PFTF geometry ridge (`0.100103/0.085439/0.598767`). | Negative synthetic coordinate-aligned recovery evidence. It does not support PFTF-conditioned map value, arbitrary local-SPD metrics, alpha selection, reconstruction/topology benefit, real transfer, exactness, or deployment. Do not retune the opened held-out panel. |
 | The Phase-48 failure is explained by lack of an invariant observed PFTF shear signal, not by loss of map invertibility. | Phase 49 uses TRAIN/CALIBRATION only: selected PFTF `log_scale_std` falls from median within-block `R2=0.924162` to `0.491280`, with only `3/6` slope directions retained, pooled `R2=0.000234`, and family/seed block-to-strength explained-SS ratio `4255.57`. Standalone MAE `0.103968` is effectively the TRAIN-mean `0.104000`. | Identifiability diagnostic on repeated coordinate-aligned synthetic corruptions only. No Phase-48 held-out case is reused. It closes this learned-map branch and does not alter the positive analytic Phase-47 construction. |
 
-## Separate Phase-2 positive result (not the negative-paper headline)
+## Separate two-layer positive line (Phases 2-50)
 
 | Claim | Evidence | Boundary |
 |---|---|---|
@@ -47,6 +53,7 @@ below is bounded by committed evidence; `promotion_supported` is false throughou
 | A density-normalized local-order guard improves transfer but **does not certify safety**. | Phase 6 (`pftf_alpha_local_order_guard_phase6/v1`): frozen 360-case held-out. False-safe 61 -> 2 and safe retention 91.58%; N=160/256 false-safe 59 -> 0, but both N=96 false-safe survive. | Useful diagnostic progress, not a positive safety claim. The two sparse survivors violate the predeclared zero-false-safe gate; no post-hoc retuning. `phase6_supported=false`. |
 | **Shared-trend residual layer inference** repairs the upstream global-coordinate assignment failure in the declared two-layer regime. | Phase 7 (`pftf_alpha_shared_trend_inference_phase7/v1`): frozen 360-case held-out. Base false-safe 60 -> candidate 0; all 186 base-safe accepts retained; 58/60 base false-safe cases become accepted safe outputs and two fail closed. | Positive model-based baseline, not PFTF-SPD novelty. The quadratic trend family matches the synthetic shapes; no real scan, occlusion/outlier stress, arbitrary surface, or deployment evidence. `phase7_supported=true`, `deployment_supported=false`. |
 | The Phase-7 candidate transfers to tested non-outlier sensor stresses at N>=160, but is **outlier-blind** and sparse-conservative. | Phase 8 (`pftf_alpha_sensor_stress_phase8/v1`): 216 frozen cases. At N=160/256, all 96 non-outlier occlusion/imbalance/noise/nonquadratic cases are safe accepts. At N=96, non-outlier coverage is 43.75%. Spatial outliers produce 56 candidate false-safe accepts. | Positive bounded operating envelope plus decisive negative boundary. No outlier robustness, real scan, arbitrary corruption, or deployment support. `phase8_supported=false`. |
+| The frozen shared-trend two-layer method has a **positive untouched confirmatory result** against strong alpha-shape comparators in its declared operating envelope. | Phase 50 (`pftf_alpha_two_layer_confirmatory_phase50/v1`): new arbitrary-pose 144-case panel at N=160/256. Candidate safe accepts 144/144, false-safe 0, repairs 6/6 global-normal base false-safes, mean F 0.898536 versus B5 0.515603 and M1 0.620140, and wins 144/144 cases against each. Candidate topology error/nonmanifold edges are 0 versus B5 topology error 45,606 and M1 11,925. All preregistered gates pass. | Positive synthetic two-layer efficacy only. Spatial outliers, N<160, intersecting/non-separable or arbitrary surfaces, real scans, PFTF/local-SPD superiority, exactness, and deployment remain unsupported. `phase50_supported=true`; promotion remains false. |
 | A robust shared-trend residual guard catches moderate contamination but **does not transfer as a complete outlier certificate**. | Phase 9 (`pftf_alpha_outlier_guard_phase9/v1`): frozen 216-case held-out. False-safe 58 -> 4; all accepted 3%/5% contamination removed; safe retention 88.70%. Local-bump retention is only 9/22. | Residual score confounds localized nonquadratic shape with contamination, while near-surface 1% outliers can look like noisy inliers. No post-hoc retuning. `phase9_supported=false`. |
 
 ## What the paper must NOT claim
@@ -66,11 +73,28 @@ below is bounded by committed evidence; `promotion_supported` is false throughou
   superiority (it validates a conventional shared-quadratic two-layer model).
 - Phase 8 supports outlier robustness or sparse sensor deployment (56 outlier
   false-safe accepts and 43.75% N=96 non-outlier coverage refute this).
+- Phase 50 supports arbitrary surfaces, spatial-outlier robustness, real-scan
+  transfer, or PFTF/local-SPD superiority (its positive claim is restricted to
+  N>=160 globally separable non-outlier synthetic two-layer surfaces).
 - Phase 9 supplies a universal shape-agnostic outlier certificate (four 1%
   false-safe cases remain and local-bump safe retention is 40.91%).
 - Any promotion: `promotion_supported=false` in every artifact.
 
 ## Suggested paper spine
+
+### Positive two-layer paper
+
+1. Problem: alpha-shape threshold selection cannot by itself prevent false
+   connectivity between two nearby but distinct surfaces.
+2. Method: observed-only shared-trend layer inference, sampling-sufficiency
+   routing, and per-layer constrained Delaunay connectivity.
+3. Development evidence: Phases 2-7, including curvature/density failure maps.
+4. Confirmatory evidence: untouched Phase 50 versus frozen B5 and M1, with
+   geometry, topology, casewise wins, and ablation.
+5. Limits: N<160, spatial outliers, intersections, and current lack of real
+   two-layer validation.
+
+### Earlier negative PFTF/local-SPD paper
 
 1. Motivation: is a PFTF-derived local SPD metric worth the complexity over
    density (B4) and normal-anisotropic (B5) alpha baselines?

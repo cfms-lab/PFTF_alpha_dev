@@ -5,7 +5,16 @@ reconstruction.
 
 ## Status
 
-- Quality: **ToDo**
+- Quality: **Research**
+- Phase 50 provides a preregistered positive two-layer result on a new,
+  arbitrary-pose 144-case panel. The unchanged shared-trend candidate safely
+  accepts 144/144 with zero false-safe outputs, reaches mean F-score `0.898536`
+  versus B5 `0.515603` and M1 `0.620140`, and wins casewise against both in
+  144/144 cases. Aggregate candidate topology error is zero versus B5 `45,606`
+  and M1 `11,925`. `phase50_supported=true` only for sampling-sufficient,
+  globally separable, non-outlier synthetic two-layer surfaces; PFTF, real-scan,
+  outlier, arbitrary-surface, and deployment claims remain false. See
+  `docs/TWO_LAYER_CONFIRMATORY_RESULT_PHASE50.md`.
 - Phase 49 closes the learned PFTF coordinate-map branch without reopening
   held-out data. The TRAIN-selected PFTF summary falls from within-block `R2`
   `0.924` to `0.491` on CALIBRATION, while family/seed variation is about
@@ -698,6 +707,17 @@ and N=256 all 96 non-outlier stress cases are accepted safely, including every
 nonquadratic case, while sparse N=96 coverage is only `43.75%`.
 `phase8_supported=false`; see
 [docs/SENSOR_STRESS_PHASE8.md](docs/SENSOR_STRESS_PHASE8.md).
+
+`pftf_alpha.two_layer_confirmatory` turns that Phase-8 operating boundary into
+a new preregistered Phase-50 confirmatory panel. It evaluates 144 arbitrary-pose
+N=160/256 non-outlier cases against both frozen B5 and M1. The candidate safely
+accepts 144/144 with zero false-safe outputs, repairs all six global-normal base
+false-safes, and wins F-score against both comparators in every case. Mean
+F-score is `0.898536` versus `0.515603`/`0.620140`; topology error is zero versus
+`45,606`/`11,925`. All frozen safety, efficacy, topology, and ablation gates
+pass, so `phase50_supported=true` within the declared bounded synthetic regime.
+See
+[docs/TWO_LAYER_CONFIRMATORY_RESULT_PHASE50.md](docs/TWO_LAYER_CONFIRMATORY_RESULT_PHASE50.md).
 
 `pftf_alpha.outlier_guard` adds a frozen MAD/leverage-studentized shared-trend
 residual score multiplied by local-density anomaly. Phase 9 removes 54/58

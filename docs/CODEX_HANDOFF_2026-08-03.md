@@ -1,6 +1,59 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 49 PFTF shear identifiability complete and negative
+## Current work: Phase 50 two-layer confirmatory complete and positive
+
+The manuscript direction has pivoted from a negative PFTF/local-SPD headline to
+a separate bounded positive two-layer paper. Commit `9402193` preregistered a
+new untouched 144-case panel before any Phase-50 endpoint was opened:
+N=160/256, six non-outlier sensor stresses, 12 repeats, and one deterministic
+proper 3D rotation per case. The unchanged Phase-7 shared-trend candidate is
+compared with the global-normal ablation, frozen B5, and independently calibrated
+M1. Protocol SHA-256:
+`7615721e347647def8589cbf9204723ba000c529487a32dbfd7dd2d1a6839c76`.
+
+Commit `5543743` implements the fixed evaluator and gate audit. The once-opened
+seed `35000804` passes every preregistered gate:
+
+- protocol/config identity and M1 availability: 144/144;
+- candidate safe accepts: 144/144; false-safe: 0;
+- global-normal base safe accepts: 138/144; false-safe: 6;
+- candidate repairs all 6/6 base false-safes;
+- mean F-score: candidate 0.898536, B5 0.515603, M1 0.620140;
+- mean normalized geometry loss: 0.126043, 0.140552, 0.137152;
+- candidate casewise F-score wins: 144/144 versus B5 and 144/144 versus M1;
+- topology error: candidate 0, B5 45,606, M1 11,925;
+- candidate nonmanifold edges: 0;
+- all 12 point-count x stress subgroups have 100% safe coverage;
+- worst subgroup F margin: +0.252639 versus B5 and +0.210241 versus M1.
+
+Thus `phase50_supported=true` for sampling-sufficient, globally separable,
+non-outlier synthetic two-layer surfaces. Result SHA-256:
+`236699aa3ba0bb00a7572ff46df7cd74c94fc7fe918ca2fcefed1de18c685b64`.
+An independent deterministic repeat produced byte-identical output and the
+same hash.
+
+Final repository verification is clean: Ruff passes and the full suite reports
+`440 passed`.
+
+Do not tune or reopen Phase 50. Keep `promotion_supported=false`,
+`pftf_superiority_supported=false`, `real_scan_supported=false`, and
+`deployment_supported=false`. The next distinct evidence step is a separately
+preregistered external validation on a real/public two-surface point-cloud
+corpus with evaluation-only ground-truth separation. Do not present the
+Phase-50 synthetic generator as real evidence.
+
+Primary files:
+
+- `src/pftf_alpha/two_layer_confirmatory_protocol.py`;
+- `src/pftf_alpha/two_layer_confirmatory.py`;
+- `tests/test_two_layer_confirmatory_protocol.py`;
+- `tests/test_two_layer_confirmatory.py`;
+- `docs/TWO_LAYER_CONFIRMATORY_PROTOCOL_PHASE50.md`;
+- `docs/TWO_LAYER_CONFIRMATORY_RESULT_PHASE50.md`;
+- `benchmark-out/two_layer_confirmatory_protocol_phase50.json`;
+- `benchmark-out/two_layer_confirmatory_phase50.json`.
+
+## Previous continuation: Phase 49 PFTF shear identifiability complete and negative
 
 Phase 49 follows the required diagnostic after Phase 48 without reopening any
 held-out case. Commit `5b2dddb` preregistered a TRAIN/CALIBRATION-only audit,
