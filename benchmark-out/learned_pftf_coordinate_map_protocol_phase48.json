@@ -1,0 +1,97 @@
+{
+  "ambient_dimension": 3,
+  "artifact_schema": "pftf_alpha_learned_pftf_coordinate_map_protocol_phase48/v1",
+  "calibration_rule": "choose ridge penalty only by minimum coefficient MAE on the 30 CALIBRATION cases, breaking exact ties toward the larger penalty; then freeze preprocessing, coefficients, penalty, and clipping",
+  "calibration_seeds": [
+    48101,
+    48102
+  ],
+  "calibration_strengths": [
+    0.04,
+    0.12,
+    0.2,
+    0.28,
+    0.36
+  ],
+  "claim_boundary": "a positive result supports only recovery of one coordinate-aligned scalar quadratic-shear family on the declared synthetic panel; it does not establish an arbitrary local-SPD field, a general neural or nonlinear map learner, alpha selection, reconstruction or topology advantage, real-scan transfer, exact predicates, or deployment",
+  "construction_gate": "every predicted map must remain inside the strength bounds, have determinant one, and pass inverse roundtrip error <= 1e-12",
+  "correction_map": "Phi_s(x,y,z) = (x, y + s*x^2, z)",
+  "corruption_map": "Phi_-s(x,y,z) = (x, y - s*x^2, z)",
+  "families": [
+    "torus",
+    "disconnected_parts",
+    "sharp_crease"
+  ],
+  "frozen_comparators": [
+    "identity map with coefficient zero",
+    "constant coefficient equal to the TRAIN mean",
+    "ridge model using only four non-PFTF global covariance/moment features",
+    "oracle true coefficient as an evaluation ceiling only"
+  ],
+  "geometry_baseline_features": [
+    "normalized_covariance_xy",
+    "x_skewness",
+    "y_skewness",
+    "axis_variance_ratio"
+  ],
+  "held_out_rule": "evaluate the frozen models once on 45 HELD_OUT cases; held-out labels, latent points, and alpha complexes cannot change any model",
+  "held_out_seeds": [
+    48201,
+    48202,
+    48203
+  ],
+  "held_out_strengths": [
+    0.02,
+    0.1,
+    0.18,
+    0.26,
+    0.34
+  ],
+  "inverse_certificate": "every predicted scalar s defines the Phase-47 analytic quadratic shear with explicit global inverse Phi_-s and determinant one",
+  "k_neighbors": 8,
+  "learner": "training-standardized linear ridge regression with an unpenalized intercept; predictions are clipped to the declared [0,0.40] family",
+  "map_strength_bounds": [
+    0.0,
+    0.4
+  ],
+  "normalization": "each latent synthetic cloud is centered and divided by its RMS radius before the frozen corruption is applied",
+  "pftf_features": [
+    "relation_xy_mean",
+    "relation_xy_std",
+    "relation_strength_median",
+    "relation_strength_q90",
+    "confidence_mean",
+    "reciprocity_mean",
+    "log_scale_std"
+  ],
+  "pftf_value_gate": "the frozen PFTF model must strictly beat both the TRAIN-mean and non-PFTF geometry models on all three mean primary endpoints",
+  "point_count": 64,
+  "primary_endpoints": [
+    "held-out correction-coefficient MAE",
+    "held-out corrected-coordinate RMS error to latent coordinates",
+    "held-out Delaunay top-cell Jaccard against the latent alpha complex"
+  ],
+  "reference_boundary": "PFTF and comparator features use corrupted observed coordinates only; latent points and true coefficients are training labels or evaluation targets, never selection inputs on held-out cases",
+  "reference_count": 256,
+  "ridge_grid": [
+    0.0,
+    0.0001,
+    0.01,
+    1.0
+  ],
+  "role": "pre_implementation_synthetic_pftf_conditioned_map_recovery",
+  "train_seeds": [
+    48001,
+    48002,
+    48003,
+    48004
+  ],
+  "train_strengths": [
+    0.0,
+    0.08,
+    0.16,
+    0.24,
+    0.32
+  ],
+  "training_rule": "fit feature centering/scaling and ridge coefficients only on the 60 TRAIN cases; zero-variance feature scales are replaced by one"
+}
