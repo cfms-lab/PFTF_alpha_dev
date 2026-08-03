@@ -58,6 +58,18 @@ def test_phase44_critical_gap_selection_is_scale_invariant() -> None:
     assert scaled.threshold == pytest.approx(7.5 * original.threshold)
 
 
+def test_phase45_zero_scores_are_included_but_not_logged() -> None:
+    scores = np.asarray([0.0, 0.0, 1.0, 1.1, 1.2, 4.0, 4.1, 4.2])
+
+    selected = complete_critical_gap_threshold(scores)
+
+    assert selected.lower_critical_score == 1.2
+    assert selected.upper_critical_score == 4.0
+    assert selected.selected_cell_count == 5
+    assert selected.selected_cell_fraction == 0.625
+    assert selected.unique_critical_score_count == 7
+
+
 def test_phase44_protocol_hash_is_locked() -> None:
     verify_protocol("benchmark-out/confidence_alpha_transfer_protocol_phase44.json")
     assert len(EXPECTED_PROTOCOL_SHA256) == 64

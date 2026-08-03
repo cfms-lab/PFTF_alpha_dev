@@ -13,7 +13,7 @@
     0.5
   ],
   "confidence_power_weight_formula": "w_i = spacing_i^2 * (0.375^2 - penalty_scale^2 * (1 - observed_confidence_i))",
-  "critical_score_selection": "reuse unchanged Phase-44 complete adjacent log-gap selection over all finite unique top-cell scores with lower selected-cell fraction in [0.50, 0.98]",
+  "critical_score_selection": "reuse Phase-44 complete adjacent log-gap selection with zero-score cells always included and counted in occupancy; scan every adjacent strictly-positive finite unique top-cell score whose lower selected-cell fraction lies in [0.50, 0.98]",
   "families": [
     "sphere",
     "torus",

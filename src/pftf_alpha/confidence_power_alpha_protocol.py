@@ -114,9 +114,10 @@ def preregister_confidence_power_alpha() -> ConfidencePowerAlphaProtocol:
         frozen_binary_confidence_threshold=FROZEN_BINARY_CONFIDENCE_THRESHOLD,
         frozen_continuous_penalty_strength=FROZEN_CONTINUOUS_PENALTY_STRENGTH,
         critical_score_selection=(
-            "reuse unchanged Phase-44 complete adjacent log-gap selection over "
-            "all finite unique top-cell scores with lower selected-cell fraction "
-            "in [0.50, 0.98]"
+            "reuse Phase-44 complete adjacent log-gap selection with zero-score "
+            "cells always included and counted in occupancy; scan every adjacent "
+            "strictly-positive finite unique top-cell score whose lower selected-"
+            "cell fraction lies in [0.50, 0.98]"
         ),
         calibration_objective=(
             "among non-submerging penalty scales, minimize calibration mean "

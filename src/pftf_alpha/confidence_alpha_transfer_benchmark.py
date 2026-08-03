@@ -182,16 +182,17 @@ def complete_critical_gap_threshold(
         raise ValueError(
             "critical scores must be a one-dimensional array of length >= 2"
         )
-    if not np.all(np.isfinite(scores)) or np.any(scores <= 0.0):
-        raise ValueError("critical scores must be finite and strictly positive")
+    if not np.all(np.isfinite(scores)) or np.any(scores < 0.0):
+        raise ValueError("critical scores must be finite and non-negative")
     unique = np.unique(scores)
-    if unique.shape[0] < 2:
-        raise ValueError("at least two unique critical scores are required")
+    positive = unique[unique > 0.0]
+    if positive.shape[0] < 2:
+        raise ValueError("at least two positive unique critical scores are required")
 
     candidates: list[tuple[float, int, float, float, float]] = []
-    for index in range(unique.shape[0] - 1):
-        lower = float(unique[index])
-        upper = float(unique[index + 1])
+    for index in range(positive.shape[0] - 1):
+        lower = float(positive[index])
+        upper = float(positive[index + 1])
         selected_count = int(np.count_nonzero(scores <= lower))
         selected_fraction = selected_count / scores.shape[0]
         if not (
@@ -211,8 +212,8 @@ def complete_critical_gap_threshold(
         candidates,
         key=lambda row: (row[0], -row[2], -row[3]),
     )
-    lower_index = int(np.searchsorted(unique, lower))
-    upper = float(unique[lower_index + 1])
+    lower_index = int(np.searchsorted(positive, lower))
+    upper = float(positive[lower_index + 1])
     return CriticalGapSelection(
         threshold=threshold,
         lower_critical_score=lower,

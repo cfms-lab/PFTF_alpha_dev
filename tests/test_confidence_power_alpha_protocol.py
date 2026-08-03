@@ -18,6 +18,7 @@ def test_phase45_protocol_freezes_disjoint_panel_and_construction() -> None:
     assert protocol.held_out_case_count == 27
     assert "spacing_i^2" in protocol.confidence_power_weight_formula
     assert "fail closed" in protocol.point_submersion_policy
+    assert "zero-score cells always included" in protocol.critical_score_selection
     assert "connectivity must differ" in protocol.validation_gate
 
 

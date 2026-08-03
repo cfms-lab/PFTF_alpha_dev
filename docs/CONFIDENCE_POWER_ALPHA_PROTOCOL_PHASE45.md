@@ -29,10 +29,13 @@ generators are reused with entirely new seeds: calibration 45001 and held-out
 gives nine calibration and 27 held-out cases. No Phase-43 or Phase-44 endpoint
 is reused.
 
-Every method uses the unchanged Phase-44 complete critical-gap selector over
-the 50%--98% selected-cell interval. Only the confidence power-penalty scale is
-calibrated. Binary deletion remains fixed at threshold 0.25 and fixed-cell
-continuous weighting at strength 1.0; M1 remains fixed at density scale 0.375.
+Every method uses the Phase-44 complete critical-gap selector over the 50%--98%
+selected-cell interval. Weighted power radii can be exactly zero, so zero-score
+cells are always selected and counted in occupancy while the logarithmic gap
+scan examines every adjacent strictly positive critical score. Only the
+confidence power-penalty scale is calibrated. Binary deletion remains fixed at
+threshold 0.25 and fixed-cell continuous weighting at strength 1.0; M1 remains
+fixed at density scale 0.375.
 
 ## Frozen validation gate
 
