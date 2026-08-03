@@ -118,7 +118,7 @@ def write_protocol(path: str | Path) -> str:
         indent=2,
         sort_keys=True,
     ) + "\n"
-    output.write_text(text, encoding="utf-8")
+    output.write_bytes(text.encode("utf-8"))
     return hashlib.sha256(output.read_bytes()).hexdigest()
 
 
