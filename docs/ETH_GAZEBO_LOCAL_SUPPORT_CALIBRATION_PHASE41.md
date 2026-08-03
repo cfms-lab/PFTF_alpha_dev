@@ -66,3 +66,22 @@ If no candidate is eligible, Phase 41 stops without evaluating reserved
 references. If one is selected, freeze its artifact hash and preregister a
 validation on sources `1, 17, 18, 21, 22, 23, 24`. These sources were excluded
 from Phase 40 and each has at least six direct target scans.
+
+## Frozen development result
+
+The grid was committed as `d66c3ff` before execution. Exactly one candidate is
+eligible: `support02_dispersion0150mm`. It retains 92 corroborated target-only
+cells and fails closed on 6,462 target-only cells.
+
+| Development endpoint | Anchor only | Scan fused | Selected local route |
+|---|---:|---:|---:|
+| Geometry loss | 0.175905 | 0.187623 | 0.142003 |
+| F-score | 0.707286 | 0.074181 | 0.688406 |
+| Recall | 0.724181 | 0.115268 | 0.717738 |
+
+The selected result improves geometry against both baselines while remaining
+inside both anchor tolerances. Calibration artifact SHA-256:
+`dfc37f2bbc011e89646bd5a9a89744b9e065d78026b1dcdb58f900f64b18ecae`.
+
+This is development evidence only. It does not support a Phase-41 validation
+claim until the reserved-source protocol is committed and executed unchanged.
