@@ -1,6 +1,51 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 45 confidence-power alpha complete and negative
+## Current work: Phase 46 global affine-SPD control complete and positive
+
+Phase 46 separates a mathematically coherent anisotropic-complex control from
+the existing B5/P1 fixed-Euclidean-connectivity cell rescoring. Commit
+`d48fc0b` preregistered the compatibility condition, five controls, tolerances,
+and claim boundary before implementation. Commit `afc7734` changed only the
+protocol writer to canonical UTF-8/LF bytes. Final protocol SHA-256:
+`6b49428a641e1db1db88d1a8cd5da1e3672490a9409dfd5c5f9b64036a632b06`.
+
+Commit `a545945` implements a constant global SPD construction. For row-vector
+coordinates and `M=L L^T`, it builds the complete Euclidean Delaunay alpha
+filtration after `y=xL`, then retains the indexed simplices and filtration
+records on the original coordinates. A `LocalMetricField` enters this path
+only when every point matrix equals one shared metric within frozen tolerances.
+
+All five controls pass:
+
+- identity versus Euclidean: identical connectivity and scores;
+- constant anisotropic versus explicit transform: identical;
+- affine coordinate covariance: identical connectivity, maximum relative score
+  error `1.4194e-10` versus the frozen `5e-10` tolerance;
+- constant local field versus global construction: identical;
+- rotating local field: rejected before construction, with maximum relative
+  metric deviation `0.957302`.
+
+The result is reproduced byte-for-byte twice. Result SHA-256:
+`2c3ad38e32754d04e31c15b5388988a87f7b4abd4d49f4ec540bcaba29822198`.
+Thus `global_affine_spd_complex_supported=true`, but this is a construction
+invariant rather than a reconstruction-performance claim. Keep
+`spatially_varying_spd_complex_supported=false`,
+`point_local_alpha_field_supported=false`,
+`exact_affine_spd_predicates_supported=false`,
+`affine_spd_reconstruction_advantage_supported=false`,
+`affine_spd_topology_correctness_supported=false`,
+`affine_spd_real_scan_transfer_supported=false`, and
+`affine_spd_deployment_supported=false`.
+
+Do not benchmark another constant global metric as though it were a local
+field. The next distinct route is a preregistered globally integrable nonlinear
+coordinate construction: one analytic injective map `Phi`, with row-convention
+metric `M(x)=J_Phi(x) J_Phi(x)^T`, followed by Delaunay/alpha in transformed
+coordinates. First validate injectivity, Jacobian/integrability, and filtration
+covariance controls; only after that should a PFTF-conditioned map be learned
+on separate training data and evaluated once on a new frozen panel.
+
+## Previous continuation: Phase 45 confidence-power alpha complete and negative
 
 Phase 45 implements the first post-Phase-44 construction that changes complex
 connectivity rather than rescoring fixed Euclidean Delaunay cells. Commit

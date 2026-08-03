@@ -67,11 +67,11 @@ class AffineSPDAlphaAuditResult:
     global_affine_spd_complex_supported: bool
     spatially_varying_spd_complex_supported: bool
     point_local_alpha_field_supported: bool
-    exact_predicate_supported: bool
-    reconstruction_performance_supported: bool
-    topology_correctness_supported: bool
-    real_scan_transfer_supported: bool
-    deployment_supported: bool
+    exact_affine_spd_predicates_supported: bool
+    affine_spd_reconstruction_advantage_supported: bool
+    affine_spd_topology_correctness_supported: bool
+    affine_spd_real_scan_transfer_supported: bool
+    affine_spd_deployment_supported: bool
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
@@ -299,11 +299,11 @@ def evaluate_affine_spd_alpha_audit() -> AffineSPDAlphaAuditResult:
         global_affine_spd_complex_supported=all_controls_pass,
         spatially_varying_spd_complex_supported=False,
         point_local_alpha_field_supported=False,
-        exact_predicate_supported=False,
-        reconstruction_performance_supported=False,
-        topology_correctness_supported=False,
-        real_scan_transfer_supported=False,
-        deployment_supported=False,
+        exact_affine_spd_predicates_supported=False,
+        affine_spd_reconstruction_advantage_supported=False,
+        affine_spd_topology_correctness_supported=False,
+        affine_spd_real_scan_transfer_supported=False,
+        affine_spd_deployment_supported=False,
     )
 
 

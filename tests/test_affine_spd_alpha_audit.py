@@ -15,6 +15,11 @@ def test_phase46_audit_passes_global_controls_and_rejects_local_field() -> None:
     assert result.global_affine_spd_complex_supported
     assert not result.spatially_varying_spd_complex_supported
     assert not result.point_local_alpha_field_supported
+    assert not result.exact_affine_spd_predicates_supported
+    assert not result.affine_spd_reconstruction_advantage_supported
+    assert not result.affine_spd_topology_correctness_supported
+    assert not result.affine_spd_real_scan_transfer_supported
+    assert not result.affine_spd_deployment_supported
     rejected = next(
         control
         for control in result.controls

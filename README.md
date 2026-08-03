@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 46 establishes a coherent constant global affine-SPD alpha control:
+  all five construction/covariance controls pass, while a spatially rotating
+  local metric field fails closed before filtration construction. This is not
+  a spatially varying local-alpha or performance claim. See
+  `docs/AFFINE_SPD_ALPHA_AUDIT_PHASE46.md`.
 - Phase 45 changes regular-triangulation connectivity with observed confidence
   power weights, but the frozen transfer gate remains negative: connectivity
   changes in 27/27 cases with best stability, while binary deletion, fixed-cell
@@ -48,6 +53,10 @@ The current Python prototype provides:
 - an auditable geometry/topology/stability/complexity objective scan;
 - SPD construction \(M_i=L_iL_i^T+\varepsilon I\), local metric evaluation,
   confidence-aware fallback, and soft/hard alpha gates;
+- a globally compatible constant-SPD alpha construction that applies one
+  shared affine coordinate transform before both Delaunay construction and
+  filtration scoring, plus a fail-closed guard that rejects varying point
+  fields from this construction;
 - deterministic train/calibration/held-out variants of the six required 3D
   synthetic families;
 - B0 convex hull, B1 fixed normalized alpha, B2 exhaustive reference oracle,

@@ -1,0 +1,86 @@
+{
+  "affine_spd_deployment_supported": false,
+  "affine_spd_real_scan_transfer_supported": false,
+  "affine_spd_reconstruction_advantage_supported": false,
+  "affine_spd_topology_correctness_supported": false,
+  "artifact_schema": "pftf_alpha_affine_spd_alpha_audit_phase46/v1",
+  "controls": [
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "identity global metric versus Euclidean AlphaFiltration",
+      "expected_rejection": false,
+      "metric_maximum_relative_deviation": 0.0,
+      "name": "identity_reproduces_euclidean",
+      "observed_rejection": false,
+      "passed": true
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "global construction versus explicit y=xL filtration",
+      "expected_rejection": false,
+      "metric_maximum_relative_deviation": 0.0,
+      "name": "constant_anisotropic_matches_explicit_transform",
+      "observed_rejection": false,
+      "passed": true
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 2.483477146597579e-06,
+        "maximum_relative_score_error": 1.4193928725933918e-10,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "x'=xA and M'=A^-1 M A^-T",
+      "expected_rejection": false,
+      "metric_maximum_relative_deviation": 0.0,
+      "name": "affine_coordinate_covariance",
+      "observed_rejection": false,
+      "passed": true
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "constant LocalMetricField accepted by compatibility guard",
+      "expected_rejection": false,
+      "metric_maximum_relative_deviation": 0.0,
+      "name": "constant_local_field_reduces_to_global_metric",
+      "observed_rejection": false,
+      "passed": true
+    },
+    {
+      "comparison": null,
+      "detail": "varying point metrics require more than one global transform",
+      "expected_rejection": true,
+      "metric_maximum_relative_deviation": 0.9573021750478927,
+      "name": "rotating_local_field_fails_closed",
+      "observed_rejection": true,
+      "passed": true
+    }
+  ],
+  "exact_affine_spd_predicates_supported": false,
+  "global_affine_spd_complex_supported": true,
+  "passed_control_count": 5,
+  "point_local_alpha_field_supported": false,
+  "protocol_schema": "pftf_alpha_affine_spd_alpha_protocol_phase46/v1",
+  "protocol_sha256": "6b49428a641e1db1db88d1a8cd5da1e3672490a9409dfd5c5f9b64036a632b06",
+  "spatially_varying_spd_complex_supported": false,
+  "total_control_count": 5
+}
