@@ -20,6 +20,7 @@ from pathlib import Path
 import numpy as np
 from numpy.typing import NDArray
 from scipy.spatial import cKDTree
+
 from .adaptive import (
     BoundaryBridgeLocalization,
     boundary_bridge_localization,

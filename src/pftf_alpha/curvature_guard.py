@@ -15,7 +15,7 @@ from .adaptive import local_neighborhood_geometry
 from .reacquisition import ReacquisitionConfig
 from .sampling_gate import SamplingGateDecision, SamplingSufficiencyConfig
 from .surface import SurfaceEndpointMetrics, evaluate_surface
-from .two_layer_boundary import BoundaryAxis, DEFAULT_LEVELS, make_boundary_case
+from .two_layer_boundary import DEFAULT_LEVELS, BoundaryAxis, make_boundary_case
 from .two_layer_connectivity import (
     TwoLayerConstruction,
     construct_two_layer_surface,

@@ -664,6 +664,221 @@ that a shared-quadratic residual is not a shape-agnostic outlier certificate.
 `phase9_supported=false`; see
 [docs/OUTLIER_GUARD_PHASE9.md](docs/OUTLIER_GUARD_PHASE9.md).
 
+`pftf_alpha.local_surface_consensus` separates source provenance from realized
+geometry/topology harm and replaces the global residual with a same-layer,
+leave-one-out local tangent-plane score. On the once-frozen 216-case Phase-10
+panel it reduces harmful-outlier false-safe accepts from 55 to 1, but retains
+only 23/39 (`58.97%`) clean/local-bump safe accepts. The score distributions
+overlap: a cutoff strict enough to remove every harmful case would retain only
+`38.46%`, while a cutoff that retains 90% still leaves two harmful cases.
+Thresholds were not retuned. `phase10_supported=false`, so trimmed
+reconstruction and real-scan validation were not started; see
+[docs/LOCAL_SURFACE_CONSENSUS_PHASE10.md](docs/LOCAL_SURFACE_CONSENSUS_PHASE10.md).
+
+`pftf_alpha.multiscale_surface_consensus` replaces that representation with
+leave-one-out local quadratic fits at 12, 18, and 24 neighbours and separates
+threshold calibration from held-out evaluation. Calibration removes 53/53
+harmful false-safe accepts while retaining 36/40 (`90.00%`) clean/local-bump
+safe accepts. At the frozen threshold, however, the untouched held-out panel
+leaves one of 54 harmful false-safes, despite retaining 41/42 (`97.62%`) safe
+accepts. Tightening the score enough to remove that case would reduce
+calibration retention to `87.50%`, so the threshold was not retuned.
+`phase11_supported=false`; see
+[docs/MULTISCALE_QUADRATIC_CONSENSUS_PHASE11.md](docs/MULTISCALE_QUADRATIC_CONSENSUS_PHASE11.md).
+
+`pftf_alpha.local_insertion_influence` then measures the change in neighbour
+surface predictions when each omitted point is inserted into a local quadratic
+fit. A two-coordinate peak/support accept rectangle is selected on a separate
+calibration seed. Calibration removes 52/52 harmful false-safes with 43/43
+(`100%`) clean/local-bump retention, but the frozen rectangle leaves one of 52
+harmful false-safes on held-out while retaining 42/42 safe focus cases. A
+post-hoc search shows that stricter rectangles could separate both panels, so
+the negative is calibration-margin transfer rather than demonstrated
+representation overlap. Held-out thresholds were not retuned and
+`phase12_supported=false`; see
+[docs/LOCAL_INSERTION_INFLUENCE_PHASE12.md](docs/LOCAL_INSERTION_INFLUENCE_PHASE12.md).
+
+`pftf_alpha.conservative_influence_calibration` keeps the Phase-12
+representation fixed and selects one rectangle from two new calibration
+cohorts by maximizing worst-cohort retention. Both calibration cohorts remove
+all 105 harmful false-safes at just over 90% clean/local-bump retention, but the
+frozen final held-out still leaves one of 55 harmful cases. Exhaustive
+three-panel analysis finds no zero-harm rectangle retaining 90% on every panel;
+the best minimum retention is only `43.18%`. This changes the diagnosis from a
+calibration-margin problem to representation overlap for the peak/support
+influence family. `phase13_supported=false`; see
+[docs/CONSERVATIVE_INFLUENCE_CALIBRATION_PHASE13.md](docs/CONSERVATIVE_INFLUENCE_CALIBRATION_PHASE13.md).
+
+`pftf_alpha.observed_identifiability` then tests a broader 14-feature
+observed-only signature rather than proposing another guard. The signature
+combines layer balance, normalized within/cross-layer spacing, gap and
+thickness, local insertion influence, and multiscale quadratic residuals.
+Nearest-class diagnosis still misses 3/54 harmful calibration cases and 4/51
+harmful held-out cases; six of the seven misses are 1% contamination. Held-out
+safe specificity is `97.50%`, but harmful recall is only `92.16%`, below the
+predeclared 100% safety requirement. Thus `feature_identifiable=false` within
+this signature family and `guard_supported=false`; see
+[docs/OBSERVED_IDENTIFIABILITY_AUDIT_PHASE14.md](docs/OBSERVED_IDENTIFIABILITY_AUDIT_PHASE14.md).
+
+`pftf_alpha.paired_scan_persistence` explicitly expands the information set to
+one independently sampled repeat of the same synthetic surface/stress family.
+It predicts each primary point from same-layer replicate local quadratic fits
+and calibrates a peak/support persistence rectangle on two new cohorts. The
+joint zero-harm rectangle removes all 56 harmful false-safes in each cohort,
+but retains only 36/42 (`85.71%`) and 37/43 (`86.05%`) safe control/local-bump
+accepts. Because both are below the predeclared 90% gate, the final held-out
+panel was not opened and thresholds were not retuned. Thus
+`phase15_supported=false`, including for paired synthetic support; real
+registration, trimmed reconstruction, and deployment remain unsupported. See
+[docs/PAIRED_SCAN_PERSISTENCE_PHASE15.md](docs/PAIRED_SCAN_PERSISTENCE_PHASE15.md).
+
+`pftf_alpha.studentized_paired_scan` next replaces the fixed residual scale
+with replicate-only quadratic LOO prediction error and query leverage. Two
+fresh calibration cohorts still reach zero guarded harm, but their best joint
+zero-harm rectangle retains only 18/43 (`41.86%`) and 11/42 (`26.19%`) safe
+control/local-bump accepts. The predictive uncertainty suppresses some desired
+curvature error but also suppresses the nonpersistent outlier residual itself.
+Both calibrations fail, so the final held-out panel remains unopened and
+`phase16_supported=false`. This score is not retuned; see
+[docs/STUDENTIZED_PAIRED_SCAN_PHASE16.md](docs/STUDENTIZED_PAIRED_SCAN_PHASE16.md).
+
+`pftf_alpha.matched_pair_consistency` then tests a stronger information model:
+the simulator supplies exact one-to-one acquisition IDs for primary/repeat
+returns, and the guard uses only robust axis-standardized matched displacement.
+Fresh calibration A/B panels remove all 52/58 harmful false-safes with 43/43
+(`100%`) focus retention in each. The frozen final held-out also removes all 55
+harmful cases with 43/43 focus retention, so `phase17_supported=true` and
+`exact_correspondence_synthetic_supported=true`. One harmless
+source-provenance violation remains accepted, and the simulator uses hidden
+truth only to construct matched returns. Therefore real correspondence,
+registration, trimming, and deployment remain unsupported; see
+[docs/MATCHED_PAIR_CONSISTENCY_PHASE17.md](docs/MATCHED_PAIR_CONSISTENCY_PHASE17.md).
+
+`pftf_alpha.matched_pair_stress` then freezes that score and evaluates exact
+pairs, 0.5-degree repeat-cloud rotation, 10% missing pairs, 2% cyclic pair-ID
+mismatch, and their combined perturbation on two fresh calibration cohorts.
+One common zero-harm rectangle retains 43/43 focus accepts in each cohort for
+exact, rotation-only, and missing-only profiles. It retains 0/43 in both
+`mismatch_02` profiles and only 0/43 and 1/43 for `combined`, because an
+incorrect pair appears as a large physical displacement to the score. Both
+calibrations therefore fail the predeclared all-profile gate, final held-out is
+not opened, and `phase18_supported=false`. Phase 17 remains an exact-ID
+synthetic upper bound; see
+[docs/MATCHED_PAIR_STRESS_PHASE18.md](docs/MATCHED_PAIR_STRESS_PHASE18.md).
+
+`pftf_alpha.tangential_pair_confidence` next robustly aligns the presented
+pairs and tries to remove ID errors using local tangent-plane residual divided
+by local spacing, while keeping the Phase-18 matched-displacement rectangle
+frozen. The joint A/B cutoff removes all 2,738 truth-mismatched pairs, but also
+retains only `71.74%` of truth-correct pairs versus the preregistered `99%`
+requirement. Harmful false-safes remain 246/275 and 225/250, despite 100%
+case-level safe-focus retention. A low-scoring wrong pair overlaps correct
+pairs within the same local-bump case, so the failure is representation overlap
+rather than threshold selection. Both calibrations fail and final remains
+unopened; `phase19_supported=false`. See
+[docs/TANGENTIAL_PAIR_CONFIDENCE_PHASE19.md](docs/TANGENTIAL_PAIR_CONFIDENCE_PHASE19.md).
+
+`pftf_alpha.global_tangential_assignment` then removes the scalar cutoff and
+solves a whole-set Hungarian assignment using the same aligned local-tangent
+cost, again freezing the Phase-18 downstream rectangle. It restores zero harm
+in both fresh calibration panels (`260→0`, `270→0`) and repairs over 97% of the
+pure mismatch profile, but assignment accuracy is only `97.89%` and `97.81%`.
+Even exact presented pairs are unnecessarily permuted, reducing safe-focus
+retention to `83.18%` and `76.67%`; combined mismatch repair also remains below
+90%. Both panels fail, final is not opened, and `phase20_supported=false`. See
+[docs/GLOBAL_TANGENTIAL_ASSIGNMENT_PHASE20.md](docs/GLOBAL_TANGENTIAL_ASSIGNMENT_PHASE20.md).
+
+`pftf_alpha.cycle_gated_assignment` next preserves the presented pairing by
+default and applies only complete Hungarian permutation cycles whose relative
+cost gain exceeds a truth-supervised cutoff frozen on the already-open Phase-20
+A/B cohorts. The cutoff rejects all 3,275 development non-improving cycles, and
+the exact, registration-only, and missing-only profiles retain 100% assignment
+accuracy and focus acceptance. However, it also rejects 304/750 improving
+cycles. `mismatch_02` repairs only `62.08%/64.44%`, `combined` repairs only
+`43.80%/44.44%`, and the combined profiles remain below 99% accuracy with only
+50% focus retention. Both development panels fail, so validation seeds
+23600804/23700804 and final seed 23800804 remain unopened.
+`phase21_supported=false`; a single observed cycle-gain threshold is closed for
+this protocol. See
+[docs/CYCLE_GATED_ASSIGNMENT_PHASE21.md](docs/CYCLE_GATED_ASSIGNMENT_PHASE21.md).
+
+`pftf_alpha.multivariate_cycle_signature` then freezes 14 observed cycle
+features spanning within-cycle tangent, normal, and total cost changes. A ridge
+linear score trained only on fresh seed 23900804 accepts 276/343 strictly
+correcting cycles and 0/1,524 unsafe cycles, so it introduces no mismatches.
+However, `mismatch_02` repair is only `77.78%`, `combined` repair is `53.64%`,
+and safe-focus retention is `89.27%`. One missing-only harmful case is still
+accepted under 100% correct unchanged pairing because its matched-displacement
+peak `9.2668` lies below the frozen `10.9226` limit. Training A fails, so seeds
+24000804--24300804 remain unopened and `phase22_supported=false`. The next
+bottleneck is no longer correspondence alone: the matched-displacement guard
+also lacks fresh-seed transfer. See
+[docs/MULTIVARIATE_CYCLE_SIGNATURE_PHASE22.md](docs/MULTIVARIATE_CYCLE_SIGNATURE_PHASE22.md).
+
+`pftf_alpha.matched_guard_signature` then isolates the downstream exact-pair
+guard on the exact, 0.5-degree registration, and 10%-missing profiles. A fixed
+12-feature displacement-tail ridge score perfectly separates training A:
+harmful 168 to 0 with 120/120 focus and 351/351 all-safe retention. On fresh
+development B it retains all 123 focus-safe accepts but leaves one of 159
+harmful false-safes in `missing_10pct`; exact and registration still pass. The
+opened A/B scores retain a post-hoc focus-safe gap, so this is a cutoff-margin
+transfer failure, not demonstrated focus overlap. Validation seeds
+24600804/24700804 and final 24800804 remain unopened, and
+`phase23_supported=false`. See
+[docs/MATCHED_GUARD_SIGNATURE_PHASE23.md](docs/MATCHED_GUARD_SIGNATURE_PHASE23.md).
+
+`pftf_alpha.split_cohort_guard_calibration` then keeps the same 12 features and
+ridge score family but separates coefficient fitting (seed 24900804) from a
+conservative quarter-gap cutoff cohort (seed 25000804). The score-fit cohort has
+a positive harmful/focus gap, but the fresh cutoff cohort reverses the ordering:
+minimum harmful `0.02888` versus maximum focus-safe `0.13806`. The limiting
+missing-only harmful case lies inside every coordinate-wise focus-safe feature
+range and at a typical focus-neighbor distance. Calibration therefore fails
+closed before a deployable cutoff is formed; validation seeds 25100804--25300804
+remain unopened and `phase24_supported=false`. The same global 12-feature
+linear score should not be recalibrated again without new observed local/spatial
+evidence. See
+[docs/SPLIT_COHORT_GUARD_CALIBRATION_PHASE24.md](docs/SPLIT_COHORT_GUARD_CALIBRATION_PHASE24.md).
+
+`pftf_alpha.matched_subset_reconstruction` then addresses the limiting case in
+which missing-pair deletion removed the only harmful vertex from the observed
+guard evidence. Missing profiles are reconstructed from retained primary IDs
+before the frozen Phase-24 score is applied. The frozen cutoff calibration
+reproduces, but the corrected design gate finds two originally safe
+`missing_10pct/upper_occlusion` accepts that gain 10 and 5 clean cross-layer
+faces after trimming. An initial evaluator bug omitted this no-new-harm gate
+and improperly opened seeds 25400804--25600804; those results are contaminated
+and provide no support. The corrected run stops at design score fit with
+`design_gate_passed=false` and `phase25_supported=false`. Matched-subset
+trimming therefore replaces one unobserved-harm failure with reconstruction-
+induced topology harm; see
+[docs/MATCHED_SUBSET_RECONSTRUCTION_PHASE25.md](docs/MATCHED_SUBSET_RECONSTRUCTION_PHASE25.md).
+
+`pftf_alpha.frozen_partition_reconstruction` then keeps the full-primary
+observed layer assignment fixed when 10% of pairs are missing and triangulates
+only within each retained frozen layer. It eliminates Phase 25's newly created
+endpoint harm and retains every fresh focus-safe accept. The run also corrects
+freshness at the case level: sequential bases 25700804--25900804 overlap prior
+case seeds, so the disjoint bases 27500804--27700804 are used instead.
+Validation A/B pass with zero harm, but the final missing profile retains one
+harmful outlier case: score `0.19257` lies just below cutoff `0.19784`.
+Therefore `phase26_supported=false`; this is a cutoff-margin transfer failure,
+not reconstruction-induced harm or demonstrated feature overlap. See
+[docs/FROZEN_PARTITION_RECONSTRUCTION_PHASE26.md](docs/FROZEN_PARTITION_RECONSTRUCTION_PHASE26.md).
+
+`pftf_alpha.focus_envelope_cutoff` then freezes a stricter cutoff one binary64
+step above the maximum focus-safe score in the already-open Phase-26 A/B
+cohorts. The design focus maximum `0.18181536` and routed-harm minimum
+`0.28460336` reproduce with a positive gap, and every design panel passes. On
+case-seed-disjoint Validation A, however, one missing-profile harmful case
+scores `0.16754805` below the frozen cutoff while the fresh maximum focus score
+is `0.19702923`, reversing the ranking gap to `-0.02948117`. Validation A has
+harm 153 -> 1, focus 125/126, all-safe 362/366, and no introduced endpoint
+harm. It fails, so Validation B and final remain unopened and
+`phase27_supported=false`. A post-hoc lower cutoff could meet the 90% focus
+gate on this opened panel, but is forbidden evidence-dependent retuning. See
+[docs/FOCUS_ENVELOPE_CUTOFF_PHASE27.md](docs/FOCUS_ENVELOPE_CUTOFF_PHASE27.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

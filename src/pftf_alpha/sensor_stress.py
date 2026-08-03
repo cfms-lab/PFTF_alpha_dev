@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 from collections.abc import Sequence
 from dataclasses import asdict, dataclass
 from enum import StrEnum
@@ -175,11 +174,25 @@ class SensorStressResult:
         }
 
 
-def _height(stress: SensorStress, xy: FloatArray, layer: int) -> FloatArray:
-    x, y = xy[:, 0], xy[:, 1]
-    if stress is SensorStress.SINUSOIDAL:
+def sensor_surface_height(
+    stress: SensorStress | str,
+    xy: FloatArray,
+    layer: int,
+) -> FloatArray:
+    """Evaluate the declared latent sensor-stress surface for one layer."""
+
+    selected = SensorStress(stress)
+    coordinates = np.asarray(xy, dtype=np.float64)
+    if coordinates.ndim != 2 or coordinates.shape[1] != 2:
+        raise ValueError("xy must have shape (n, 2)")
+    if layer not in (0, 1):
+        raise ValueError("layer must be zero or one")
+    if not np.all(np.isfinite(coordinates)):
+        raise ValueError("xy must be finite")
+    x, y = coordinates[:, 0], coordinates[:, 1]
+    if selected is SensorStress.SINUSOIDAL:
         middle = 0.22 * np.sin(np.pi * x) * np.cos(np.pi * y)
-    elif stress is SensorStress.LOCAL_BUMP:
+    elif selected is SensorStress.LOCAL_BUMP:
         distance = ((x - 0.25) ** 2 + (y + 0.15) ** 2) / 0.10
         middle = 0.34 * np.exp(-distance)
     else:
@@ -239,7 +252,7 @@ def make_sensor_stress_case(
         label_rows: list[IntArray] = []
         for layer, layer_count in enumerate(_layer_counts(count, selected)):
             xy = _sample_xy(layer_count, layer, selected, rng)
-            z = _height(selected, xy, layer)
+            z = sensor_surface_height(selected, xy, layer)
             points = np.column_stack((xy, z))
             if noisy:
                 if selected is SensorStress.ANISOTROPIC_NOISE:
