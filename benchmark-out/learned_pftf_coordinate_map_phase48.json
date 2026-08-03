@@ -1,0 +1,225 @@
+{
+  "arbitrary_point_local_spd_complex_supported": false,
+  "artifact_schema": "pftf_alpha_learned_pftf_coordinate_map_phase48/v1",
+  "bounded_prediction_count": 45,
+  "calibration_case_count": 30,
+  "coefficient_gate_passed": false,
+  "connectivity_gate_passed": false,
+  "construction_gate_passed": true,
+  "coordinate_gate_passed": false,
+  "deployment_supported": false,
+  "exact_predicates_supported": false,
+  "general_nonlinear_map_learner_supported": false,
+  "geometry": {
+    "coefficient_mae": 0.10010311087008797,
+    "coordinate_rms_error": 0.08543944594185839,
+    "delaunay_top_cell_jaccard": 0.5987666623901571
+  },
+  "geometry_model": {
+    "coefficients": [
+      0.001994117028844968,
+      0.00037876733724380527,
+      0.0035776282049714407,
+      -0.007896324331096383
+    ],
+    "feature_mean": [
+      0.005335886161155765,
+      0.00842536001436236,
+      0.08616107437004442,
+      11.013584952035302
+    ],
+    "feature_names": [
+      "normalized_covariance_xy",
+      "x_skewness",
+      "y_skewness",
+      "axis_variance_ratio"
+    ],
+    "feature_scale": [
+      0.1384212753023428,
+      0.1444697278231595,
+      0.23195014748967535,
+      5.589893121256218
+    ],
+    "intercept": 0.15999999999999998,
+    "prediction_bounds": [
+      0.0,
+      0.4
+    ],
+    "ridge_penalty": 0.0
+  },
+  "global_alpha_selection_supported": false,
+  "held_out_case_count": 45,
+  "identity": {
+    "coefficient_mae": 0.17999999999999997,
+    "coordinate_rms_error": 0.1537772210335118,
+    "delaunay_top_cell_jaccard": 0.4934232137694652
+  },
+  "learned_invertible_quadratic_shear_supported": false,
+  "maximum_inverse_roundtrip_error": 2.220446049250313e-16,
+  "maximum_jacobian_determinant": 1.0,
+  "minimum_jacobian_determinant": 1.0,
+  "oracle": {
+    "coefficient_mae": 0.0,
+    "coordinate_rms_error": 0.0,
+    "delaunay_top_cell_jaccard": 1.0
+  },
+  "pftf": {
+    "coefficient_mae": 0.11511829153376672,
+    "coordinate_rms_error": 0.09819910455974745,
+    "delaunay_top_cell_jaccard": 0.5765181053473561
+  },
+  "pftf_conditioning_value_supported": false,
+  "pftf_model": {
+    "coefficients": [
+      0.03869663030382063,
+      0.07781655728373518,
+      0.015752225866573155,
+      0.00893837355400623,
+      -0.030173275432413604,
+      0.008145858485594515,
+      -0.07021012214859798
+    ],
+    "feature_mean": [
+      0.00012334023021336874,
+      0.04119260467595945,
+      0.11495171491460475,
+      0.18569271918858313,
+      0.39595901307054066,
+      0.8126302083333333,
+      0.24761563063661926
+    ],
+    "feature_names": [
+      "relation_xy_mean",
+      "relation_xy_std",
+      "relation_strength_median",
+      "relation_strength_q90",
+      "confidence_mean",
+      "reciprocity_mean",
+      "log_scale_std"
+    ],
+    "feature_scale": [
+      0.004522179568724383,
+      0.005144602896973457,
+      0.012427475662785995,
+      0.02177936833244764,
+      0.016660811959028358,
+      0.02904813386340301,
+      0.046873568256130704
+    ],
+    "intercept": 0.15999999999999992,
+    "prediction_bounds": [
+      0.0,
+      0.4
+    ],
+    "ridge_penalty": 0.01
+  },
+  "point_local_alpha_field_supported": false,
+  "protocol": {
+    "ambient_dimension": 3,
+    "artifact_schema": "pftf_alpha_learned_pftf_coordinate_map_protocol_phase48/v1",
+    "calibration_rule": "choose ridge penalty only by minimum coefficient MAE on the 30 CALIBRATION cases, breaking exact ties toward the larger penalty; then freeze preprocessing, coefficients, penalty, and clipping",
+    "calibration_seeds": [
+      48101,
+      48102
+    ],
+    "calibration_strengths": [
+      0.04,
+      0.12,
+      0.2,
+      0.28,
+      0.36
+    ],
+    "claim_boundary": "a positive result supports only recovery of one coordinate-aligned scalar quadratic-shear family on the declared synthetic panel; it does not establish an arbitrary local-SPD field, a general neural or nonlinear map learner, alpha selection, reconstruction or topology advantage, real-scan transfer, exact predicates, or deployment",
+    "construction_gate": "every predicted map must remain inside the strength bounds, have determinant one, and pass inverse roundtrip error <= 1e-12",
+    "correction_map": "Phi_s(x,y,z) = (x, y + s*x^2, z)",
+    "corruption_map": "Phi_-s(x,y,z) = (x, y - s*x^2, z)",
+    "families": [
+      "torus",
+      "disconnected_parts",
+      "sharp_crease"
+    ],
+    "frozen_comparators": [
+      "identity map with coefficient zero",
+      "constant coefficient equal to the TRAIN mean",
+      "ridge model using only four non-PFTF global covariance/moment features",
+      "oracle true coefficient as an evaluation ceiling only"
+    ],
+    "geometry_baseline_features": [
+      "normalized_covariance_xy",
+      "x_skewness",
+      "y_skewness",
+      "axis_variance_ratio"
+    ],
+    "held_out_rule": "evaluate the frozen models once on 45 HELD_OUT cases; held-out labels, latent points, and alpha complexes cannot change any model",
+    "held_out_seeds": [
+      48201,
+      48202,
+      48203
+    ],
+    "held_out_strengths": [
+      0.02,
+      0.1,
+      0.18,
+      0.26,
+      0.34
+    ],
+    "inverse_certificate": "every predicted scalar s defines the Phase-47 analytic quadratic shear with explicit global inverse Phi_-s and determinant one",
+    "k_neighbors": 8,
+    "learner": "training-standardized linear ridge regression with an unpenalized intercept; predictions are clipped to the declared [0,0.40] family",
+    "map_strength_bounds": [
+      0.0,
+      0.4
+    ],
+    "normalization": "each latent synthetic cloud is centered and divided by its RMS radius before the frozen corruption is applied",
+    "pftf_features": [
+      "relation_xy_mean",
+      "relation_xy_std",
+      "relation_strength_median",
+      "relation_strength_q90",
+      "confidence_mean",
+      "reciprocity_mean",
+      "log_scale_std"
+    ],
+    "pftf_value_gate": "the frozen PFTF model must strictly beat both the TRAIN-mean and non-PFTF geometry models on all three mean primary endpoints",
+    "point_count": 64,
+    "primary_endpoints": [
+      "held-out correction-coefficient MAE",
+      "held-out corrected-coordinate RMS error to latent coordinates",
+      "held-out Delaunay top-cell Jaccard against the latent alpha complex"
+    ],
+    "reference_boundary": "PFTF and comparator features use corrupted observed coordinates only; latent points and true coefficients are training labels or evaluation targets, never selection inputs on held-out cases",
+    "reference_count": 256,
+    "ridge_grid": [
+      0.0,
+      0.0001,
+      0.01,
+      1.0
+    ],
+    "role": "pre_implementation_synthetic_pftf_conditioned_map_recovery",
+    "train_seeds": [
+      48001,
+      48002,
+      48003,
+      48004
+    ],
+    "train_strengths": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32
+    ],
+    "training_rule": "fit feature centering/scaling and ridge coefficients only on the 60 TRAIN cases; zero-variance feature scales are replaced by one"
+  },
+  "real_scan_transfer_supported": false,
+  "reconstruction_advantage_supported": false,
+  "topology_correctness_supported": false,
+  "total_prediction_count": 45,
+  "train_case_count": 60,
+  "train_mean": {
+    "coefficient_mae": 0.09999999999999996,
+    "coordinate_rms_error": 0.0854317894630621,
+    "delaunay_top_cell_jaccard": 0.6013679358237611
+  },
+  "train_mean_strength": 0.16000000000000003
+}
