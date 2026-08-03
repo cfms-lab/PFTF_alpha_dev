@@ -1,0 +1,5325 @@
+{
+  "annotation_directory_count": 68,
+  "artifact_schema": "pftf_alpha_s3dis_room_layer_area5_geometry_phase51c/v1",
+  "calibration_root": "D:\\__PFTF_Projects(2026)\\PFTF_alpha_dev\\benchmark-data\\s3dis\\heldout_area5_room_layers",
+  "held_out_area": "Area_5",
+  "held_out_artifacts_accessed": true,
+  "missing_ceiling_count": 0,
+  "missing_floor_count": 0,
+  "paired_room_count": 68,
+  "pairs": [
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9986125013027964,
+      "ceiling": {
+        "centroid": [
+          -14.141492500000007,
+          -4.068178699999994,
+          3.068428749999997
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03400000000000062,
+        "normal": [
+          -0.0014282516006312409,
+          0.00013935382542274718,
+          0.9999989703384082
+        ],
+        "point_count": 197047,
+        "residual_p95": 0.00838370521248444,
+        "residual_rms": 0.0048182649208926565,
+        "tangent_extent_u": 6.805141411411698,
+        "tangent_extent_v": 3.4636488656741733,
+        "tangent_u": [
+          -0.9988908064624012,
+          0.04706487675234846,
+          -0.0014332275395435947
+        ],
+        "tangent_v": [
+          0.04706502801719289,
+          0.9988918249524308,
+          -7.197876950510981e-05
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 195969,
+      "common_footprint_extent_u": 6.83051762757077,
+      "common_footprint_extent_v": 3.563965117331275,
+      "floor": {
+        "centroid": [
+          -13.868265349999975,
+          -4.1830137500000095,
+          0.015506649999998809
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029841245446776122,
+        "normal": [
+          0.0002705868792643535,
+          -0.00020963049383774556,
+          0.9999999414188966
+        ],
+        "point_count": 159514,
+        "residual_p95": 0.009275554925501039,
+        "residual_rms": 0.004917479903869348,
+        "tangent_extent_u": 6.826774491784852,
+        "tangent_extent_v": 3.5591488337161037,
+        "tangent_u": [
+          -0.9963941641144821,
+          -0.08484460090470104,
+          0.00025182518655003026
+        ],
+        "tangent_v": [
+          -0.08484454314417249,
+          0.996394173885204,
+          0.00023183243646159808
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 159510,
+      "gap_to_median_spacing": 89.78893872195022,
+      "gap_to_residual_snr": 443.42994792472285,
+      "normal_angle_degrees": 0.09936885408798853,
+      "plane_gap": 3.052823916546363,
+      "room": "conferenceRoom_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_2/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9999989916118263,
+      "ceiling": {
+        "centroid": [
+          -13.395290650000089,
+          -10.546343750000021,
+          4.270846749999988
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03489985673323085,
+        "normal": [
+          -0.0009971665074616002,
+          0.021265809022237382,
+          0.9997733598299097
+        ],
+        "point_count": 198209,
+        "residual_p95": 0.06003115938706949,
+        "residual_rms": 0.03199617353820334,
+        "tangent_extent_u": 9.783227463061223,
+        "tangent_extent_v": 5.8109772356606175,
+        "tangent_u": [
+          -0.989245172260722,
+          0.14620946192370518,
+          -0.0040966331095848305
+        ],
+        "tangent_v": [
+          0.1462634432037286,
+          0.9890250545919497,
+          -0.02089130373096253
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_2/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 198208,
+      "common_footprint_extent_u": 9.444990714376399,
+      "common_footprint_extent_v": 5.097197754061668,
+      "floor": {
+        "centroid": [
+          -13.014789249999936,
+          -10.115074999999976,
+          0.0015523000000000021
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04816637831516904,
+        "normal": [
+          -0.0008518744906948397,
+          -0.003464041817065931,
+          0.999993637341829
+        ],
+        "point_count": 391207,
+        "residual_p95": 0.011233914544905086,
+        "residual_rms": 0.005637957931530528,
+        "tangent_extent_u": 9.464328543835098,
+        "tangent_extent_v": 5.2260635828317135,
+        "tangent_u": [
+          -0.9999137881502072,
+          -0.013100050557083225,
+          -0.0008971858804416926
+        ],
+        "tangent_v": [
+          -0.01310307509534704,
+          0.9999081903303378,
+          0.0034525835767167225
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_2/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 384340,
+      "gap_to_median_spacing": 88.67358327031214,
+      "gap_to_residual_snr": 131.46209691447316,
+      "normal_angle_degrees": 1.4170328571377577,
+      "plane_gap": 4.271085358359499,
+      "room": "conferenceRoom_2"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_3/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9977505382683944,
+      "ceiling": {
+        "centroid": [
+          0.4870387999999967,
+          -20.21978279999996,
+          3.0404981000001357
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04317406628984538,
+        "normal": [
+          -0.005985640665154537,
+          -0.006285890111452841,
+          0.9999623291361204
+        ],
+        "point_count": 332958,
+        "residual_p95": 0.018333169609981336,
+        "residual_rms": 0.008585678253787138,
+        "tangent_extent_u": 6.847205454787366,
+        "tangent_extent_v": 6.425423110120888,
+        "tangent_u": [
+          -0.13884865654521755,
+          -0.990288473373887,
+          -0.007056208500655733
+        ],
+        "tangent_v": [
+          -0.9902955229028433,
+          0.1388856619249203,
+          -0.005054723559294442
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_3/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 326426,
+      "common_footprint_extent_u": 6.372477660201154,
+      "common_footprint_extent_v": 5.792389874811531,
+      "floor": {
+        "centroid": [
+          0.4344880999999982,
+          -20.17635485000009,
+          -0.0019647500000000095
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.043058100283222156,
+        "normal": [
+          -0.001572053385773943,
+          -0.009538474504465074,
+          0.9999532719843863
+        ],
+        "point_count": 317006,
+        "residual_p95": 0.01405638189217541,
+        "residual_rms": 0.007415211971433722,
+        "tangent_extent_u": 6.35493186242139,
+        "tangent_extent_v": 5.791959069606035,
+        "tangent_u": [
+          0.038168277273848125,
+          -0.9992264371089423,
+          -0.00947153591111161
+        ],
+        "tangent_v": [
+          -0.9992700892441938,
+          -0.03815160398589418,
+          -0.0019349044432679036
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/conferenceRoom_3/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 316981,
+      "gap_to_median_spacing": 70.47407314404873,
+      "gap_to_residual_snr": 268.2034353336573,
+      "normal_angle_degrees": 0.31413147350573417,
+      "plane_gap": 3.042652305636572,
+      "room": "conferenceRoom_3"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          6.059168499999953,
+          -0.22726395000000024,
+          3.2634062000000084
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.08015921650236604,
+        "normal": [
+          -0.0003823463064424114,
+          0.25883150451258174,
+          0.9659224120409751
+        ],
+        "point_count": 1259961,
+        "residual_p95": 0.3967231906245803,
+        "residual_rms": 0.20025024422568358,
+        "tangent_extent_u": 31.690430970058742,
+        "tangent_extent_v": 3.459054786082123,
+        "tangent_u": [
+          -0.9999404175612182,
+          -0.010636598664673333,
+          0.0024544034597432382
+        ],
+        "tangent_v": [
+          -0.010909405978259313,
+          0.9658639215958942,
+          -0.2588201495645219
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 1258413,
+      "common_footprint_extent_u": 31.667640512914474,
+      "common_footprint_extent_v": 3.4027577110623013,
+      "floor": {
+        "centroid": [
+          5.969276500000024,
+          -0.08837889999999983,
+          0.009151599999999807
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0681395591077569,
+        "normal": [
+          7.904199700574638e-05,
+          0.003139857028461117,
+          0.9999950675129371
+        ],
+        "point_count": 976379,
+        "residual_p95": 0.015923289782634364,
+        "residual_rms": 0.008730080693587064,
+        "tangent_extent_u": 31.64819696951305,
+        "tangent_extent_v": 3.356797293417528,
+        "tangent_u": [
+          -0.999996949953263,
+          -0.002468309393856148,
+          8.679232262468568e-05
+        ],
+        "tangent_v": [
+          -0.0024685697344362053,
+          0.9999920243414827,
+          -0.003139652351646715
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 976379,
+      "gap_to_median_spacing": 40.59183355887787,
+      "gap_to_residual_snr": 16.23329796534996,
+      "normal_angle_degrees": 14.820862598905274,
+      "plane_gap": 3.253809574474099,
+      "room": "hallway_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_10/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9993301646664338,
+      "ceiling": {
+        "centroid": [
+          -15.249262050000072,
+          14.925112799999935,
+          3.046634349999847
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03420526275297185,
+        "normal": [
+          -0.0007625079696299323,
+          0.0018024947704613963,
+          0.9999980847952655
+        ],
+        "point_count": 201756,
+        "residual_p95": 0.007102184455438276,
+        "residual_rms": 0.003863792029115119,
+        "tangent_extent_u": 12.691469378934329,
+        "tangent_extent_v": 1.8550011358998346,
+        "tangent_u": [
+          -0.9999990981809413,
+          -0.0011069130361371395,
+          -0.0007605135335658402
+        ],
+        "tangent_v": [
+          -0.0011055400945049348,
+          0.9999977628755642,
+          -0.001803337174949182
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_10/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 201231,
+      "common_footprint_extent_u": 12.682719279649767,
+      "common_footprint_extent_v": 1.8658644109761515,
+      "floor": {
+        "centroid": [
+          -15.116440400000066,
+          14.916815849999967,
+          0.00891704999999994
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03574912586344023,
+        "normal": [
+          0.00043120190160048316,
+          0.004451660257864865,
+          0.9999899983429177
+        ],
+        "point_count": 239698,
+        "residual_p95": 0.007800667569235768,
+        "residual_rms": 0.004018338120020154,
+        "tangent_extent_u": 12.683732217280905,
+        "tangent_extent_v": 2.0042990122706095,
+        "tangent_u": [
+          -0.99999989212609,
+          0.00017458149786291129,
+          0.0004304289825723351
+        ],
+        "tangent_v": [
+          -0.00017266362816308625,
+          -0.9999900760718823,
+          0.004451735057521111
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_10/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 235767,
+      "gap_to_median_spacing": 84.97177222322436,
+      "gap_to_residual_snr": 544.9140869298566,
+      "normal_angle_degrees": 0.1664843453199663,
+      "plane_gap": 3.037666580047622,
+      "room": "hallway_10"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_11/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9998415348208006,
+      "ceiling": {
+        "centroid": [
+          -25.833287450000004,
+          0.2116923500000005,
+          3.0310260500001234
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02828427124746309,
+        "normal": [
+          -0.001332988070060297,
+          0.001039736688645318,
+          0.9999985710441909
+        ],
+        "point_count": 149728,
+        "residual_p95": 0.010136378719220433,
+        "residual_rms": 0.00644553871979468,
+        "tangent_extent_u": 8.650190649595892,
+        "tangent_extent_v": 1.8381270157345146,
+        "tangent_u": [
+          -0.9999988368649323,
+          -0.0007426092504664925,
+          -0.0013322163052103193
+        ],
+        "tangent_v": [
+          0.0007412230351409514,
+          -0.9999991837392267,
+          0.0010407253685623937
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_11/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 149702,
+      "common_footprint_extent_u": 8.64901481512003,
+      "common_footprint_extent_v": 1.841402493432502,
+      "floor": {
+        "centroid": [
+          -25.902992149999978,
+          0.22250429999999866,
+          0.0036899500000001054
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.030066592756745874,
+        "normal": [
+          -0.00044146979814259905,
+          0.002160193862016483,
+          0.999997569330494
+        ],
+        "point_count": 159150,
+        "residual_p95": 0.0039937021823689975,
+        "residual_rms": 0.00198032838876673,
+        "tangent_extent_u": 8.692461685458994,
+        "tangent_extent_v": 2.0065237257542012,
+        "tangent_u": [
+          -0.9999995479529302,
+          0.0008411836097517324,
+          -0.0004432877957342125
+        ],
+        "tangent_v": [
+          0.000842139152687835,
+          0.9999973129826967,
+          -0.0021598215283488422
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_11/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 157168,
+      "gap_to_median_spacing": 100.68565592419856,
+      "gap_to_residual_snr": 448.95751506142017,
+      "normal_angle_degrees": 0.08203968290726794,
+      "plane_gap": 3.0272746131187156,
+      "room": "hallway_11"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_12/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9586851790314782,
+      "ceiling": {
+        "centroid": [
+          -25.66575409999985,
+          -9.220427000000099,
+          3.022654149999932
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029546573405388632,
+        "normal": [
+          -0.0002745384339294584,
+          -0.0025155802134845416,
+          0.9999967982372931
+        ],
+        "point_count": 149081,
+        "residual_p95": 0.01113870704745536,
+        "residual_rms": 0.0059958554545236,
+        "tangent_extent_u": 9.082665317329175,
+        "tangent_extent_v": 1.9295100690110338,
+        "tangent_u": [
+          -0.9999898121831716,
+          0.004506246251592584,
+          -0.0002632006557806301
+        ],
+        "tangent_v": [
+          0.00450556972129953,
+          0.9999866827117797,
+          0.0025167917230029184
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_12/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 140188,
+      "common_footprint_extent_u": 8.625286007957236,
+      "common_footprint_extent_v": 1.9351032002914073,
+      "floor": {
+        "centroid": [
+          -25.874447650000075,
+          -9.223796200000036,
+          1.2849999999985559e-05
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029681644159313195,
+        "normal": [
+          -0.0009275796344909758,
+          0.003832685175531671,
+          -0.9999922250299584
+        ],
+        "point_count": 160515,
+        "residual_p95": 0.006501152751059174,
+        "residual_rms": 0.0036833773555172812,
+        "tangent_extent_u": 8.66246818564395,
+        "tangent_extent_v": 2.0071965481133276,
+        "tangent_u": [
+          -0.9999995232392255,
+          -0.0003087043575340854,
+          0.000926403228399995
+        ],
+        "tangent_v": [
+          -0.00030515134544690045,
+          0.9999926075856583,
+          0.00383296969613303
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_12/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 159522,
+      "gap_to_median_spacing": 101.84066791023277,
+      "gap_to_residual_snr": 429.5657160451483,
+      "normal_angle_degrees": 0.10217100436494068,
+      "plane_gap": 3.022798465858315,
+      "room": "hallway_12"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_13/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9996888339891384,
+      "ceiling": {
+        "centroid": [
+          -6.8645865499999505,
+          -8.416537649999984,
+          3.063086000000175
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.038613469152616264,
+        "normal": [
+          -0.0009146560294855627,
+          -0.00047484438252920567,
+          0.999999468963439
+        ],
+        "point_count": 260122,
+        "residual_p95": 0.013491414701002544,
+        "residual_rms": 0.007409261108639583,
+        "tangent_extent_u": 13.675183880496663,
+        "tangent_extent_v": 3.1778741845770817,
+        "tangent_u": [
+          -0.9998559142568372,
+          -0.016949913985824544,
+          -0.0009225733019524915
+        ],
+        "tangent_v": [
+          -0.01695034306355041,
+          0.9998562271340243,
+          0.0004592726231970791
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_13/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 260048,
+      "common_footprint_extent_u": 13.680815159251008,
+      "common_footprint_extent_v": 3.1732434703583725,
+      "floor": {
+        "centroid": [
+          -6.700812250000028,
+          -8.392949199999984,
+          0.012089599999999593
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04143669871020082,
+        "normal": [
+          -0.0008511786420844425,
+          -0.00036999447298824206,
+          0.9999995692994117
+        ],
+        "point_count": 318499,
+        "residual_p95": 0.00856705942090228,
+        "residual_rms": 0.004615366167930141,
+        "tangent_extent_u": 13.676203430769682,
+        "tangent_extent_v": 3.17145288869291,
+        "tangent_u": [
+          -0.9998924322035164,
+          -0.014642077087133434,
+          -0.0008565049391659878
+        ],
+        "tangent_v": [
+          -0.014642387682875803,
+          0.9998927305879688,
+          0.00035749165020574556
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_13/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 318485,
+      "gap_to_median_spacing": 73.63383931851487,
+      "gap_to_residual_snr": 349.5333788244231,
+      "normal_angle_degrees": 0.007022623985221891,
+      "plane_gap": 3.0511432147166397,
+      "room": "hallway_13"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_14/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9531153272723584,
+      "ceiling": {
+        "centroid": [
+          -20.29957579999997,
+          -11.58064694999996,
+          3.025620899999877
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02284731931759096,
+        "normal": [
+          0.0009412807727262289,
+          -0.001068769223699038,
+          0.9999989858609125
+        ],
+        "point_count": 92660,
+        "residual_p95": 0.008559092872921212,
+        "residual_rms": 0.0042674434512078915,
+        "tangent_extent_u": 7.7673553443633905,
+        "tangent_extent_v": 1.7052856671159822,
+        "tangent_u": [
+          -0.9996188246351672,
+          0.027591008259072392,
+          0.0009704113842945132
+        ],
+        "tangent_v": [
+          0.02759201742377432,
+          0.9996187243122224,
+          0.0010423909496258918
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_14/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 90005,
+      "common_footprint_extent_u": 7.6359389374838225,
+      "common_footprint_extent_v": 1.6210804457939916,
+      "floor": {
+        "centroid": [
+          -20.299176400000214,
+          -11.422102650000008,
+          -0.007122700000000131
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.026570660511172094,
+        "normal": [
+          -0.00026174343440855973,
+          -0.0015039528187161862,
+          0.9999988348074679
+        ],
+        "point_count": 135567,
+        "residual_p95": 0.006921493590712017,
+        "residual_rms": 0.003945825301703802,
+        "tangent_extent_u": 7.633778045714685,
+        "tangent_extent_v": 2.051965134515177,
+        "tangent_u": [
+          -0.9997338879593314,
+          0.023067330685415954,
+          -0.0002269818688020864
+        ],
+        "tangent_v": [
+          0.023066962437513126,
+          0.9997327824878849,
+          0.0015095903211187697
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_14/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 113908,
+      "gap_to_median_spacing": 114.14765593356695,
+      "gap_to_residual_snr": 521.8378765372372,
+      "normal_angle_degrees": 0.07329947067038643,
+      "plane_gap": 3.032978613956886,
+      "room": "hallway_14"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_15/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9983977199979903,
+      "ceiling": {
+        "centroid": [
+          21.335467450000042,
+          -8.575757949999952,
+          3.0497441999999877
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04217818675436734,
+        "normal": [
+          0.000854536525486632,
+          -0.0025550511207097287,
+          0.9999963707339629
+        ],
+        "point_count": 302834,
+        "residual_p95": 0.013489466662448449,
+        "residual_rms": 0.006537498770510743,
+        "tangent_extent_u": 13.649908885914314,
+        "tangent_extent_v": 2.7688500147800807,
+        "tangent_u": [
+          -0.9999795037128392,
+          -0.006347393196781102,
+          0.0008383041389883363
+        ],
+        "tangent_v": [
+          -0.006345228250472728,
+          0.9999765908826949,
+          0.0025604228309764913
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_15/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 302621,
+      "common_footprint_extent_u": 13.653514717072056,
+      "common_footprint_extent_v": 2.833742181816441,
+      "floor": {
+        "centroid": [
+          21.750084350000073,
+          -8.574778499999978,
+          0.014590899999999303
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04589117562233471,
+        "normal": [
+          0.0003471867818909494,
+          0.0006436275139318891,
+          0.9999997326024451
+        ],
+        "point_count": 369368,
+        "residual_p95": 0.010509939723490444,
+        "residual_rms": 0.006028018249502004,
+        "tangent_extent_u": 13.63973187361384,
+        "tangent_extent_v": 3.093852374304247,
+        "tangent_u": [
+          -0.9998940516354679,
+          -0.014551920844750293,
+          0.0003565161099869973
+        ],
+        "tangent_v": [
+          -0.014552146417179787,
+          0.9998939080439241,
+          -0.0006385070880809948
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_15/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 357583,
+      "gap_to_median_spacing": 66.13489123652165,
+      "gap_to_residual_snr": 341.3011654432172,
+      "normal_angle_degrees": 0.18556199725964692,
+      "plane_gap": 3.03500790849922,
+      "room": "hallway_15"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          1.1080718999999868,
+          -16.3695843,
+          3.0054309999999913
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.06830812543175345,
+        "normal": [
+          2.709730001241487e-05,
+          -0.12385157925422405,
+          0.9923007535933706
+        ],
+        "point_count": 790962,
+        "residual_p95": 0.18169252115634885,
+        "residual_rms": 0.15832328245745003,
+        "tangent_extent_u": 43.724034863632255,
+        "tangent_extent_v": 2.8332404196633956,
+        "tangent_u": [
+          -0.9999979471762745,
+          0.0020071023441186487,
+          0.00027781903665000503
+        ],
+        "tangent_v": [
+          0.0020260574950439463,
+          0.9922987241029866,
+          0.12385127062170935
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations/ceiling_1.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations/ceiling_2.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations/ceiling_3.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations/ceiling_4.txt"
+      ],
+      "ceiling_points_in_common_footprint": 790962,
+      "common_footprint_extent_u": 43.73253535720653,
+      "common_footprint_extent_v": 2.734083997406497,
+      "floor": {
+        "centroid": [
+          1.7400971999999917,
+          -16.329811649999993,
+          -0.002978399999999994
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.07542545989253151,
+        "normal": [
+          0.00016802840308816508,
+          0.0020954744270201054,
+          0.9999977903742494
+        ],
+        "point_count": 969366,
+        "residual_p95": 0.021795642640507158,
+        "residual_rms": 0.010939026700299748,
+        "tangent_extent_u": 44.03297102299939,
+        "tangent_extent_v": 2.880959742734583,
+        "tangent_u": [
+          -0.999999258363949,
+          0.0012065990305500619,
+          0.00016550024675366577
+        ],
+        "tangent_v": [
+          0.0012062495628830355,
+          0.9999970765485793,
+          -0.002095675615849018
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_2/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 955393,
+      "gap_to_median_spacing": 39.88325979124909,
+      "gap_to_residual_snr": 18.955256665729635,
+      "normal_angle_degrees": 7.234507175103718,
+      "plane_gap": 3.0082132117682727,
+      "room": "hallway_2"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_3/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9989803122249618,
+      "ceiling": {
+        "centroid": [
+          -20.386905149999933,
+          7.583377799999944,
+          3.0478608499998434
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03584689665786932,
+        "normal": [
+          -0.00022489046658973877,
+          0.0001479953683339657,
+          0.999999963760824
+        ],
+        "point_count": 212277,
+        "residual_p95": 0.010191024957575297,
+        "residual_rms": 0.0063260976503315995,
+        "tangent_extent_u": 12.849117874345987,
+        "tangent_extent_v": 2.2475029991235,
+        "tangent_u": [
+          -0.9998786677910119,
+          -0.015575627254714742,
+          -0.0002225580675053739
+        ],
+        "tangent_v": [
+          -0.015575593752703672,
+          0.9998786816074203,
+          -0.00015148022180975116
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_3/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 211265,
+      "common_footprint_extent_u": 12.80967829495781,
+      "common_footprint_extent_v": 2.200888338613211,
+      "floor": {
+        "centroid": [
+          -20.397537600000117,
+          7.503485150000028,
+          0.005934450000000029
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03734300409957787,
+        "normal": [
+          -0.0005167128201646345,
+          0.0018869727535106586,
+          0.9999980861690131
+        ],
+        "point_count": 252534,
+        "residual_p95": 0.00967358220138903,
+        "residual_rms": 0.006080969103954814,
+        "tangent_extent_u": 12.81902178372706,
+        "tangent_extent_v": 2.1995470131309784,
+        "tangent_u": [
+          -0.9999324822147206,
+          -0.011609746464361166,
+          -0.0004947716045152034
+        ],
+        "tangent_v": [
+          -0.011608790624731703,
+          0.9999308241677821,
+          -0.0018928442541264723
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_3/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 252479,
+      "gap_to_median_spacing": 81.46280442477197,
+      "gap_to_residual_snr": 346.6807618202342,
+      "normal_angle_degrees": 0.10102932426272684,
+      "plane_gap": 3.0420658395973703,
+      "room": "hallway_3"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_4/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9867412307184639,
+      "ceiling": {
+        "centroid": [
+          -31.19644049999995,
+          -4.5018278000000045,
+          3.0214478499998187
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.032272278196469995,
+        "normal": [
+          -0.0003325069691226847,
+          0.0012643624993849269,
+          0.9999991454129277
+        ],
+        "point_count": 189038,
+        "residual_p95": 0.01049084454180137,
+        "residual_rms": 0.005449800825000603,
+        "tangent_extent_u": 11.24121294720192,
+        "tangent_extent_v": 1.9033447153218277,
+        "tangent_u": [
+          -0.9999966975364106,
+          -0.002548821028875861,
+          -0.00032928351870540966
+        ],
+        "tangent_v": [
+          -0.002548402516953645,
+          0.999995952441225,
+          -0.0012652058246289818
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_4/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 188047,
+      "common_footprint_extent_u": 11.238325634964031,
+      "common_footprint_extent_v": 1.8775939577386973,
+      "floor": {
+        "centroid": [
+          -31.20276705000002,
+          -4.501627750000017,
+          -0.0007499999999999822
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03424908446763471,
+        "normal": [
+          -0.000480024878513969,
+          0.0008709938434603373,
+          0.999999505472798
+        ],
+        "point_count": 203435,
+        "residual_p95": 0.006837764984426421,
+        "residual_rms": 0.0038729198945941373,
+        "tangent_extent_u": 11.241494278733168,
+        "tangent_extent_v": 1.950000180895099,
+        "tangent_u": [
+          -0.9999982716001955,
+          -0.0017966282845484785,
+          -0.00047845943327543916
+        ],
+        "tangent_v": [
+          -0.0017962106608461913,
+          0.9999980067462796,
+          -0.000871854764308754
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_4/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 201054,
+      "gap_to_median_spacing": 88.24157466612058,
+      "gap_to_residual_snr": 452.03206605933036,
+      "normal_angle_degrees": 0.024071085896532694,
+      "plane_gap": 3.022193144297059,
+      "room": "hallway_4"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_5/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9962159581614636,
+      "ceiling": {
+        "centroid": [
+          3.888648299999986,
+          14.941354050000003,
+          3.0439393500000818
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.050606323715520984,
+        "normal": [
+          -0.00026032088429128194,
+          -0.00038803766430345484,
+          -0.9999998908298982
+        ],
+        "point_count": 565520,
+        "residual_p95": 0.012542294578526528,
+        "residual_rms": 0.006065884090895095,
+        "tangent_extent_u": 29.664042271069405,
+        "tangent_extent_v": 2.0689714474331193,
+        "tangent_u": [
+          -0.9999999574808262,
+          -0.00013131961414110236,
+          0.00026037185860382385
+        ],
+        "tangent_v": [
+          -0.00013142063389278967,
+          0.9999999160909614,
+          -0.0003880034625662473
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_5/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 565385,
+      "common_footprint_extent_u": 29.669392453604317,
+      "common_footprint_extent_v": 2.110730230184801,
+      "floor": {
+        "centroid": [
+          4.119092649999947,
+          14.915294899999981,
+          0.0001596500000000364
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.05516339365920134,
+        "normal": [
+          -4.806902685359205e-05,
+          0.002490382555802037,
+          0.9999968978372356
+        ],
+        "point_count": 687759,
+        "residual_p95": 0.010093749125269844,
+        "residual_rms": 0.005315863074393905,
+        "tangent_extent_u": 29.725409049366668,
+        "tangent_extent_v": 2.173853562773546,
+        "tangent_u": [
+          -0.999997554366675,
+          -0.0022112098772139443,
+          -4.256228282407626e-05
+        ],
+        "tangent_v": [
+          -0.0022110970213143183,
+          0.9999944542574248,
+          -0.0024904827559464326
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_5/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 682367,
+      "gap_to_median_spacing": 55.178734125625034,
+      "gap_to_residual_snr": 377.38781706492404,
+      "normal_angle_degrees": 0.12174468786739158,
+      "plane_gap": 3.0438462321882604,
+      "room": "hallway_5"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_6/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9997744595693024,
+      "ceiling": {
+        "centroid": [
+          18.10839459999994,
+          7.514968949999985,
+          3.0451809999998467
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.032802438933713034,
+        "normal": [
+          2.6328349144975077e-05,
+          0.0009100669971451093,
+          0.9999995855423536
+        ],
+        "point_count": 184854,
+        "residual_p95": 0.02105353255834342,
+        "residual_rms": 0.008084502175356672,
+        "tangent_extent_u": 12.028937034323258,
+        "tangent_extent_v": 1.8495067956210147,
+        "tangent_u": [
+          -0.999983157540359,
+          0.00580380846312799,
+          2.1046059893473378e-05
+        ],
+        "tangent_v": [
+          0.005803786904370664,
+          0.9999827436438011,
+          -0.0009102044740740275
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_6/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 184826,
+      "common_footprint_extent_u": 12.024151024876018,
+      "common_footprint_extent_v": 1.8552477599211925,
+      "floor": {
+        "centroid": [
+          18.30384454999994,
+          7.515773850000009,
+          -0.003558000000000087
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03502140382749364,
+        "normal": [
+          0.0007336579224842296,
+          -0.0005699397964995088,
+          0.9999995684572474
+        ],
+        "point_count": 229134,
+        "residual_p95": 0.008685213080993258,
+        "residual_rms": 0.004486318866353419,
+        "tangent_extent_u": 12.413307232014722,
+        "tangent_extent_v": 2.200039356020034,
+        "tangent_u": [
+          -0.9999902934690603,
+          0.004344086178096301,
+          0.0007361269864734924
+        ],
+        "tangent_v": [
+          0.004344503851502262,
+          0.999990401995892,
+          0.000566747191120735
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_6/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 219616,
+      "gap_to_median_spacing": 87.04947307924861,
+      "gap_to_residual_snr": 329.7247964722669,
+      "normal_angle_degrees": 0.09398491738460817,
+      "plane_gap": 3.048594749678902,
+      "room": "hallway_6"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_7/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9998940926512836,
+      "ceiling": {
+        "centroid": [
+          -7.761281849999973,
+          7.497527250000009,
+          3.052912199999705
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.033541019662496924,
+        "normal": [
+          -0.00021425468467977952,
+          0.000892693467410367,
+          0.999999578596563
+        ],
+        "point_count": 195424,
+        "residual_p95": 0.010654788243443944,
+        "residual_rms": 0.005201090733139961,
+        "tangent_extent_u": 12.869652789377362,
+        "tangent_extent_v": 1.9896276728388673,
+        "tangent_u": [
+          -0.999953172953354,
+          -0.009675206766556144,
+          -0.00020560774453312692
+        ],
+        "tangent_v": [
+          -0.009675019144700361,
+          0.9999527956220726,
+          -0.0008947246235867091
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_7/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 195418,
+      "common_footprint_extent_u": 12.890034323116069,
+      "common_footprint_extent_v": 2.0964726001025005,
+      "floor": {
+        "centroid": [
+          -7.072069299999991,
+          7.565828850000003,
+          0.0019603500000001
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03509271621320813,
+        "normal": [
+          -0.0003950788924223447,
+          0.0025733825053921066,
+          0.9999966108018316
+        ],
+        "point_count": 266058,
+        "residual_p95": 0.008708469849235725,
+        "residual_rms": 0.003975436253738987,
+        "tangent_extent_u": 12.888099101910422,
+        "tangent_extent_v": 2.092935275752894,
+        "tangent_u": [
+          -0.9997933262992732,
+          -0.020327007933368092,
+          -0.0003426892348445998
+        ],
+        "tangent_v": [
+          -0.020326057170628308,
+          0.999790073190846,
+          -0.002580881426686914
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_7/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 266056,
+      "gap_to_median_spacing": 86.9422024322901,
+      "gap_to_residual_snr": 466.06302728986526,
+      "normal_angle_degrees": 0.09685228344170554,
+      "plane_gap": 3.05103803690765,
+      "room": "hallway_7"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_8/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9906667070754849,
+      "ceiling": {
+        "centroid": [
+          5.25333900000001,
+          3.1172822500000037,
+          3.0486782999999713
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025563644191725216,
+        "normal": [
+          0.00807990162036612,
+          0.0010454444083252438,
+          0.9999668105671281
+        ],
+        "point_count": 113887,
+        "residual_p95": 0.01600262950942479,
+        "residual_rms": 0.009428750729870554,
+        "tangent_extent_u": 3.8428312318110374,
+        "tangent_extent_v": 2.9173519584304466,
+        "tangent_u": [
+          -0.9998850080824138,
+          0.012841855178771185,
+          0.00806581475111296
+        ],
+        "tangent_v": [
+          -0.012832996603950639,
+          -0.9999169934557354,
+          0.001149085117135171
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_8/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 112854,
+      "common_footprint_extent_u": 3.829978102928845,
+      "common_footprint_extent_v": 2.9015685664050275,
+      "floor": {
+        "centroid": [
+          5.249211649999981,
+          3.135495750000003,
+          0.002608150000000072
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025238858928247856,
+        "normal": [
+          -0.003572172906549981,
+          0.004990446465647833,
+          0.9999811673350648
+        ],
+        "point_count": 113347,
+        "residual_p95": 0.006913185177359054,
+        "residual_rms": 0.0036311529726452477,
+        "tangent_extent_u": 3.919763390352675,
+        "tangent_extent_v": 3.050373201983148,
+        "tangent_u": [
+          -0.9999120107085213,
+          0.012757480448713112,
+          -0.003635592584699733
+        ],
+        "tangent_v": [
+          0.012775383421523257,
+          0.9999061666659894,
+          -0.004944435433784207
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_8/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 110269,
+      "gap_to_median_spacing": 119.14995860656124,
+      "gap_to_residual_snr": 301.46178339476484,
+      "normal_angle_degrees": 0.7048452105603898,
+      "plane_gap": 3.0459071472769192,
+      "room": "hallway_8"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9998053456015302,
+      "ceiling": {
+        "centroid": [
+          -14.682175350000032,
+          0.11229325000000076,
+          3.1076466000000633
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03861993815198021,
+        "normal": [
+          -0.013710359668225931,
+          0.15774708102998378,
+          0.9873843651103088
+        ],
+        "point_count": 265901,
+        "residual_p95": 0.2956378529661234,
+        "residual_rms": 0.1445384596299529,
+        "tangent_extent_u": 12.874483607181244,
+        "tangent_extent_v": 2.6017187835338236,
+        "tangent_u": [
+          -0.9992812912583581,
+          0.032739261734328014,
+          -0.01910606401433209
+        ],
+        "tangent_v": [
+          0.035340160989962593,
+          0.9869366743452239,
+          -0.15718483977022904
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/ceiling_1.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/ceiling_2.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/ceiling_3.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/ceiling_4.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/ceiling_5.txt"
+      ],
+      "ceiling_points_in_common_footprint": 265897,
+      "common_footprint_extent_u": 12.883756560608575,
+      "common_footprint_extent_v": 2.5378613504896252,
+      "floor": {
+        "centroid": [
+          -14.797422000000017,
+          0.12354509999999959,
+          0.00820295
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03891015291668777,
+        "normal": [
+          0.0009410561283129709,
+          0.00434557082101983,
+          0.9999901151649463
+        ],
+        "point_count": 261196,
+        "residual_p95": 0.010674578619200716,
+        "residual_rms": 0.005702122056248631,
+        "tangent_extent_u": 12.871452456887031,
+        "tangent_extent_v": 2.557871241496052,
+        "tangent_u": [
+          -0.9995143832738626,
+          0.03115042882664718,
+          0.0008052407008170015
+        ],
+        "tangent_v": [
+          0.031146621679302995,
+          0.9995052610157467,
+          -0.004372774841091418
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/hallway_9/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 260884,
+      "gap_to_median_spacing": 79.65716755219258,
+      "gap_to_residual_snr": 21.427262086567858,
+      "normal_angle_degrees": 8.867596502965663,
+      "plane_gap": 3.0994725703660326,
+      "room": "hallway_9"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/lobby_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9993570302092519,
+      "ceiling": {
+        "centroid": [
+          -2.481200549999989,
+          3.0461545000000068,
+          3.0438371499997303
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0424558590223532,
+        "normal": [
+          0.0007318865554671625,
+          -0.006354149908327474,
+          0.9999795443512893
+        ],
+        "point_count": 458950,
+        "residual_p95": 0.020839956883571743,
+        "residual_rms": 0.010554635634021495,
+        "tangent_extent_u": 7.414522631886014,
+        "tangent_extent_v": 4.454752304021191,
+        "tangent_u": [
+          -0.9996823270332712,
+          0.025188287921380188,
+          0.000891722453041589
+        ],
+        "tangent_v": [
+          0.0251934388167541,
+          0.9996625305224418,
+          0.00633369639739016
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/lobby_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 456382,
+      "common_footprint_extent_u": 7.298749076766842,
+      "common_footprint_extent_v": 4.338302524029511,
+      "floor": {
+        "centroid": [
+          -2.755010600000007,
+          3.295009199999996,
+          0.012916349999999346
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04079828381747434,
+        "normal": [
+          0.0004748905869544851,
+          0.0013645549198849436,
+          0.9999989562338557
+        ],
+        "point_count": 298564,
+        "residual_p95": 0.009971490789522638,
+        "residual_rms": 0.005564887329256208,
+        "tangent_extent_u": 7.293066593268132,
+        "tangent_extent_v": 4.338629703831838,
+        "tangent_u": [
+          -0.9998958084539006,
+          -0.014426630889405968,
+          0.0004945275536986237
+        ],
+        "tangent_v": [
+          -0.014427290641383482,
+          0.9998949996429886,
+          -0.0013575616735872883
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/lobby_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 298559,
+      "gap_to_median_spacing": 71.38491977612959,
+      "gap_to_residual_snr": 254.00218470225334,
+      "normal_angle_degrees": 0.44249677201557186,
+      "plane_gap": 3.030708090337351,
+      "room": "lobby_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9883791863740349,
+      "ceiling": {
+        "centroid": [
+          -20.183130099999936,
+          18.766693649999947,
+          3.0393076999999966
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029154759474225578,
+        "normal": [
+          0.005708134479462676,
+          0.007352712801413224,
+          -0.9999566764691483
+        ],
+        "point_count": 155985,
+        "residual_p95": 0.026196269450336377,
+        "residual_rms": 0.012714232744008064,
+        "tangent_extent_u": 5.4273546809760065,
+        "tangent_extent_v": 3.239975480852269,
+        "tangent_u": [
+          -0.9999551300521983,
+          0.007601986639191791,
+          -0.00565222800576277
+        ],
+        "tangent_v": [
+          0.007560098085074612,
+          0.9999440721428361,
+          0.00739577604762129
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 150491,
+      "common_footprint_extent_u": 5.444598286710619,
+      "common_footprint_extent_v": 3.07114928517544,
+      "floor": {
+        "centroid": [
+          -20.052799100000012,
+          18.75111054999983,
+          0.0007214499999999851
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025179356624027784,
+        "normal": [
+          -0.003489252686379451,
+          0.0017854932651390945,
+          0.999992318535243
+        ],
+        "point_count": 114334,
+        "residual_p95": 0.015186157242133224,
+        "residual_rms": 0.007296531082353168,
+        "tangent_extent_u": 5.505522406612339,
+        "tangent_extent_v": 3.0613904927506566,
+        "tangent_u": [
+          -0.998292573600219,
+          -0.05831396479213505,
+          -0.0033792018100469146
+        ],
+        "tangent_v": [
+          -0.05830748331339628,
+          0.9982966961399912,
+          -0.0019859168251059414
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 113978,
+      "gap_to_median_spacing": 104.23840036154164,
+      "gap_to_residual_snr": 207.31370183761055,
+      "normal_angle_degrees": 0.5388002269118785,
+      "plane_gap": 3.0390454905187747,
+      "room": "office_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_10/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.987803659320166,
+      "ceiling": {
+        "centroid": [
+          12.039583900000077,
+          18.709522399999976,
+          3.0506466499999023
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02778488797890019,
+        "normal": [
+          -0.0031427506543300764,
+          -0.00019226951302234426,
+          0.9999950430630938
+        ],
+        "point_count": 139375,
+        "residual_p95": 0.01816115688848785,
+        "residual_rms": 0.007381097573741862,
+        "tangent_extent_u": 5.407605273760491,
+        "tangent_extent_v": 2.8714923390349627,
+        "tangent_u": [
+          -0.9999253721381172,
+          0.011806308100455723,
+          -0.0031402616905383163
+        ],
+        "tangent_v": [
+          0.01180564580074537,
+          0.9999302846306197,
+          0.0002293594468674475
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_10/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 128787,
+      "common_footprint_extent_u": 5.337284922140391,
+      "common_footprint_extent_v": 2.652290266489107,
+      "floor": {
+        "centroid": [
+          12.280174349999966,
+          18.833022099999983,
+          0.0013250500000000032
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02308679276123014,
+        "normal": [
+          0.0019730736465628485,
+          0.001925857240000462,
+          0.9999961990199147
+        ],
+        "point_count": 95118,
+        "residual_p95": 0.006622932133897246,
+        "residual_rms": 0.0033843614828746207,
+        "tangent_extent_u": 5.400721388236432,
+        "tangent_extent_v": 2.6432175817240813,
+        "tangent_u": [
+          -0.9992318285556423,
+          -0.039135186984228215,
+          0.0020469345512797578
+        ],
+        "tangent_v": [
+          -0.03913898033588723,
+          0.9992320692479806,
+          -0.0018471612453709308
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_10/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 94654,
+      "gap_to_median_spacing": 109.72142361835093,
+      "gap_to_residual_snr": 375.44274124231356,
+      "normal_angle_degrees": 0.317245850992126,
+      "plane_gap": 3.0485974641213343,
+      "room": "office_10"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_11/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9915101489803975,
+      "ceiling": {
+        "centroid": [
+          15.185691149999897,
+          18.79105725,
+          3.0483397499999993
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029068883707497228,
+        "normal": [
+          -0.003715246517827078,
+          0.000422522105401412,
+          0.9999930091847555
+        ],
+        "point_count": 152301,
+        "residual_p95": 0.019914728698043976,
+        "residual_rms": 0.008098468583060195,
+        "tangent_extent_u": 5.435892433534574,
+        "tangent_extent_v": 3.122765611191948,
+        "tangent_u": [
+          -0.9999283319503592,
+          0.011379540590879398,
+          -0.0037198143653391397
+        ],
+        "tangent_v": [
+          0.011381032742410912,
+          0.9999351616635002,
+          -0.0003802140255112702
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_11/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 139547,
+      "common_footprint_extent_u": 5.332520270972145,
+      "common_footprint_extent_v": 2.903315704179156,
+      "floor": {
+        "centroid": [
+          15.359486700000012,
+          18.872717300000012,
+          0.0014652500000000125
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025079872407967753,
+        "normal": [
+          0.0013570860657212214,
+          0.0016656093185359795,
+          0.9999976920288406
+        ],
+        "point_count": 113414,
+        "residual_p95": 0.007738249582253626,
+        "residual_rms": 0.004463075439697751,
+        "tangent_extent_u": 5.364303821280139,
+        "tangent_extent_v": 2.8690724699095487,
+        "tangent_u": [
+          -0.9997323462008373,
+          0.02309757920811688,
+          0.0013182543358082669
+        ],
+        "tangent_v": [
+          0.023095330202864285,
+          0.9997318278320055,
+          -0.0016965089147691365
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_11/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 113102,
+      "gap_to_median_spacing": 104.80263464181034,
+      "gap_to_residual_snr": 329.4630694259982,
+      "normal_angle_degrees": 0.29922392447506,
+      "plane_gap": 3.0464955986421054,
+      "room": "office_11"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_12/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9885541176561737,
+      "ceiling": {
+        "centroid": [
+          18.37895054999995,
+          18.74773175000005,
+          3.0400387000000517
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029427877939124374,
+        "normal": [
+          -0.005693598848758553,
+          0.0008160745817452017,
+          0.9999834583403999
+        ],
+        "point_count": 153951,
+        "residual_p95": 0.018582723691023005,
+        "residual_rms": 0.008503244202617466,
+        "tangent_extent_u": 5.432370936395039,
+        "tangent_extent_v": 3.110166679255572,
+        "tangent_u": [
+          -0.9998656684515113,
+          -0.015374599893075618,
+          -0.0056803811615630554
+        ],
+        "tangent_v": [
+          -0.015369709956997126,
+          0.99988147082562,
+          -0.0009035017614343446
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_12/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 131420,
+      "common_footprint_extent_u": 5.320435428640511,
+      "common_footprint_extent_v": 2.66210884155663,
+      "floor": {
+        "centroid": [
+          18.562593899999975,
+          18.99332789999995,
+          -0.012140499999999818
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.021540659228537293,
+        "normal": [
+          -0.0013906337638362823,
+          0.0018470971335436156,
+          0.999997327181385
+        ],
+        "point_count": 81584,
+        "residual_p95": 0.00803655361804215,
+        "residual_rms": 0.004210818811548797,
+        "tangent_extent_u": 5.3795828313916765,
+        "tangent_extent_v": 2.6465656635930364,
+        "tangent_u": [
+          -0.9999580314104787,
+          0.009052895796728294,
+          -0.0014073007402346945
+        ],
+        "tangent_v": [
+          0.00905547102114321,
+          0.9999573157439633,
+          -0.001834430350926734
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_12/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 81093,
+      "gap_to_median_spacing": 103.71025695738021,
+      "gap_to_residual_snr": 321.6415759178723,
+      "normal_angle_degrees": 0.2535216224030318,
+      "plane_gap": 3.051972782777009,
+      "room": "office_12"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_13/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          21.647278449999863,
+          17.668961499999984,
+          3.0474330000000944
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.032526908302281735,
+        "normal": [
+          -0.005950481211867301,
+          -0.00163519770873556,
+          0.9999809587696161
+        ],
+        "point_count": 196684,
+        "residual_p95": 0.0222566995252524,
+        "residual_rms": 0.010368064403108328,
+        "tangent_extent_u": 7.578752500655333,
+        "tangent_extent_v": 3.508893793658938,
+        "tangent_u": [
+          -0.10407949917787568,
+          0.9945684711357997,
+          0.0010070121555338359
+        ],
+        "tangent_v": [
+          0.9945511799923774,
+          0.10407152516924185,
+          0.006088351559991167
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_13/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 178225,
+      "common_footprint_extent_u": 7.362669917331662,
+      "common_footprint_extent_v": 2.897943846168971,
+      "floor": {
+        "centroid": [
+          21.637140900000063,
+          18.32389430000006,
+          -0.001598650000000096
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.026258330284970443,
+        "normal": [
+          0.0018886195588753458,
+          -0.000866466264135806,
+          0.999997841173857
+        ],
+        "point_count": 126884,
+        "residual_p95": 0.008701582440091931,
+        "residual_rms": 0.004294609947457581,
+        "tangent_extent_u": 7.35128388405305,
+        "tangent_extent_v": 2.891573334353363,
+        "tangent_u": [
+          -0.12783998956743498,
+          0.9917941950361658,
+          0.0011007996921031968
+        ],
+        "tangent_v": [
+          0.9917930077307259,
+          0.12784179257495207,
+          -0.0017623528769566768
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_13/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 126884,
+      "gap_to_median_spacing": 93.75658032056538,
+      "gap_to_residual_snr": 271.7452433761836,
+      "normal_angle_degrees": 0.45130403722209533,
+      "plane_gap": 3.0496116908225424,
+      "room": "office_13"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_14/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9938975872335901,
+      "ceiling": {
+        "centroid": [
+          21.655877449999938,
+          11.122619000000016,
+          3.0464332000001106
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0368917334913922,
+        "normal": [
+          0.015943624495032588,
+          -0.0001550867719154364,
+          0.9998728803133199
+        ],
+        "point_count": 237715,
+        "residual_p95": 0.05432158888807266,
+        "residual_rms": 0.029099932004040343,
+        "tangent_extent_u": 5.730240871679363,
+        "tangent_extent_v": 4.574179002986318,
+        "tangent_u": [
+          -0.015366344230374022,
+          -0.9998819267174077,
+          8.993819487443052e-05
+        ],
+        "tangent_v": [
+          0.9997548080919416,
+          -0.015365824806316881,
+          -0.015944125095674867
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_14/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 216667,
+      "common_footprint_extent_u": 6.291544661191445,
+      "common_footprint_extent_v": 5.186329208627843,
+      "floor": {
+        "centroid": [
+          22.03741270000004,
+          10.814311549999914,
+          0.0039905000000001
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025504899606155297,
+        "normal": [
+          0.001315667317804963,
+          0.00193531661816932,
+          0.9999972617807992
+        ],
+        "point_count": 118939,
+        "residual_p95": 0.006929219712928026,
+        "residual_rms": 0.003457469134700427,
+        "tangent_extent_u": 6.312012236513519,
+        "tangent_extent_v": 5.17404307702209,
+        "tangent_u": [
+          -0.5085709785297345,
+          -0.8610169019469015,
+          0.0023354569290911687
+        ],
+        "tangent_v": [
+          -0.8610190641424945,
+          0.5085726586352698,
+          0.0001485659317019918
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_14/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 118893,
+      "gap_to_median_spacing": 82.47183800423659,
+      "gap_to_residual_snr": 103.82424896701224,
+      "normal_angle_degrees": 0.8466725928221925,
+      "plane_gap": 3.042529068197567,
+      "room": "office_14"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_15/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          21.664155500000017,
+          4.883217899999943,
+          3.0463965999998908
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03900000000000107,
+        "normal": [
+          0.018263206025608592,
+          0.0011772374628451483,
+          0.9998325206841505
+        ],
+        "point_count": 262217,
+        "residual_p95": 0.05668011643425251,
+        "residual_rms": 0.029992805395407978,
+        "tangent_extent_u": 6.388483258901035,
+        "tangent_extent_v": 4.729438315436857,
+        "tangent_u": [
+          -0.0740963151937154,
+          -0.9972478864474638,
+          0.0025276571720842618
+        ],
+        "tangent_v": [
+          -0.9970838437064254,
+          0.07413006871723564,
+          0.018125714650687928
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_15/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 256762,
+      "common_footprint_extent_u": 6.2530063163319465,
+      "common_footprint_extent_v": 4.994392712947985,
+      "floor": {
+        "centroid": [
+          21.692371199999833,
+          4.594953750000012,
+          0.004584150000000195
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0322490309931939,
+        "normal": [
+          0.003346179094894508,
+          -8.541404858501973e-05,
+          0.9999943978792607
+        ],
+        "point_count": 179706,
+        "residual_p95": 0.008400659967630503,
+        "residual_rms": 0.004381406446094009,
+        "tangent_extent_u": 6.240726109828535,
+        "tangent_extent_v": 4.986697892151838,
+        "tangent_u": [
+          0.13587268363637223,
+          -0.9907261594503807,
+          -0.0005392792869766853
+        ],
+        "tangent_v": [
+          -0.9907206553448431,
+          -0.13587372698626968,
+          0.0033035417275164903
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_15/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 179706,
+      "gap_to_median_spacing": 77.99170186681013,
+      "gap_to_residual_snr": 100.34847106264299,
+      "normal_angle_degrees": 0.857797180314487,
+      "plane_gap": 3.0416763728056786,
+      "room": "office_15"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_16/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9872915688833317,
+      "ceiling": {
+        "centroid": [
+          -10.414733349999965,
+          11.360563499999932,
+          3.0303177999999202
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.027739861549373402,
+        "normal": [
+          -0.0006378950857893703,
+          0.00031260395154509755,
+          0.9999997476842828
+        ],
+        "point_count": 139087,
+        "residual_p95": 0.008190083031952329,
+        "residual_rms": 0.004526099444722822,
+        "tangent_extent_u": 5.155622342870053,
+        "tangent_extent_v": 3.0621323437287966,
+        "tangent_u": [
+          -0.9996025939601944,
+          -0.028182596024507033,
+          -0.000628831750211589
+        ],
+        "tangent_v": [
+          -0.028182392338305134,
+          0.9996027428734319,
+          -0.0003304572603555193
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_16/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 138485,
+      "common_footprint_extent_u": 5.1290998333145685,
+      "common_footprint_extent_v": 3.0010833501176917,
+      "floor": {
+        "centroid": [
+          -10.289666750000007,
+          11.376415350000004,
+          0.009046199999999876
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02545584412271542,
+        "normal": [
+          -0.002044624825931679,
+          0.001743048754339712,
+          0.9999963906386671
+        ],
+        "point_count": 115971,
+        "residual_p95": 0.012891620547454654,
+        "residual_rms": 0.006247709882524553,
+        "tangent_extent_u": 5.179093861655682,
+        "tangent_extent_v": 3.007745685738084,
+        "tangent_u": [
+          -0.9998266453298454,
+          0.01850317033488345,
+          -0.002076529803619325
+        ],
+        "tangent_v": [
+          0.018506723042943454,
+          0.9998272823186006,
+          -0.0017049145472726982
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_16/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 115560,
+      "gap_to_median_spacing": 108.92227322364339,
+      "gap_to_residual_snr": 391.6440319296501,
+      "normal_angle_degrees": 0.11495014960231048,
+      "plane_gap": 3.0214887788668894,
+      "room": "office_16"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_17/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -4.578086649999999,
+          11.195332550000005,
+          3.006404499999795
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.031906112267087464,
+        "normal": [
+          -0.0009309533715973805,
+          -0.0012979729502362542,
+          0.9999987242952064
+        ],
+        "point_count": 182698,
+        "residual_p95": 0.008093230732316018,
+        "residual_rms": 0.004497093551649013,
+        "tangent_extent_u": 5.475161573861412,
+        "tangent_extent_v": 3.5479487018329636,
+        "tangent_u": [
+          -0.0028933685211562973,
+          -0.9999949683362519,
+          -0.001300661669713207
+        ],
+        "tangent_v": [
+          -0.999995380861542,
+          0.0028945756854389317,
+          -0.0009271931732775233
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_17/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 166069,
+      "common_footprint_extent_u": 5.3412001937153555,
+      "common_footprint_extent_v": 3.79320712209788,
+      "floor": {
+        "centroid": [
+          -4.470739050000004,
+          11.68441749999996,
+          -0.011151299999999703
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.026248809496813214,
+        "normal": [
+          -0.0006344918492851338,
+          5.133968871151772e-05,
+          0.9999997973921443
+        ],
+        "point_count": 175622,
+        "residual_p95": 0.013362372329660102,
+        "residual_rms": 0.006734708471327974,
+        "tangent_extent_u": 5.332605696151223,
+        "tangent_extent_v": 3.78665895169892,
+        "tangent_u": [
+          -0.18227635726791763,
+          -0.9832473368047246,
+          -6.517326401051028e-05
+        ],
+        "tangent_v": [
+          -0.9832471342451153,
+          0.18227636168920028,
+          -0.0006332204324755173
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_17/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 175622,
+      "gap_to_median_spacing": 94.5774328463146,
+      "gap_to_residual_snr": 372.62776563833165,
+      "normal_angle_degrees": 0.07915397915401698,
+      "plane_gap": 3.0175981903274387,
+      "room": "office_17"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_18/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -0.18072634999999881,
+          11.19373044999997,
+          3.0306300000001567
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03921734310225515,
+        "normal": [
+          -0.002068217350547624,
+          0.0005282873081796367,
+          0.9999977216921602
+        ],
+        "point_count": 269416,
+        "residual_p95": 0.005573170560453694,
+        "residual_rms": 0.0029977092099337807,
+        "tangent_extent_u": 6.005570074016877,
+        "tangent_extent_v": 5.509122586383841,
+        "tangent_u": [
+          -0.9928216942219692,
+          0.1195851315728987,
+          -0.002116551183402074
+        ],
+        "tangent_v": [
+          0.11958597726828324,
+          0.9928238097564002,
+          -0.0002771670563562782
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_18/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 265771,
+      "common_footprint_extent_u": 6.457666502791568,
+      "common_footprint_extent_v": 6.11075365139188,
+      "floor": {
+        "centroid": [
+          -0.08136359999999815,
+          11.165943750000043,
+          -0.0022622000000000675
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03584689665787001,
+        "normal": [
+          -0.0039961319382097035,
+          -0.0016826589036283014,
+          0.9999905997500906
+        ],
+        "point_count": 225108,
+        "residual_p95": 0.008732275562310881,
+        "residual_rms": 0.005036790226040878,
+        "tangent_extent_u": 6.446394475707439,
+        "tangent_extent_v": 6.0846989160691685,
+        "tangent_u": [
+          -0.9168512136497033,
+          0.3992178592359284,
+          -0.0029921390589760523
+        ],
+        "tangent_v": [
+          0.39920907173885495,
+          0.9168545520016225,
+          0.0031380750955465183
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_18/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 225108,
+      "gap_to_median_spacing": 77.34368932814557,
+      "gap_to_residual_snr": 517.493396454727,
+      "normal_angle_degrees": 0.16807494700597955,
+      "plane_gap": 3.033214001176115,
+      "room": "office_18"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_19/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          6.195217749999991,
+          11.110918099999923,
+          2.9996534999999547
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.044721359549995635,
+        "normal": [
+          0.03546767858099393,
+          0.007143551678300671,
+          -0.9993452924017276
+        ],
+        "point_count": 361688,
+        "residual_p95": 0.12061873464421893,
+        "residual_rms": 0.14570578792651356,
+        "tangent_extent_u": 7.403411005488915,
+        "tangent_extent_v": 5.673037076459705,
+        "tangent_u": [
+          -0.021117638798861124,
+          0.9997565321782299,
+          0.006397006997113287
+        ],
+        "tangent_v": [
+          0.9991476813302604,
+          0.020876925932227952,
+          0.03560989828662992
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_19/Annotations/ceiling_1.txt",
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_19/Annotations/ceiling_2.txt"
+      ],
+      "ceiling_points_in_common_footprint": 356546,
+      "common_footprint_extent_u": 7.592212152396206,
+      "common_footprint_extent_v": 5.743346407568138,
+      "floor": {
+        "centroid": [
+          6.170159149999983,
+          11.09225455000005,
+          0.004761200000000183
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04099999999999988,
+        "normal": [
+          -0.001525836970785654,
+          -0.0008777182760040612,
+          0.9999984507148831
+        ],
+        "point_count": 292173,
+        "residual_p95": 0.012070482555439665,
+        "residual_rms": 0.0057647504111742265,
+        "tangent_extent_u": 7.557103853090986,
+        "tangent_extent_v": 5.735988593966416,
+        "tangent_u": [
+          -0.10955847633267657,
+          -0.993979808389844,
+          -0.0010396042280974773
+        ],
+        "tangent_v": [
+          -0.9939791809113516,
+          0.10955989286192593,
+          -0.0014204896628873167
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_19/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 292173,
+      "gap_to_median_spacing": 66.96650266261715,
+      "gap_to_residual_snr": 20.53790638713708,
+      "normal_angle_degrees": 1.978036086096794,
+      "plane_gap": 2.994833043380641,
+      "room": "office_19"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_2/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9739774427527395,
+      "ceiling": {
+        "centroid": [
+          -16.77561134999992,
+          18.8341649999999,
+          3.0414820500002278
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029068883707495875,
+        "normal": [
+          -0.0037033203382169583,
+          0.0005097436046135748,
+          0.9999930127655546
+        ],
+        "point_count": 145779,
+        "residual_p95": 0.016968169841755334,
+        "residual_rms": 0.00669909454466245,
+        "tangent_extent_u": 5.4343481978074255,
+        "tangent_extent_v": 2.9431420037108698,
+        "tangent_u": [
+          -0.9999298235342432,
+          0.011251339859457556,
+          -0.00370882166522724
+        ],
+        "tangent_v": [
+          0.011253151791832637,
+          0.9999365717448409,
+          -0.00046804051687525773
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_2/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 140534,
+      "common_footprint_extent_u": 5.366637851247862,
+      "common_footprint_extent_v": 2.927132343674648,
+      "floor": {
+        "centroid": [
+          -16.62674595000007,
+          18.799701200000094,
+          0.0012190000000000306
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02549509756796366,
+        "normal": [
+          -0.00013586636435691034,
+          0.004568039666537864,
+          0.9999895572224422
+        ],
+        "point_count": 111441,
+        "residual_p95": 0.010964172928045758,
+        "residual_rms": 0.004786357293890427,
+        "tangent_extent_u": 5.446191971047496,
+        "tangent_extent_v": 2.949571875162659,
+        "tangent_u": [
+          -0.9987813777593243,
+          0.049352092297249295,
+          -0.0003611468812005639
+        ],
+        "tangent_v": [
+          0.0493532266576062,
+          0.9987709967752811,
+          -0.004555767662450098
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_2/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 110760,
+      "gap_to_median_spacing": 104.59324787320942,
+      "gap_to_residual_snr": 369.282330464248,
+      "normal_angle_degrees": 0.309591199591949,
+      "plane_gap": 3.0404089590156147,
+      "room": "office_2"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_20/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.985931989744438,
+      "ceiling": {
+        "centroid": [
+          8.367108299999991,
+          6.7353192499999786,
+          3.0231599499996884
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022090722034373816,
+        "normal": [
+          -0.0010916517896591153,
+          -0.0010143719814931689,
+          0.9999988896723102
+        ],
+        "point_count": 88838,
+        "residual_p95": 0.008813028518521634,
+        "residual_rms": 0.004702106841130592,
+        "tangent_extent_u": 4.118736772595538,
+        "tangent_extent_v": 4.013225693546827,
+        "tangent_u": [
+          -0.4565901148889099,
+          -0.889676067150774,
+          -0.0014009014466415746
+        ],
+        "tangent_v": [
+          -0.8896765003539782,
+          0.4565911372208338,
+          -0.0005080642513519681
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_20/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 87907,
+      "common_footprint_extent_u": 3.3892163188457154,
+      "common_footprint_extent_v": 3.363065088163425,
+      "floor": {
+        "centroid": [
+          8.441474250000052,
+          6.8287681999999945,
+          -0.0019333500000000647
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.01839836447518647,
+        "normal": [
+          -0.0026786433542921985,
+          0.001445488524590038,
+          0.9999953677056238
+        ],
+        "point_count": 59316,
+        "residual_p95": 0.008319612340976995,
+        "residual_rms": 0.0037605803827699615,
+        "tangent_extent_u": 3.4351917968689833,
+        "tangent_extent_v": 3.35230995339586,
+        "tangent_u": [
+          -0.9855190618272858,
+          -0.16954776252099962,
+          -0.002394785833750868
+        ],
+        "tangent_v": [
+          -0.16954351549041127,
+          0.9855209113900363,
+          -0.0018787144819480826
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_20/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 59220,
+      "gap_to_median_spacing": 136.94180763501927,
+      "gap_to_residual_snr": 502.4366808685648,
+      "normal_angle_degrees": 0.16772574391502393,
+      "plane_gap": 3.025143407349901,
+      "room": "office_20"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_21/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          13.265518049999985,
+          4.9728768999999975,
+          3.0478898499999456
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04904079934095659,
+        "normal": [
+          0.00028461602632197575,
+          0.0006722881549224253,
+          0.9999997335111417
+        ],
+        "point_count": 410396,
+        "residual_p95": 0.008199743387786732,
+        "residual_rms": 0.00436919092767899,
+        "tangent_extent_u": 7.463816629194613,
+        "tangent_extent_v": 7.131240759618226,
+        "tangent_u": [
+          -0.020680114038778227,
+          -0.9997859136626477,
+          0.0006780302997828046
+        ],
+        "tangent_v": [
+          -0.9997861030625803,
+          0.020680301506047896,
+          0.00027065209820863304
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_21/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 409289,
+      "common_footprint_extent_u": 7.58726557164626,
+      "common_footprint_extent_v": 7.3481452749150185,
+      "floor": {
+        "centroid": [
+          13.312858950000003,
+          4.972803699999994,
+          0.0013811000000000322
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04783303840377462,
+        "normal": [
+          -0.0003239966047865637,
+          -0.0004707728696229577,
+          0.9999998366995394
+        ],
+        "point_count": 374865,
+        "residual_p95": 0.009467721918727062,
+        "residual_rms": 0.004750307720085391,
+        "tangent_extent_u": 7.584963467619627,
+        "tangent_extent_v": 7.332019579459919,
+        "tangent_u": [
+          -0.0625225651306407,
+          -0.9980434302387362,
+          -0.0004901089485217187
+        ],
+        "tangent_v": [
+          -0.9980434979877804,
+          0.0625227137143123,
+          -0.0002939287554241463
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_21/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 374865,
+      "gap_to_median_spacing": 62.122224704229936,
+      "gap_to_residual_snr": 472.0300565973881,
+      "normal_angle_degrees": 0.07419743906413896,
+      "plane_gap": 3.0465235563339568,
+      "room": "office_21"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_22/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.990022492100739,
+      "ceiling": {
+        "centroid": [
+          21.643860100000104,
+          -20.710248650000036,
+          3.0577932499997287
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02801785145224596,
+        "normal": [
+          -0.004660487158969918,
+          -0.001873032012754129,
+          0.9999873857257
+        ],
+        "point_count": 137814,
+        "residual_p95": 0.017462793420761312,
+        "residual_rms": 0.0069137532407253675,
+        "tangent_extent_u": 5.0750930561787335,
+        "tangent_extent_v": 3.288612430502553,
+        "tangent_u": [
+          -0.9974734601890707,
+          -0.07087900378615408,
+          -0.004781531211294316
+        ],
+        "tangent_v": [
+          -0.07088706565998694,
+          0.9974831620500475,
+          0.0015379690358207892
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_22/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 137012,
+      "common_footprint_extent_u": 4.922009417735273,
+      "common_footprint_extent_v": 3.1454839946560766,
+      "floor": {
+        "centroid": [
+          21.78864434999997,
+          -20.57076124999994,
+          0.005146550000000089
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.024738633753706902,
+        "normal": [
+          0.002130274685854879,
+          -0.0005355216397153917,
+          0.9999975875702581
+        ],
+        "point_count": 109210,
+        "residual_p95": 0.01005542733028988,
+        "residual_rms": 0.004263488072594082,
+        "tangent_extent_u": 4.99419001179812,
+        "tangent_extent_v": 3.1452043514759245,
+        "tangent_u": [
+          -0.9999820907428696,
+          -0.00559401628444957,
+          0.0021272459492759255
+        ],
+        "tangent_v": [
+          -0.0055928636030394725,
+          0.9999842099745291,
+          0.000547428840203666
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_22/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 108574,
+      "gap_to_median_spacing": 108.94502775150643,
+      "gap_to_residual_snr": 375.7897458209293,
+      "normal_angle_degrees": 0.3965583070682756,
+      "plane_gap": 3.0524056040025207,
+      "room": "office_22"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_23/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9816729291684732,
+      "ceiling": {
+        "centroid": [
+          18.30277074999993,
+          -20.693928649999982,
+          3.0524517499999253
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028160255680658178,
+        "normal": [
+          -0.004072901541915183,
+          0.003093411261658131,
+          0.9999869210543687
+        ],
+        "point_count": 142940,
+        "residual_p95": 0.01949839311524201,
+        "residual_rms": 0.007431294494554843,
+        "tangent_extent_u": 5.090629831504986,
+        "tangent_extent_v": 3.1449896113784126,
+        "tangent_u": [
+          -0.9996701562230922,
+          0.025344745800609598,
+          -0.004150014120580146
+        ],
+        "tangent_v": [
+          0.025357252018473865,
+          0.9996739841903808,
+          -0.0029891642649534362
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_23/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 137870,
+      "common_footprint_extent_u": 5.036558078115231,
+      "common_footprint_extent_v": 3.174076737062465,
+      "floor": {
+        "centroid": [
+          18.462210050000138,
+          -20.985278349999973,
+          0.007369400000000031
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022594222671664124,
+        "normal": [
+          0.004283813341997524,
+          -3.347053584093119e-05,
+          0.9999908238693864
+        ],
+        "point_count": 93180,
+        "residual_p95": 0.006405529931918319,
+        "residual_rms": 0.003147815165833186,
+        "tangent_extent_u": 5.1268062178735665,
+        "tangent_extent_v": 3.1739937284492465,
+        "tangent_u": [
+          -0.9965926431972353,
+          0.08237022174157156,
+          0.004272013037473539
+        ],
+        "tangent_v": [
+          0.08236960888822367,
+          0.9966017988394201,
+          -0.0003195021650968815
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_23/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 92620,
+      "gap_to_median_spacing": 108.10845194798466,
+      "gap_to_residual_snr": 377.2212130271031,
+      "normal_angle_degrees": 0.5112267638688647,
+      "plane_gap": 3.0443616480953968,
+      "room": "office_23"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_24/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          13.038911499999983,
+          -20.30540099999988,
+          3.0413575000004553
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0424264068711932,
+        "normal": [
+          -0.0028284107168868285,
+          0.0003665588774844664,
+          0.999995932855432
+        ],
+        "point_count": 335384,
+        "residual_p95": 0.01962458677934502,
+        "residual_rms": 0.0083211847194568,
+        "tangent_extent_u": 6.543729525169788,
+        "tangent_extent_v": 6.013257395925349,
+        "tangent_u": [
+          -0.042921281918878534,
+          -0.9990784271618097,
+          0.00024482304874811055
+        ],
+        "tangent_v": [
+          -0.9990744535074737,
+          0.04292041489168511,
+          -0.002841537307315272
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_24/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 317058,
+      "common_footprint_extent_u": 6.904406896896306,
+      "common_footprint_extent_v": 6.319364254283805,
+      "floor": {
+        "centroid": [
+          13.354083949999985,
+          -20.24557399999969,
+          -0.008957199999999898
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03220248437620993,
+        "normal": [
+          0.0005020226727875898,
+          0.0001462626479483797,
+          0.9999998632902275
+        ],
+        "point_count": 178683,
+        "residual_p95": 0.012133933363459472,
+        "residual_rms": 0.006717417137465148,
+        "tangent_extent_u": 6.864445476653804,
+        "tangent_extent_v": 6.303559112587992,
+        "tangent_u": [
+          0.2822405035577643,
+          -0.9593436809348201,
+          -1.3749850868874522e-06
+        ],
+        "tangent_v": [
+          -0.9593435495820544,
+          -0.28224046566300315,
+          0.0005228935222334254
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_24/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 178683,
+      "gap_to_median_spacing": 71.89266152285093,
+      "gap_to_residual_snr": 285.2152302882291,
+      "normal_angle_degrees": 0.19123699440407255,
+      "plane_gap": 3.0501473088214497,
+      "room": "office_24"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_25/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9811036110369488,
+      "ceiling": {
+        "centroid": [
+          8.075423499999994,
+          -20.30294799999993,
+          3.0404565000001456
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022360679774998216,
+        "normal": [
+          -0.004040462280590339,
+          -0.0017576694898643178,
+          0.9999902925841447
+        ],
+        "point_count": 102438,
+        "residual_p95": 0.01310472812126536,
+        "residual_rms": 0.0068774756619098855,
+        "tangent_extent_u": 4.354237107426016,
+        "tangent_extent_v": 2.664849010142615,
+        "tangent_u": [
+          -0.9998829526068552,
+          -0.014749545996325126,
+          -0.004065953651903334
+        ],
+        "tangent_v": [
+          -0.014756549419029619,
+          0.9998896746595929,
+          0.0016978687749786326
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_25/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 94228,
+      "common_footprint_extent_u": 4.065945139286022,
+      "common_footprint_extent_v": 2.595571819080929,
+      "floor": {
+        "centroid": [
+          8.400529499999934,
+          -20.195351999999907,
+          -0.018491499999997076
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.019999999999999574,
+        "normal": [
+          0.00038820531191595105,
+          -0.0010144324186136156,
+          0.9999994101115779
+        ],
+        "point_count": 61921,
+        "residual_p95": 0.012781309746301489,
+        "residual_rms": 0.006422547633027174,
+        "tangent_extent_u": 4.143034368828628,
+        "tangent_extent_v": 2.5757500301024856,
+        "tangent_u": [
+          -0.9998465546953337,
+          -0.017513705573170196,
+          0.0003703794914126871
+        ],
+        "tangent_v": [
+          -0.017513319517074768,
+          0.9998461086807132,
+          0.001021075672256907
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_25/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 61319,
+      "gap_to_median_spacing": 136.79946975389996,
+      "gap_to_residual_snr": 325.0709060299899,
+      "normal_angle_degrees": 0.257293235422308,
+      "plane_gap": 3.058929136556511,
+      "room": "office_25"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_26/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9806510940275254,
+      "ceiling": {
+        "centroid": [
+          5.246949500000013,
+          -20.653915699999967,
+          3.0434339999997713
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.026095976701400646,
+        "normal": [
+          -0.0058424824234874434,
+          4.424074346599364e-05,
+          0.9999829315752783
+        ],
+        "point_count": 128392,
+        "residual_p95": 0.017525329815075378,
+        "residual_rms": 0.007763952869189213,
+        "tangent_extent_u": 5.064019927612704,
+        "tangent_extent_v": 2.8981064135156522,
+        "tangent_u": [
+          -0.9997052416723727,
+          0.02356484558571246,
+          -0.0058419025415012375
+        ],
+        "tangent_v": [
+          0.023564701821031195,
+          0.9997223094916299,
+          9.344949300828148e-05
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_26/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 108641,
+      "common_footprint_extent_u": 4.9281887306430985,
+      "common_footprint_extent_v": 2.480793045649949,
+      "floor": {
+        "centroid": [
+          5.36819594999998,
+          -20.730888500000102,
+          -0.011785349999998742
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.021035680610740147,
+        "normal": [
+          0.0036202339844009844,
+          -0.0014527730217039191,
+          0.9999923916492793
+        ],
+        "point_count": 82012,
+        "residual_p95": 0.0094241101885978,
+        "residual_rms": 0.004455361140909748,
+        "tangent_extent_u": 5.019441581874956,
+        "tangent_extent_v": 2.4450375302373804,
+        "tangent_u": [
+          -0.999110475066207,
+          0.04200869443734007,
+          0.003678070778013721
+        ],
+        "tangent_v": [
+          0.042013718222457676,
+          0.9991161889601313,
+          0.0012993994406355694
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_26/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 81282,
+      "gap_to_median_spacing": 117.05426377581999,
+      "gap_to_residual_snr": 341.2442727917454,
+      "normal_angle_degrees": 0.548918816645679,
+      "plane_gap": 3.054645340293404,
+      "room": "office_26"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_27/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9907465584826571,
+      "ceiling": {
+        "centroid": [
+          -10.331893500000016,
+          -20.67759500000011,
+          3.0524975000004666
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029999999999997584,
+        "normal": [
+          0.00536628432456409,
+          -7.602779114970763e-05,
+          -0.9999855985024599
+        ],
+        "point_count": 145296,
+        "residual_p95": 0.019289070696654094,
+        "residual_rms": 0.007820096443049143,
+        "tangent_extent_u": 5.033891671040847,
+        "tangent_extent_v": 3.1878182938646855,
+        "tangent_u": [
+          -0.9999830119194507,
+          0.002275336757203671,
+          -0.005366443435343437
+        ],
+        "tangent_v": [
+          0.0022757119877876795,
+          0.9999974085278505,
+          -6.381639561030398e-05
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_27/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 131312,
+      "common_footprint_extent_u": 5.041059881581407,
+      "common_footprint_extent_v": 3.392646786773473,
+      "floor": {
+        "centroid": [
+          -10.034597000000078,
+          -20.37207799999985,
+          -0.001981499999999986
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02236067977499742,
+        "normal": [
+          0.001058519102734527,
+          -0.0013080527365629975,
+          0.9999985842666715
+        ],
+        "point_count": 82817,
+        "residual_p95": 0.008891193025404344,
+        "residual_rms": 0.004710005811006645,
+        "tangent_extent_u": 5.0759596665760345,
+        "tangent_extent_v": 3.3610992716149353,
+        "tangent_u": [
+          -0.9682250381121205,
+          -0.25007956472291926,
+          0.0006977684274472657
+        ],
+        "tangent_v": [
+          -0.2500782979590436,
+          0.9682244059648742,
+          0.0015312034071741163
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_27/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 82776,
+      "gap_to_median_spacing": 101.81865379988272,
+      "gap_to_residual_snr": 334.60074536327,
+      "normal_angle_degrees": 0.3765605829578475,
+      "plane_gap": 3.054559613996236,
+      "room": "office_27"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_28/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9906820101415067,
+      "ceiling": {
+        "centroid": [
+          -13.6810683500001,
+          -20.648998999999947,
+          3.052862800000046
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028160255680658178,
+        "normal": [
+          -0.005667504218248596,
+          0.001974598631388638,
+          0.9999819900159108
+        ],
+        "point_count": 144062,
+        "residual_p95": 0.021657539571064796,
+        "residual_rms": 0.00856679897833192,
+        "tangent_extent_u": 5.055163158411997,
+        "tangent_extent_v": 3.1060472325506017,
+        "tangent_u": [
+          -0.999910556764887,
+          0.012103346644823527,
+          -0.00569099904485864
+        ],
+        "tangent_v": [
+          0.01211436610266824,
+          0.9999248021527619,
+          -0.0019058262487346201
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_28/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 140592,
+      "common_footprint_extent_u": 4.94816322320371,
+      "common_footprint_extent_v": 3.0821921727764074,
+      "floor": {
+        "centroid": [
+          -13.220221450000011,
+          -20.824141399999995,
+          -0.0003315499999999842
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02310844001658451,
+        "normal": [
+          -0.0003475189768759755,
+          -4.002570805259915e-05,
+          0.99999993881425
+        ],
+        "point_count": 96472,
+        "residual_p95": 0.008033694961500974,
+        "residual_rms": 0.0034117380731405697,
+        "tangent_extent_u": 4.989355324889172,
+        "tangent_extent_v": 3.0744106141868657,
+        "tangent_u": [
+          -0.9998177195626533,
+          -0.01908943141012513,
+          -0.0003482197202794808
+        ],
+        "tangent_v": [
+          -0.01908944417986481,
+          0.9998177794010168,
+          3.338447247623451e-05
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_28/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 96122,
+      "gap_to_median_spacing": 108.42754201730705,
+      "gap_to_residual_snr": 331.12358331461286,
+      "normal_angle_degrees": 0.3259387826148055,
+      "plane_gap": 3.053347306032674,
+      "room": "office_28"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_29/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9915368456230497,
+      "ceiling": {
+        "centroid": [
+          -18.471520700000077,
+          -20.25193629999994,
+          3.058797349999656
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.043462627624200466,
+        "normal": [
+          -0.0031938264604004746,
+          0.0003511567164762854,
+          0.9999948380674277
+        ],
+        "point_count": 338794,
+        "residual_p95": 0.018064453510854582,
+        "residual_rms": 0.007922192176829669,
+        "tangent_extent_u": 6.744727485719385,
+        "tangent_extent_v": 6.197429664699498,
+        "tangent_u": [
+          -0.09037626947351263,
+          -0.9959076895907737,
+          6.107386861260375e-05
+        ],
+        "tangent_v": [
+          -0.9959025702289315,
+          0.09037560789796581,
+          -0.003212492565167016
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_29/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 334618,
+      "common_footprint_extent_u": 6.556219376885386,
+      "common_footprint_extent_v": 6.111739491581368,
+      "floor": {
+        "centroid": [
+          -18.191890000000022,
+          -20.169899749999903,
+          0.003243600000000035
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03623534186398616,
+        "normal": [
+          -0.0011287985815957172,
+          0.0005257876833013595,
+          0.9999992246802366
+        ],
+        "point_count": 231473,
+        "residual_p95": 0.012548416562949269,
+        "residual_rms": 0.005682817233428648,
+        "tangent_extent_u": 6.530315855658321,
+        "tangent_extent_v": 6.131025173798205,
+        "tangent_u": [
+          0.09291580670470975,
+          -0.9956737708617065,
+          0.0006283967233297764
+        ],
+        "tangent_v": [
+          -0.9956733292994118,
+          -0.09291644399857844,
+          -0.0010750611535314085
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_29/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 231306,
+      "gap_to_median_spacing": 70.30923027297341,
+      "gap_to_residual_snr": 313.42930836230664,
+      "normal_angle_degrees": 0.11873998267506655,
+      "plane_gap": 3.0558238938984057,
+      "room": "office_29"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_3/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9952565334258,
+      "ceiling": {
+        "centroid": [
+          -13.67512129999994,
+          18.637827299999962,
+          3.048916749999786
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02881838515074383,
+        "normal": [
+          -0.0064321648738771995,
+          -0.003498900874378133,
+          0.9999731921145221
+        ],
+        "point_count": 145385,
+        "residual_p95": 0.01675704750534788,
+        "residual_rms": 0.006779063879311963,
+        "tangent_extent_u": 5.442870691340733,
+        "tangent_extent_v": 2.9301620833160613,
+        "tangent_u": [
+          -0.9999379062772251,
+          -0.009077673931407185,
+          -0.0064637006362170185
+        ],
+        "tangent_v": [
+          0.0091000464259718,
+          -0.9999526756445359,
+          -0.003440294519198944
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_3/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 131874,
+      "common_footprint_extent_u": 5.162378940194218,
+      "common_footprint_extent_v": 2.8265076019615214,
+      "floor": {
+        "centroid": [
+          -13.194328199999987,
+          18.723664700000004,
+          0.003543200000000164
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.023345235059857427,
+        "normal": [
+          4.309469907277299e-05,
+          -0.0030932013591661255,
+          0.9999952151126518
+        ],
+        "point_count": 95571,
+        "residual_p95": 0.009578879983876003,
+        "residual_rms": 0.00436084743251477,
+        "tangent_extent_u": 5.1567134955922,
+        "tangent_extent_v": 2.821929768477992,
+        "tangent_u": [
+          -0.9981226840581928,
+          0.061245845006168365,
+          0.00023246064002152946
+        ],
+        "tangent_v": [
+          0.06124627099926711,
+          0.9981179181714116,
+          0.003084755071683345
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_3/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 95517,
+      "gap_to_median_spacing": 105.68266594494426,
+      "gap_to_residual_snr": 377.8400176624778,
+      "normal_angle_degrees": 0.3717353146701546,
+      "plane_gap": 3.0456037709588024,
+      "room": "office_3"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_30/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.989994528665477,
+      "ceiling": {
+        "centroid": [
+          -23.722248000000075,
+          -11.393456000000034,
+          2.5511409000000027
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02232708829230328,
+        "normal": [
+          -0.008119508012825936,
+          -0.0005199791241291431,
+          0.9999669010578999
+        ],
+        "point_count": 88949,
+        "residual_p95": 0.017821126378742936,
+        "residual_rms": 0.026580014893144554,
+        "tangent_extent_u": 4.2880642171859655,
+        "tangent_extent_v": 2.2092078532603026,
+        "tangent_u": [
+          -0.9999621698417174,
+          -0.003115571828037618,
+          -0.008121089682340118
+        ],
+        "tangent_v": [
+          0.0031196915030060716,
+          -0.9999950114045042,
+          -0.0004946625428139438
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_30/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 82581,
+      "common_footprint_extent_u": 4.258240851085894,
+      "common_footprint_extent_v": 2.107608637580264,
+      "floor": {
+        "centroid": [
+          -23.48519705000002,
+          -11.50615290000002,
+          -0.010347599999999502
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.018138357147217798,
+        "normal": [
+          -0.002099932536812478,
+          0.001872970237520973,
+          0.9999960411250788
+        ],
+        "point_count": 59415,
+        "residual_p95": 0.00982861855758567,
+        "residual_rms": 0.00445324084196856,
+        "tangent_extent_u": 4.296481414431647,
+        "tangent_extent_v": 2.1046830233711784,
+        "tangent_u": [
+          -0.999726166084649,
+          0.023302367929681437,
+          -0.002143010629571043
+        ],
+        "tangent_v": [
+          0.02330628947364931,
+          0.9997267084715498,
+          -0.0018235239541471795
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_30/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 59102,
+      "gap_to_median_spacing": 114.75689058895415,
+      "gap_to_residual_snr": 95.07017768649476,
+      "normal_angle_degrees": 0.37115324781275383,
+      "plane_gap": 2.562187228329767,
+      "room": "office_30"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_31/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9858950631295142,
+      "ceiling": {
+        "centroid": [
+          -34.959478100000126,
+          -9.525948800000048,
+          3.0427572499999247
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029841245446773856,
+        "normal": [
+          -0.0033019646911349896,
+          -0.005225545862851905,
+          0.9999808951673097
+        ],
+        "point_count": 158160,
+        "residual_p95": 0.01999401126349126,
+        "residual_rms": 0.009656879894801497,
+        "tangent_extent_u": 5.590756034049856,
+        "tangent_extent_v": 3.173001290203538,
+        "tangent_u": [
+          -0.9999114673498962,
+          -0.01287273380746986,
+          -0.003369003784595189
+        ],
+        "tangent_v": [
+          -0.012890092759832727,
+          0.9999034885401481,
+          0.005182577918917791
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_31/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 136964,
+      "common_footprint_extent_u": 5.725003931967417,
+      "common_footprint_extent_v": 2.784988772610118,
+      "floor": {
+        "centroid": [
+          -34.8219845999998,
+          -9.408536399999946,
+          -8.32000000000047e-05
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02325940669922664,
+        "normal": [
+          -0.0014283590366750505,
+          0.0016143499307536275,
+          0.9999976768296831
+        ],
+        "point_count": 97621,
+        "residual_p95": 0.009816805037950748,
+        "residual_rms": 0.004599244489844161,
+        "tangent_extent_u": 5.7853366610906685,
+        "tangent_extent_v": 2.7729034013307654,
+        "tangent_u": [
+          -0.9802975001169656,
+          -0.1975237756663771,
+          -0.0010813468115056326
+        ],
+        "tangent_v": [
+          -0.19752157111285437,
+          0.9802967672704015,
+          -0.0018646780713630219
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_31/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 97402,
+      "gap_to_median_spacing": 101.96760157929917,
+      "gap_to_residual_snr": 284.4790129877632,
+      "normal_angle_degrees": 0.4063360172123276,
+      "plane_gap": 3.042840226346712,
+      "room": "office_31"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_32/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9960286201400508,
+      "ceiling": {
+        "centroid": [
+          -34.95239724999989,
+          -6.239926499999989,
+          3.04542919999975
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03009983388658499,
+        "normal": [
+          -0.00600949945860287,
+          0.001459895995407945,
+          0.9999808771271278
+        ],
+        "point_count": 158809,
+        "residual_p95": 0.02554939152432402,
+        "residual_rms": 0.009485770205967688,
+        "tangent_extent_u": 5.59187204811941,
+        "tangent_extent_v": 3.104264472536,
+        "tangent_u": [
+          -0.9998984076032292,
+          0.012916631237064812,
+          -0.006027861147389043
+        ],
+        "tangent_v": [
+          0.012925184284317678,
+          0.9999155111013973,
+          -0.0013821251926485147
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_32/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 142837,
+      "common_footprint_extent_u": 5.7367817535498915,
+      "common_footprint_extent_v": 2.8247956810638737,
+      "floor": {
+        "centroid": [
+          -34.89177405000011,
+          -6.362932600000018,
+          -0.006289800000000389
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02360084744241507,
+        "normal": [
+          -0.0020958525834595117,
+          -0.00031098509471051813,
+          0.9999977553425902
+        ],
+        "point_count": 102042,
+        "residual_p95": 0.0068310715853577356,
+        "residual_rms": 0.003581890636855351,
+        "tangent_extent_u": 5.751413463095736,
+        "tangent_extent_v": 2.8047742739273662,
+        "tangent_u": [
+          -0.9940335481455316,
+          0.10905551323133755,
+          -0.002049437741100897
+        ],
+        "tangent_v": [
+          0.10905463109448173,
+          0.9940356122001464,
+          0.0005376938962618792
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_32/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 102008,
+      "gap_to_median_spacing": 101.38929555763765,
+      "gap_to_residual_snr": 300.98094126238726,
+      "normal_angle_degrees": 0.24612498961097265,
+      "plane_gap": 3.0518009541627626,
+      "room": "office_32"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_33/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9961585894214173,
+      "ceiling": {
+        "centroid": [
+          -34.950951999999766,
+          -3.098490499999999,
+          3.0459198499999594
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.027892651361963016,
+        "normal": [
+          -0.00438390799309019,
+          0.0005893736018441862,
+          0.9999902169468787
+        ],
+        "point_count": 155425,
+        "residual_p95": 0.01799174229367194,
+        "residual_rms": 0.0076155901706806955,
+        "tangent_extent_u": 5.591150884908474,
+        "tangent_extent_v": 3.068200054403892,
+        "tangent_u": [
+          -0.9999807853947462,
+          -0.0043855684211092085,
+          -0.004381281882085541
+        ],
+        "tangent_v": [
+          0.004382943304976839,
+          -0.9999902096662652,
+          0.0006085882057188186
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_33/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 145718,
+      "common_footprint_extent_u": 5.5642718466735115,
+      "common_footprint_extent_v": 2.9077300824501116,
+      "floor": {
+        "centroid": [
+          -34.64318100000003,
+          -3.126060600000002,
+          -0.0009233500000000307
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.024738633753707617,
+        "normal": [
+          -0.0023331568487625336,
+          -0.0002467886913278041,
+          0.999997247733443
+        ],
+        "point_count": 110891,
+        "residual_p95": 0.010655786795593062,
+        "residual_rms": 0.005145083514702102,
+        "tangent_extent_u": 5.584676670286064,
+        "tangent_extent_v": 2.8778510800006485,
+        "tangent_u": [
+          -0.9993246513411826,
+          0.03667215622837784,
+          -0.002322537273211806
+        ],
+        "tangent_v": [
+          0.03667148212089445,
+          0.9993273197771108,
+          0.0003321839153792316
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_33/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 110815,
+      "gap_to_median_spacing": 109.25982075905594,
+      "gap_to_residual_snr": 331.5899458756467,
+      "normal_angle_degrees": 0.12689170793422125,
+      "plane_gap": 3.0475460883029166,
+      "room": "office_33"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_34/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9917920572978481,
+      "ceiling": {
+        "centroid": [
+          -34.95875049999999,
+          0.15839825000000085,
+          3.0449651999999974
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029631064780058065,
+        "normal": [
+          -0.005457115660377111,
+          0.0028477154099143956,
+          0.9999810550233504
+        ],
+        "point_count": 158944,
+        "residual_p95": 0.019735549099323426,
+        "residual_rms": 0.010272364277006056,
+        "tangent_extent_u": 5.609782210205555,
+        "tangent_extent_v": 3.2063853288674258,
+        "tangent_u": [
+          -0.999948889740518,
+          0.008495591857878211,
+          -0.005481133613578031
+        ],
+        "tangent_v": [
+          0.008511039617744028,
+          0.9999598569122302,
+          -0.002801208435069015
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_34/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 144005,
+      "common_footprint_extent_u": 5.6567362051848775,
+      "common_footprint_extent_v": 2.8738662771081054,
+      "floor": {
+        "centroid": [
+          -34.73305010000014,
+          0.10724924999999973,
+          0.0024649499999999528
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.023537204591878504,
+        "normal": [
+          -0.0007644502891560833,
+          -0.001814989925794284,
+          0.9999980607117819
+        ],
+        "point_count": 101316,
+        "residual_p95": 0.016541764685423795,
+        "residual_rms": 0.007688657137226226,
+        "tangent_extent_u": 5.703090982201983,
+        "tangent_extent_v": 2.8629061145218735,
+        "tangent_u": [
+          -0.9993418880539764,
+          0.03626711187075414,
+          -0.0006981241064694298
+        ],
+        "tangent_v": [
+          0.03626577445015118,
+          0.9993404837232017,
+          0.001841519863398665
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_34/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 101034,
+      "gap_to_median_spacing": 102.6819007050706,
+      "gap_to_residual_snr": 237.1251100331005,
+      "normal_angle_degrees": 0.3790295671767081,
+      "plane_gap": 3.042574051531437,
+      "room": "office_34"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_35/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9604177029709733,
+      "ceiling": {
+        "centroid": [
+          -23.64310874999998,
+          3.4052466500000023,
+          2.54327924999995
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.030675723300355784,
+        "normal": [
+          -0.002732105089784224,
+          0.00022423382310734593,
+          0.9999962426534267
+        ],
+        "point_count": 167904,
+        "residual_p95": 0.006405259462140255,
+        "residual_rms": 0.0034182691161763696,
+        "tangent_extent_u": 6.190193674952695,
+        "tangent_extent_v": 5.2678940296349595,
+        "tangent_u": [
+          -0.7254470681161251,
+          -0.6882755342046342,
+          -0.0018276698399721561
+        ],
+        "tangent_v": [
+          -0.6882725382895185,
+          0.7254493357461418,
+          -0.0020431108597201405
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_35/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 166955,
+      "common_footprint_extent_u": 5.02731091508752,
+      "common_footprint_extent_v": 5.154552355052745,
+      "floor": {
+        "centroid": [
+          -23.527515899999983,
+          3.733358900000016,
+          0.0033561500000000278
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02707397274136277,
+        "normal": [
+          -0.0021379027628492895,
+          -0.0004801907310955372,
+          0.9999975993914377
+        ],
+        "point_count": 128166,
+        "residual_p95": 0.009724686801939036,
+        "residual_rms": 0.00443824949922884,
+        "tangent_extent_u": 5.231715102267553,
+        "tangent_extent_v": 5.1347101932180585,
+        "tangent_u": [
+          -0.9560833046081683,
+          0.29308888102080416,
+          -0.0019032791434107385
+        ],
+        "tangent_v": [
+          0.29308726349212344,
+          0.9560850784521404,
+          0.0010856978695228125
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_35/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 127250,
+      "gap_to_median_spacing": 82.81212020659787,
+      "gap_to_residual_snr": 453.4653422467462,
+      "normal_angle_degrees": 0.052802102418351725,
+      "plane_gap": 2.540321685373398,
+      "room": "office_35"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_36/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -17.34612269999997,
+          4.310307750000009,
+          3.0332814500002074
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03920459156782679,
+        "normal": [
+          0.00017574779916980373,
+          0.0008528202191888338,
+          0.9999996209051206
+        ],
+        "point_count": 254960,
+        "residual_p95": 0.009890708687345925,
+        "residual_rms": 0.005955905677886855,
+        "tangent_extent_u": 6.112185712041627,
+        "tangent_extent_v": 4.295370827366011,
+        "tangent_u": [
+          -0.999992332045908,
+          -0.003912004441820594,
+          0.00017908275591864488
+        ],
+        "tangent_v": [
+          -0.0039121556841948965,
+          0.9999919844273362,
+          -0.0008521261536315847
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_36/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 252374,
+      "common_footprint_extent_u": 6.452048119697294,
+      "common_footprint_extent_v": 4.911165507077856,
+      "floor": {
+        "centroid": [
+          -17.162827749999938,
+          4.1750263500000075,
+          0.007555350000000118
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03505709628591635,
+        "normal": [
+          -0.001175560033649243,
+          -0.0003045343851530129,
+          0.9999992626584361
+        ],
+        "point_count": 211599,
+        "residual_p95": 0.01903223917503971,
+        "residual_rms": 0.008922343885856667,
+        "tangent_extent_u": 6.428110797704891,
+        "tangent_extent_v": 4.907704761192468,
+        "tangent_u": [
+          -0.9886085499244444,
+          -0.15050473661626795,
+          -0.00120800345835432
+        ],
+        "tangent_v": [
+          -0.15050499352146052,
+          0.9886092410628561,
+          0.0001241379436672644
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_36/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 211599,
+      "gap_to_median_spacing": 77.18223872199223,
+      "gap_to_residual_snr": 282.06709750777986,
+      "normal_angle_degrees": 0.10193985971050164,
+      "plane_gap": 3.025898145386211,
+      "room": "office_36"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_37/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -19.43920875000009,
+          -4.240957349999971,
+          4.21217224999997
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.05485890975249508,
+        "normal": [
+          -0.0018204786260897425,
+          -0.01007324084923895,
+          0.9999476064656412
+        ],
+        "point_count": 456227,
+        "residual_p95": 0.11685866762781336,
+        "residual_rms": 0.0524941623306678,
+        "tangent_extent_u": 7.199118467928525,
+        "tangent_extent_v": 6.679719329713123,
+        "tangent_u": [
+          -0.021120009495255325,
+          -0.9997258344525382,
+          -0.010109457309714727
+        ],
+        "tangent_v": [
+          -0.9997752902810172,
+          0.021137306994265883,
+          -0.001607232571186656
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_37/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 418442,
+      "common_footprint_extent_u": 7.700979479222691,
+      "common_footprint_extent_v": 7.259405338620433,
+      "floor": {
+        "centroid": [
+          -19.27374510000009,
+          -4.033968750000003,
+          0.012495149999999573
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.040540103132223504,
+        "normal": [
+          -0.0010887032046693339,
+          0.0011597083383680133,
+          0.9999987349001507
+        ],
+        "point_count": 272833,
+        "residual_p95": 0.012866960127344661,
+        "residual_rms": 0.005753897926080367,
+        "tangent_extent_u": 7.672280775212848,
+        "tangent_extent_v": 7.190607876964956,
+        "tangent_u": [
+          0.5116467807426297,
+          -0.8591944823807842,
+          0.001553448460617448
+        ],
+        "tangent_v": [
+          -0.8591951969611071,
+          -0.511647824702682,
+          -0.0003420467484757903
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_37/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 272833,
+      "gap_to_median_spacing": 76.55295922461788,
+      "gap_to_residual_snr": 79.52520523231678,
+      "normal_angle_degrees": 0.6449748895985673,
+      "plane_gap": 4.199611881389748,
+      "room": "office_37"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_38/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9630343471553221,
+      "ceiling": {
+        "centroid": [
+          14.896883950000024,
+          -10.190536549999976,
+          4.279610349999989
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0519230163711617,
+        "normal": [
+          0.0010090043866848167,
+          0.023116102797383842,
+          0.9997322780132732
+        ],
+        "point_count": 420285,
+        "residual_p95": 0.069818469842206,
+        "residual_rms": 0.038169445632707744,
+        "tangent_extent_u": 9.724055573112215,
+        "tangent_extent_v": 5.436211796391477,
+        "tangent_u": [
+          -0.9989172026497563,
+          0.04652330263680466,
+          -6.754368974845592e-05
+        ],
+        "tangent_v": [
+          0.046512408672669196,
+          0.9986497023998081,
+          -0.02313801495897048
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_38/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 410903,
+      "common_footprint_extent_u": 9.668217682477025,
+      "common_footprint_extent_v": 5.477554817014619,
+      "floor": {
+        "centroid": [
+          15.26297295000002,
+          -10.316166750000054,
+          0.018781099999999044
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.039635842365212365,
+        "normal": [
+          -0.000314881672099611,
+          -0.000797742089171373,
+          0.9999996322284783
+        ],
+        "point_count": 252257,
+        "residual_p95": 0.013439358382892447,
+        "residual_rms": 0.006579155039932149,
+        "tangent_extent_u": 10.03177358942807,
+        "tangent_extent_v": 5.450757689816733,
+        "tangent_u": [
+          -0.9928941436102917,
+          0.11900072346718293,
+          -0.00021771236247471152
+        ],
+        "tangent_v": [
+          0.11900050602379089,
+          0.9928938470057346,
+          0.000829544595236105
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_38/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 248504,
+      "gap_to_median_spacing": 82.06077063683595,
+      "gap_to_residual_snr": 110.00745126040319,
+      "normal_angle_degrees": 1.3723787171522328,
+      "plane_gap": 4.260842737206579,
+      "room": "office_38"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_39/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9376648176654322,
+      "ceiling": {
+        "centroid": [
+          25.66505745000004,
+          -12.122915200000067,
+          2.5239667000000505
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03069201850644546,
+        "normal": [
+          -0.002733201463249993,
+          -0.0010234054782165714,
+          0.9999957411164253
+        ],
+        "point_count": 182412,
+        "residual_p95": 0.008184379293591752,
+        "residual_rms": 0.0040988594513337705,
+        "tangent_extent_u": 7.605921749645612,
+        "tangent_extent_v": 4.635627258067876,
+        "tangent_u": [
+          -0.8179747874835779,
+          -0.5752471379611319,
+          -0.002824412987215623
+        ],
+        "tangent_v": [
+          -0.5752475785702682,
+          0.8179790235139005,
+          -0.0007351464406520045
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_39/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 181285,
+      "common_footprint_extent_u": 7.409482286669366,
+      "common_footprint_extent_v": 4.553655843035347,
+      "floor": {
+        "centroid": [
+          25.476797500000018,
+          -11.89685110000012,
+          0.015291899999999234
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03006659275674345,
+        "normal": [
+          -0.0022653834804565167,
+          0.0010085440666601035,
+          0.9999969254335497
+        ],
+        "point_count": 159542,
+        "residual_p95": 0.008594202364384532,
+        "residual_rms": 0.0041964940531650455,
+        "tangent_extent_u": 7.38578144765748,
+        "tangent_extent_v": 4.8350288522369285,
+        "tangent_u": [
+          -0.8063250497309238,
+          -0.5914713864552543,
+          -0.0012301142721981141
+        ],
+        "tangent_v": [
+          -0.5914683273127226,
+          0.8063253573115291,
+          -0.0021531238527439825
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_39/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 158698,
+      "gap_to_median_spacing": 81.71546650796138,
+      "gap_to_residual_snr": 427.5429373256081,
+      "normal_angle_degrees": 0.11946789130188074,
+      "plane_gap": 2.5080126103251748,
+      "room": "office_39"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_4/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9821157577893557,
+      "ceiling": {
+        "centroid": [
+          -10.402291099999955,
+          18.83939535000001,
+          3.0549333499999394
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028301943396168545,
+        "normal": [
+          -0.004469552173294726,
+          0.0007196597220547036,
+          0.9999897525441221
+        ],
+        "point_count": 143513,
+        "residual_p95": 0.018552548865874437,
+        "residual_rms": 0.007150902475423962,
+        "tangent_extent_u": 5.407402237539875,
+        "tangent_extent_v": 3.0104541524631303,
+        "tangent_u": [
+          -0.9999529287813761,
+          -0.008615113362166384,
+          -0.004463187572257261
+        ],
+        "tangent_v": [
+          -0.008611813102844597,
+          0.9999626302575718,
+          -0.0007581315454455979
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_4/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 141944,
+      "common_footprint_extent_u": 5.347962944301856,
+      "common_footprint_extent_v": 2.905452438792266,
+      "floor": {
+        "centroid": [
+          -10.273531850000003,
+          18.78067894999989,
+          0.010440199999999324
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.025514701644345883,
+        "normal": [
+          0.0014806374168099472,
+          -0.0011416857688947239,
+          0.9999982521316952
+        ],
+        "point_count": 114039,
+        "residual_p95": 0.011911911281267841,
+        "residual_rms": 0.0053565465652340005,
+        "tangent_extent_u": 5.436839340049742,
+        "tangent_extent_v": 2.904274244387327,
+        "tangent_u": [
+          -0.9998048907420292,
+          0.019695733745620603,
+          0.0015028374964295712
+        ],
+        "tangent_v": [
+          0.019697415088254483,
+          0.9998053683721783,
+          0.0011123007750962052
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_4/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 113200,
+      "gap_to_median_spacing": 107.5625834089326,
+      "gap_to_residual_snr": 340.7217561023827,
+      "normal_angle_degrees": 0.3572131615601221,
+      "plane_gap": 3.044230147185268,
+      "room": "office_4"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_40/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.970377786834578,
+      "ceiling": {
+        "centroid": [
+          3.8234534000000195,
+          -11.893243700000035,
+          4.259893650000013
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.05276362383309132,
+        "normal": [
+          -0.02209093798220677,
+          -0.00021150537336559573,
+          0.9997559430803815
+        ],
+        "point_count": 434969,
+        "residual_p95": 0.06596056208321789,
+        "residual_rms": 0.036553491504193854,
+        "tangent_extent_u": 10.34804496467563,
+        "tangent_extent_v": 7.3139015933310905,
+        "tangent_u": [
+          -0.1723890954021253,
+          0.9850223521238415,
+          -0.0036007780897864793
+        ],
+        "tangent_v": [
+          0.9847811890189128,
+          0.17242656721599475,
+          0.02179652891184241
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_40/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 431371,
+      "common_footprint_extent_u": 10.388530668601788,
+      "common_footprint_extent_v": 7.286335295389097,
+      "floor": {
+        "centroid": [
+          3.7278495000000205,
+          -11.897734499999936,
+          -0.012620649999999454
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.04273172123844177,
+        "normal": [
+          0.00018890347187442292,
+          0.0004487728878130434,
+          0.9999998814591798
+        ],
+        "point_count": 305291,
+        "residual_p95": 0.008687985007526237,
+        "residual_rms": 0.0045575571160601895,
+        "tangent_extent_u": 10.99425560489978,
+        "tangent_extent_v": 7.412049207023097,
+        "tangent_u": [
+          -0.24356663222217723,
+          0.9698840879994916,
+          -0.00038924714669759776
+        ],
+        "tangent_v": [
+          0.9698841477122022,
+          0.2435665298194516,
+          -0.00029252057245610633
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_40/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 301065,
+      "gap_to_median_spacing": 80.97498917636915,
+      "gap_to_residual_snr": 115.98636585574627,
+      "normal_angle_degrees": 1.2772042583511078,
+      "plane_gap": 4.272533868790583,
+      "room": "office_40"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_41/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -5.2842568999999715,
+          -20.406993250000024,
+          3.056709799999833
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.0404598566482879,
+        "normal": [
+          -0.0038136632032179396,
+          0.0005234247150494345,
+          0.9999925909723233
+        ],
+        "point_count": 292375,
+        "residual_p95": 0.015564663132665453,
+        "residual_rms": 0.0075152304548591255,
+        "tangent_extent_u": 7.611921790826871,
+        "tangent_extent_v": 7.001868700875263,
+        "tangent_u": [
+          -0.4830221763618183,
+          -0.8756070250381569,
+          -0.0013837797952162357
+        ],
+        "tangent_v": [
+          -0.875599813336929,
+          0.48302387490723164,
+          -0.0035920960368918914
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_41/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 288865,
+      "common_footprint_extent_u": 7.488835732440128,
+      "common_footprint_extent_v": 6.69949648985404,
+      "floor": {
+        "centroid": [
+          -5.066198550000011,
+          -20.384480900000117,
+          0.011977349999999061
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.036891733491393706,
+        "normal": [
+          -0.0008245854295372674,
+          0.0023814216072345867,
+          0.9999968244399569
+        ],
+        "point_count": 241926,
+        "residual_p95": 0.013887887386255878,
+        "residual_rms": 0.00599022141973512,
+        "tangent_extent_u": 7.438941900452075,
+        "tangent_extent_v": 6.686135950736224,
+        "tangent_u": [
+          -0.563924720252694,
+          -0.8258248331044254,
+          0.0015016377622104015
+        ],
+        "tangent_v": [
+          -0.825825786680696,
+          0.5639216912472659,
+          -0.002023905638391441
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_41/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 241926,
+      "gap_to_median_spacing": 75.25604957227274,
+      "gap_to_residual_snr": 316.82570192762455,
+      "normal_angle_degrees": 0.20165159123257098,
+      "plane_gap": 3.044848977610603,
+      "room": "office_41"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_42/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          -4.083172100000006,
+          18.666211049999802,
+          3.0447052500000873
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.029154759474227493,
+        "normal": [
+          0.0033671257369047945,
+          0.002379219918490775,
+          -0.9999915008523081
+        ],
+        "point_count": 153260,
+        "residual_p95": 0.018338932525158284,
+        "residual_rms": 0.007572217047427976,
+        "tangent_extent_u": 5.406906546518673,
+        "tangent_extent_v": 3.0538097599779332,
+        "tangent_u": [
+          -0.9999941896751774,
+          0.0005400654642386901,
+          -0.003365849845155683
+        ],
+        "tangent_v": [
+          0.0005320527771483023,
+          0.9999970238165081,
+          0.002381024562774364
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_42/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 140561,
+      "common_footprint_extent_u": 5.402393323906791,
+      "common_footprint_extent_v": 2.91227280131566,
+      "floor": {
+        "centroid": [
+          -3.827833349999973,
+          18.8033985,
+          0.006048900000000436
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022999999999999687,
+        "normal": [
+          0.001146628589900434,
+          -0.00032316241625595293,
+          0.999999290404213
+        ],
+        "point_count": 89787,
+        "residual_p95": 0.010122992042088285,
+        "residual_rms": 0.005142394165127958,
+        "tangent_extent_u": 5.397420956928665,
+        "tangent_extent_v": 2.9119049016567433,
+        "tangent_u": [
+          -0.9981177077895806,
+          0.06131627707566178,
+          0.0011642862422656232
+        ],
+        "tangent_v": [
+          0.061316609819445166,
+          0.9981183345333525,
+          0.0002522471338359308
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_42/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 89787,
+      "gap_to_median_spacing": 104.21645740501563,
+      "gap_to_residual_snr": 331.9469038844017,
+      "normal_angle_degrees": 0.28418626752284,
+      "plane_gap": 3.0384057488993053,
+      "room": "office_42"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_5/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9996745594351407,
+      "ceiling": {
+        "centroid": [
+          -7.210678550000042,
+          18.39994980000014,
+          3.0457095000000525
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.026410223596067012,
+        "normal": [
+          0.004800334607361649,
+          -0.002079239477592469,
+          -0.9999863166818095
+        ],
+        "point_count": 134170,
+        "residual_p95": 0.021852822432997486,
+        "residual_rms": 0.00898102464281112,
+        "tangent_extent_u": 4.707456148382144,
+        "tangent_extent_v": 3.0599161006851534,
+        "tangent_u": [
+          -0.9999803666510017,
+          0.00401784760221327,
+          -0.0048086602264944146
+        ],
+        "tangent_v": [
+          0.004027790980903344,
+          0.9999897667795605,
+          -0.002059911642265909
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_5/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 118953,
+      "common_footprint_extent_u": 4.680152347217598,
+      "common_footprint_extent_v": 2.786039689276471,
+      "floor": {
+        "centroid": [
+          -7.030216000000011,
+          18.54103059999999,
+          0.0066413500000001464
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.024738633753706038,
+        "normal": [
+          3.939437991282203e-06,
+          -0.001356866079142335,
+          0.9999990794490383
+        ],
+        "point_count": 107885,
+        "residual_p95": 0.006721704312169459,
+        "residual_rms": 0.00474380639748166,
+        "tangent_extent_u": 4.677039607898469,
+        "tangent_extent_v": 2.7787571221889547,
+        "tangent_u": [
+          -0.9994812996592191,
+          -0.03220450357750148,
+          -3.9759840497435475e-05
+        ],
+        "tangent_v": [
+          -0.03220452788039361,
+          0.9994803794291162,
+          0.001356289139889573
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_5/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 107884,
+      "gap_to_median_spacing": 115.07877084639527,
+      "gap_to_residual_snr": 299.23084413875023,
+      "normal_angle_degrees": 0.3384242759126862,
+      "plane_gap": 3.039256069213857,
+      "room": "office_5"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_6/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9849022992377692,
+      "ceiling": {
+        "centroid": [
+          -0.7738903999999975,
+          18.90420994999998,
+          3.0565458500001146
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028213466393365576,
+        "normal": [
+          0.0034602727964810577,
+          0.0028098628556633897,
+          -0.9999900655421061
+        ],
+        "point_count": 141363,
+        "residual_p95": 0.023898567702454313,
+        "residual_rms": 0.009152036221554295,
+        "tangent_extent_u": 5.417960964873377,
+        "tangent_extent_v": 2.9210118052099863,
+        "tangent_u": [
+          -0.9999866519366126,
+          0.00384671659995947,
+          -0.003449452130886893
+        ],
+        "tangent_v": [
+          0.0038369858975004123,
+          0.9999886536566962,
+          0.002823136038242535
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_6/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 133633,
+      "common_footprint_extent_u": 5.339590809022932,
+      "common_footprint_extent_v": 2.7157361311739034,
+      "floor": {
+        "centroid": [
+          -0.555900150000001,
+          18.55433190000002,
+          0.0020579500000000054
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.021931712199461464,
+        "normal": [
+          0.001885478574645762,
+          7.967370049166288e-05,
+          0.9999982193097376
+        ],
+        "point_count": 86282,
+        "residual_p95": 0.010391240546615917,
+        "residual_rms": 0.004559640763052572,
+        "tangent_extent_u": 5.417664918114907,
+        "tangent_extent_v": 2.7107949515242487,
+        "tangent_u": [
+          -0.9995822809148541,
+          0.02883956074916358,
+          0.0018823965717003036
+        ],
+        "tangent_v": [
+          0.028839359417337923,
+          0.9995840501868248,
+          -0.00013401679316111346
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_6/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 85655,
+      "gap_to_median_spacing": 108.24970170111874,
+      "gap_to_residual_snr": 298.6901831011993,
+      "normal_angle_degrees": 0.3481710381250472,
+      "plane_gap": 3.054099321036362,
+      "room": "office_6"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_7/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9885827753024331,
+      "ceiling": {
+        "centroid": [
+          2.373350899999992,
+          18.694179350000063,
+          3.0579654999998325
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028319604517013205,
+        "normal": [
+          -0.0024972996499632847,
+          -0.00021915675990090178,
+          0.9999968577274495
+        ],
+        "point_count": 146298,
+        "residual_p95": 0.0282630871028739,
+        "residual_rms": 0.010767443982650818,
+        "tangent_extent_u": 5.426964465030513,
+        "tangent_extent_v": 2.9244753931014147,
+        "tangent_u": [
+          -0.9998971693014493,
+          -0.014120909883161595,
+          -0.0025001453998908974
+        ],
+        "tangent_v": [
+          -0.014121413435179201,
+          0.999900270964253,
+          0.00018387008054986082
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_7/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 134718,
+      "common_footprint_extent_u": 5.2870393639504165,
+      "common_footprint_extent_v": 2.733610275101391,
+      "floor": {
+        "centroid": [
+          2.6801568000000153,
+          18.91837479999989,
+          0.0045887000000001685
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022022715545545316,
+        "normal": [
+          0.004133314295257249,
+          0.0005106179853759176,
+          0.9999913274534983
+        ],
+        "point_count": 88826,
+        "residual_p95": 0.00797401239606958,
+        "residual_rms": 0.003832992252183212,
+        "tangent_extent_u": 5.343620112573763,
+        "tangent_extent_v": 2.7286633747667604,
+        "tangent_u": [
+          -0.9995863228254683,
+          0.02846458609614543,
+          0.004117105613661051
+        ],
+        "tangent_v": [
+          0.028462236967524826,
+          0.9995946711580891,
+          -0.0006280598349901935
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_7/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 88388,
+      "gap_to_median_spacing": 107.7687265785335,
+      "gap_to_residual_snr": 267.0293536905559,
+      "normal_angle_degrees": 0.3822011078652334,
+      "plane_gap": 3.051967716006198,
+      "room": "office_7"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_8/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9939972522681617,
+      "ceiling": {
+        "centroid": [
+          5.596231349999988,
+          18.776811400000028,
+          3.057019399999985
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.028301943396169833,
+        "normal": [
+          0.0032839435123955705,
+          -0.00022897773920845383,
+          -0.9999945816274217
+        ],
+        "point_count": 147790,
+        "residual_p95": 0.020712525956886958,
+        "residual_rms": 0.008207952281836515,
+        "tangent_extent_u": 5.411004027816944,
+        "tangent_extent_v": 3.0149836035519364,
+        "tangent_u": [
+          -0.9999934987045267,
+          0.001488639698968139,
+          -0.0032842808233183958
+        ],
+        "tangent_v": [
+          0.0014893836601614645,
+          0.9999988657598772,
+          -0.00022408764187451202
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_8/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 137138,
+      "common_footprint_extent_u": 5.409015417878102,
+      "common_footprint_extent_v": 2.864696995029715,
+      "floor": {
+        "centroid": [
+          5.934698650000019,
+          18.782376249999903,
+          0.004247300000000069
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.023086792761229984,
+        "normal": [
+          0.0038244492411356077,
+          -0.0026667851770386256,
+          0.9999891308633418
+        ],
+        "point_count": 93559,
+        "residual_p95": 0.007663399625432686,
+        "residual_rms": 0.004052697849483709,
+        "tangent_extent_u": 5.4376739163592145,
+        "tangent_extent_v": 2.864696995029715,
+        "tangent_u": [
+          -0.9979150293880265,
+          -0.06443842402429177,
+          0.003644671557274374
+        ],
+        "tangent_v": [
+          -0.06442800407817088,
+          0.9979181217745702,
+          0.002907666490175713
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_8/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 93407,
+      "gap_to_median_spacing": 107.81801325581984,
+      "gap_to_residual_snr": 333.3488364516869,
+      "normal_angle_degrees": 0.43978013467027116,
+      "plane_gap": 3.0514593082537016,
+      "room": "office_8"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_9/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 1.0,
+      "ceiling": {
+        "centroid": [
+          8.784017300000018,
+          18.439271149999968,
+          3.0454302000000424
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.027856776554368613,
+        "normal": [
+          -0.002547579840426516,
+          -0.0004925586814386323,
+          0.9999966336057848
+        ],
+        "point_count": 138521,
+        "residual_p95": 0.01948621409585604,
+        "residual_rms": 0.008114599706116506,
+        "tangent_extent_u": 4.729353740498132,
+        "tangent_extent_v": 3.2276031408320196,
+        "tangent_u": [
+          -0.999905929844656,
+          0.013478733465748417,
+          -0.0025407096750421753
+        ],
+        "tangent_v": [
+          0.013477436642410592,
+          0.9999090364278664,
+          0.0005268504960187966
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_9/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 125404,
+      "common_footprint_extent_u": 4.926533053157632,
+      "common_footprint_extent_v": 3.1317004985537444,
+      "floor": {
+        "centroid": [
+          8.922002549999966,
+          18.446581550000058,
+          0.013018449999999576
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02022374841615804,
+        "normal": [
+          0.0035566895176192045,
+          0.0010547484329053477,
+          0.9999931187090332
+        ],
+        "point_count": 72846,
+        "residual_p95": 0.00798041638086694,
+        "residual_rms": 0.003950129946754916,
+        "tangent_extent_u": 4.915061700652187,
+        "tangent_extent_v": 2.904055486513357,
+        "tangent_u": [
+          -0.9831584045293295,
+          -0.18271819538610912,
+          0.003689536310568365
+        ],
+        "tangent_v": [
+          -0.18272082958168348,
+          0.983164761665402,
+          -0.00038711289626695844
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/office_9/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 72846,
+      "gap_to_median_spacing": 108.83859429499503,
+      "gap_to_residual_snr": 335.9445194924014,
+      "normal_angle_degrees": 0.3608106221739104,
+      "plane_gap": 3.031892401767255,
+      "room": "office_9"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/pantry_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9992894300516855,
+      "ceiling": {
+        "centroid": [
+          -2.719206000000001,
+          6.657136749999977,
+          3.0556110499998814
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.03104834939252029,
+        "normal": [
+          -0.000564316980235694,
+          0.0027978910060906612,
+          0.9999959266678361
+        ],
+        "point_count": 172943,
+        "residual_p95": 0.01418221941473115,
+        "residual_rms": 0.009664505288416265,
+        "tangent_extent_u": 7.2968023597499405,
+        "tangent_extent_v": 2.3748941178343923,
+        "tangent_u": [
+          -0.9999986249318529,
+          -0.001560957774816807,
+          -0.0005599510954091495
+        ],
+        "tangent_v": [
+          -0.0015593847343836008,
+          0.9999948675952012,
+          -0.0027987680337775577
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/pantry_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 121763,
+      "common_footprint_extent_u": 6.661887640663641,
+      "common_footprint_extent_v": 1.8370531042005727,
+      "floor": {
+        "centroid": [
+          -2.660214750000008,
+          6.365167449999961,
+          0.01783924999999895
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02418677324489561,
+        "normal": [
+          -0.0004326173799722182,
+          -0.0004468290904332111,
+          0.9999998065929646
+        ],
+        "point_count": 108902,
+        "residual_p95": 0.005669384907658584,
+        "residual_rms": 0.002764112201288989,
+        "tangent_extent_u": 6.656844125647941,
+        "tangent_extent_v": 1.8382274346670129,
+        "tangent_u": [
+          -0.9999919121487802,
+          0.0039987529237680095,
+          -0.00043082720522043196
+        ],
+        "tangent_v": [
+          0.003998559644252819,
+          0.9999919051266457,
+          0.0004485554065590804
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/pantry_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 108888,
+      "gap_to_median_spacing": 97.8366429188824,
+      "gap_to_residual_snr": 302.1948013427705,
+      "normal_angle_degrees": 0.18606205723729574,
+      "plane_gap": 3.037666272736707,
+      "room": "pantry_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9400649986964509,
+      "ceiling": {
+        "centroid": [
+          -28.70794410000017,
+          -11.333504300000028,
+          4.432479350000025
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.016985281374238624,
+        "normal": [
+          -0.01584342346808102,
+          0.017559234995099038,
+          0.9997202904808915
+        ],
+        "point_count": 50378,
+        "residual_p95": 0.07435545097765778,
+        "residual_rms": 0.03918540628693613,
+        "tangent_extent_u": 6.123968778489509,
+        "tangent_extent_v": 1.5855298178444506,
+        "tangent_u": [
+          -0.0578547319578627,
+          -0.9981867348405079,
+          0.01661542592080844
+        ],
+        "tangent_v": [
+          -0.9981992866772121,
+          0.057575304209642804,
+          -0.016830579974325847
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 47362,
+      "common_footprint_extent_u": 5.7326901551173,
+      "common_footprint_extent_v": 1.4298097147028874,
+      "floor": {
+        "centroid": [
+          -28.63882250000033,
+          -12.276692150000025,
+          -0.006096850000000141
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.015313384128767614,
+        "normal": [
+          0.0006692774775492565,
+          0.003675736194112969,
+          0.9999930204911879
+        ],
+        "point_count": 42037,
+        "residual_p95": 0.010264101367976968,
+        "residual_rms": 0.005655648929473461,
+        "tangent_extent_u": 5.7326901551173,
+        "tangent_extent_v": 2.280943384458772,
+        "tangent_u": [
+          -0.016420289170234414,
+          -0.999858382874199,
+          0.0036862311047169195
+        ],
+        "tangent_v": [
+          -0.9998649539668965,
+          0.01642264167613695,
+          0.0006088260451756904
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 38714,
+      "gap_to_median_spacing": 261.5185330896786,
+      "gap_to_residual_snr": 112.19509648289927,
+      "normal_angle_degrees": 1.2361997910468645,
+      "plane_gap": 4.441965869106325,
+      "room": "storage_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_2/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9186261993393113,
+      "ceiling": {
+        "centroid": [
+          -25.927375499999886,
+          3.273034900000011,
+          2.12454855000002
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02934280150224173,
+        "normal": [
+          -0.06810672563117634,
+          -0.06934029763594256,
+          0.9952654907347881
+        ],
+        "point_count": 144863,
+        "residual_p95": 0.36358096955234015,
+        "residual_rms": 0.19942722728990137,
+        "tangent_extent_u": 7.472230862845409,
+        "tangent_extent_v": 4.930645569039553,
+        "tangent_u": [
+          -0.673055645134566,
+          0.7395716295622662,
+          0.005468390906665725
+        ],
+        "tangent_v": [
+          0.7364493006828734,
+          0.6694966227475491,
+          0.09703968081838132
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_2/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 142252,
+      "common_footprint_extent_u": 7.441373299060826,
+      "common_footprint_extent_v": 4.570522206657678,
+      "floor": {
+        "centroid": [
+          -25.252632700000188,
+          3.6068070500000124,
+          -0.004148200000000024
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.022022715545545093,
+        "normal": [
+          -0.00041941947158542786,
+          0.0002562662674973223,
+          0.9999998792074463
+        ],
+        "point_count": 87192,
+        "residual_p95": 0.00989617069714077,
+        "residual_rms": 0.005363065961282926,
+        "tangent_extent_u": 8.090173201609272,
+        "tangent_extent_v": 5.164602457200452,
+        "tangent_u": [
+          -0.7705865808171392,
+          0.6373351431989637,
+          -0.00048652657359840313
+        ],
+        "tangent_v": [
+          0.6373351908939735,
+          0.7705866917947366,
+          6.983542213380057e-05
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_2/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 79078,
+      "gap_to_median_spacing": 72.55251201669402,
+      "gap_to_residual_snr": 10.671183662322639,
+      "normal_angle_degrees": 5.571293568796099,
+      "plane_gap": 2.1288939585948605,
+      "room": "storage_2"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_3/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.7899477926175222,
+      "ceiling": {
+        "centroid": [
+          -19.24515832183731,
+          -14.208459060293745,
+          2.571135600097373
+        ],
+        "fit_point_count": 12323,
+        "median_spacing": 0.008124038404637253,
+        "normal": [
+          0.7435758784797973,
+          0.004497001502198336,
+          -0.668636440766196
+        ],
+        "point_count": 12323,
+        "residual_p95": 0.013417118928814054,
+        "residual_rms": 0.0074722736062589655,
+        "tangent_extent_u": 1.681785319654556,
+        "tangent_extent_v": 1.2490975504559176,
+        "tangent_u": [
+          -0.04627421380415859,
+          -0.9972337900265437,
+          -0.05816756111529571
+        ],
+        "tangent_v": [
+          0.6670484315848472,
+          -0.07419262097259983,
+          0.7413108962597346
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_3/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 10906,
+      "common_footprint_extent_u": 0.9448878327039515,
+      "common_footprint_extent_v": 1.4807976118182173,
+      "floor": {
+        "centroid": [
+          -18.609650249999795,
+          -14.17440820000022,
+          -0.00547155000000033
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.011401754250991448,
+        "normal": [
+          0.007350366988833046,
+          -0.0018076834066864703,
+          0.999971351782555
+        ],
+        "point_count": 24294,
+        "residual_p95": 0.010235820200658394,
+        "residual_rms": 0.004920660426865243,
+        "tangent_extent_u": 2.0608713622788004,
+        "tangent_extent_v": 1.528629815027053,
+        "tangent_u": [
+          -0.9798765055863558,
+          0.19946135296863166,
+          0.007563231570934282
+        ],
+        "tangent_v": [
+          0.19946931068463172,
+          0.9799040263988225,
+          0.00030519235534175795
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_3/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 11322,
+      "gap_to_median_spacing": 225.5726280273571,
+      "gap_to_residual_snr": 287.4639914687653,
+      "normal_angle_degrees": 48.458690809074696,
+      "plane_gap": 2.5719236705182316,
+      "room": "storage_3"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_4/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9094304665385741,
+      "ceiling": {
+        "centroid": [
+          4.001994749999993,
+          -13.465863900000016,
+          4.350027550000039
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.021118712081942465,
+        "normal": [
+          -0.024191864844956536,
+          -0.0015023292456362546,
+          0.9997062051833835
+        ],
+        "point_count": 76912,
+        "residual_p95": 0.10025474980172785,
+        "residual_rms": 0.04768250747836289,
+        "tangent_extent_u": 5.504228934872444,
+        "tangent_extent_v": 3.4385459843436084,
+        "tangent_u": [
+          -0.2679127557323725,
+          -0.9634105327270639,
+          -0.007930999082208241
+        ],
+        "tangent_v": [
+          -0.963139402678143,
+          0.2680259100113154,
+          -0.02290420422972494
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_4/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 69927,
+      "common_footprint_extent_u": 5.005255457128274,
+      "common_footprint_extent_v": 2.84443475798871,
+      "floor": {
+        "centroid": [
+          4.549616249999975,
+          -13.920881850000049,
+          -0.014170399999999566
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.018627936010197688,
+        "normal": [
+          -0.0024905985680946183,
+          0.0016911258596163535,
+          0.9999954684957825
+        ],
+        "point_count": 63398,
+        "residual_p95": 0.01148314726943024,
+        "residual_rms": 0.005406102491893536,
+        "tangent_extent_u": 5.614230398655113,
+        "tangent_extent_v": 2.841081384560982,
+        "tangent_u": [
+          -0.07998315136621598,
+          0.9967944334599467,
+          -0.0018849193069299319
+        ],
+        "tangent_v": [
+          0.9967931041175504,
+          0.07998748349955492,
+          0.002347353213051012
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/storage_4/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 56322,
+      "gap_to_median_spacing": 206.75084515677568,
+      "gap_to_residual_snr": 90.98758474247398,
+      "normal_angle_degrees": 1.2569159510568024,
+      "plane_gap": 4.366311571564214,
+      "room": "storage_4"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_1/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9871053007778161,
+      "ceiling": {
+        "centroid": [
+          -3.4114372000000053,
+          -9.276381199999983,
+          2.4432070500000287
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.031080540535840185,
+        "normal": [
+          -0.00045472204283950865,
+          -0.0032012936417168394,
+          0.9999947724597781
+        ],
+        "point_count": 182136,
+        "residual_p95": 0.008782274444742435,
+        "residual_rms": 0.005290534243293835,
+        "tangent_extent_u": 6.338124843083454,
+        "tangent_extent_v": 3.4519434292380895,
+        "tangent_u": [
+          -0.9952895977171202,
+          0.09694635860899807,
+          -0.00014222710118614768
+        ],
+        "tangent_v": [
+          0.09694539650729436,
+          0.9952844594745138,
+          0.003230297907071263
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_1/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 169208,
+      "common_footprint_extent_u": 5.671510999461266,
+      "common_footprint_extent_v": 3.3428417658777976,
+      "floor": {
+        "centroid": [
+          -2.8798907500000115,
+          -9.41864839999999,
+          0.008353499999999974
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.027658633371877857,
+        "normal": [
+          -0.0016281446948418548,
+          -0.00036275384300151517,
+          0.9999986087762833
+        ],
+        "point_count": 141890,
+        "residual_p95": 0.005565433282355599,
+        "residual_rms": 0.0033067545334023746,
+        "tangent_extent_u": 5.73297851463612,
+        "tangent_extent_v": 3.344590613191693,
+        "tangent_u": [
+          -0.9998130408894195,
+          0.019268007239292548,
+          -0.0016208530096539248
+        ],
+        "tangent_v": [
+          0.019267392462525717,
+          0.9998142889090332,
+          0.00039405712663248825
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_1/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 141189,
+      "gap_to_median_spacing": 78.36620429186102,
+      "gap_to_residual_snr": 390.39705585667804,
+      "normal_angle_degrees": 0.175985281296177,
+      "plane_gap": 2.4356639891331198,
+      "room": "WC_1"
+    },
+    {
+      "annotation_path": "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_2/Annotations",
+      "area": "Area_5",
+      "bbox_overlap_fraction": 0.9825363524468909,
+      "ceiling": {
+        "centroid": [
+          -3.463249200000015,
+          -13.501157299999939,
+          2.425553550000061
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.030000000000000516,
+        "normal": [
+          -0.0014616997754633707,
+          0.0025525280925094407,
+          0.9999956740076946
+        ],
+        "point_count": 167102,
+        "residual_p95": 0.006031959722256192,
+        "residual_rms": 0.003274833227619309,
+        "tangent_extent_u": 6.170453102761821,
+        "tangent_extent_v": 3.1327187217021617,
+        "tangent_u": [
+          -0.9989154290360279,
+          -0.04654209378326671,
+          -0.001341320259003981
+        ],
+        "tangent_v": [
+          -0.04653846868488497,
+          0.9989130683430898,
+          -0.0026177902626881677
+        ]
+      },
+      "ceiling_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_2/Annotations/ceiling_1.txt"
+      ],
+      "ceiling_points_in_common_footprint": 156579,
+      "common_footprint_extent_u": 5.742975741275466,
+      "common_footprint_extent_v": 3.5123962574778442,
+      "floor": {
+        "centroid": [
+          -2.812284950000013,
+          -13.121399000000011,
+          0.003510150000000146
+        ],
+        "fit_point_count": 20000,
+        "median_spacing": 0.02549509756796402,
+        "normal": [
+          -0.004187132091855612,
+          0.002059315705584166,
+          0.9999891135125772
+        ],
+        "point_count": 112950,
+        "residual_p95": 0.007532573166572765,
+        "residual_rms": 0.00376365456073108,
+        "tangent_extent_u": 5.805591452151054,
+        "tangent_extent_v": 3.526858480864889,
+        "tangent_u": [
+          -0.9958491607186789,
+          0.09091460532504887,
+          -0.004357021286762956
+        ],
+        "tangent_v": [
+          0.09092258806670682,
+          0.9958565628429709,
+          -0.0016700963554858994
+        ]
+      },
+      "floor_paths": [
+        "Stanford3dDataset_v1.2_Aligned_Version/Area_5/WC_2/Annotations/floor_1.txt"
+      ],
+      "floor_points_in_common_footprint": 112699,
+      "gap_to_median_spacing": 80.79868878417724,
+      "gap_to_residual_snr": 485.86583563861006,
+      "normal_angle_degrees": 0.15869263379264373,
+      "plane_gap": 2.423960663525359,
+      "room": "WC_2"
+    }
+  ],
+  "role": "once_opened_area5_floor_ceiling_geometry"
+}

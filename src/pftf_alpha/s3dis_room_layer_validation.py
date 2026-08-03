@@ -396,6 +396,17 @@ def evaluate_s3dis_room_layer_validation(
         reference_per_layer=REFERENCE_PER_LAYER,
         surface_sample_count=SURFACE_SAMPLE_COUNT,
     )
+    core["role"] = "frozen_once_opened_area5_floor_ceiling_endpoints"
+    core["source_geometry_artifact"] = str(geometry_output)
+    core["held_out_artifacts_accessed"] = True
+    core["reserved_content_opened"] = True
+    core["eligibility_frozen"] = True
+    core.pop("real_scan_supported", None)
+    core.pop("held_out_validation_supported", None)
+    core["claim_boundary"] = (
+        "these are frozen Area-5 endpoints; support flags are assigned only by "
+        "the separate preregistered gate audit"
+    )
     core_digest = write_core_result(core, core_output)
     gates = audit_frozen_gates(core)
     identity_gate = bool(

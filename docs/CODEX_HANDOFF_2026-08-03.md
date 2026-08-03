@@ -1,6 +1,48 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 50 two-layer confirmatory complete and positive
+## Current work: Phase 51C real S3DIS validation complete and positive
+
+The separate bounded positive two-layer direction now has a real/public,
+building-disjoint held-out confirmation. Phase 51A first tested S3DIS
+wall--board pairs without opening Area 5: geometry improved over B5/M1, but
+occluded wall support caused zero topology-safe accepts. Do not reopen or claim
+wall--board support.
+
+Phase 51B preregistered floor--ceiling calibration, which matches the overlapping
+two-surface assumption but is an easier long-gap regime. On 179 calibration
+rooms, safe coverage was 172/179 with zero false-safe accepts and large B5/M1
+geometry margins. Commit `30e3ddf` recorded the calibration result.
+
+Commit `330b340` then preregistered the untouched Area-5 protocol (SHA-256
+`fbbb56cad2dff5127bf51677e8b1f520b8870353de23dc927cce9db314485807`), and
+commit `7f5882d` fixed the evaluator before Area-5 extraction. The once-opened
+Building-3 panel contains 63 automatically eligible rooms:
+
+- candidate safe accepts 62/63 = 0.984127; false-safe 0;
+- one safe `rescan_required` (`Area_5/hallway_5`);
+- mean F-score candidate 0.805611, B5 0.420983, M1 0.323764;
+- paired margins +0.384627 / +0.481847;
+- casewise wins 63/63 against each comparator;
+- mean geometry loss 0.116385 versus 0.243356 / 0.228920;
+- topology error 0 versus 5,214 / 13,375;
+- all protocol, panel, safety, construction, geometry, topology, and ablation
+  gates pass.
+
+Thus `phase51c_supported=true`, `real_long_gap_two_layer_supported=true`,
+`real_scan_supported=true`, and `held_out_validation_supported=true`. Keep
+`pftf_superiority_supported=false`, `local_spd_superiority_supported=false`,
+`shared_trend_superiority_supported=false`,
+`close_layer_transfer_supported=false`, and `deployment_supported=false`.
+The global-normal ablation matches the candidate, so frame the positive paper
+around observed-only two-layer routing plus constrained per-layer reconstruction,
+not PFTF or shared-trend novelty.
+
+Final result artifact SHA-256:
+`14645b09c2c73c58ee242c370034afb109f19bc1b5c9e55a3f35fb9864ffd9b8`.
+An unchanged repeat reproduced identical geometry, cases, gates, and flags.
+See `docs/S3DIS_ROOM_LAYER_VALIDATION_RESULT_PHASE51C.md`.
+
+## Previous work: Phase 50 two-layer confirmatory complete and positive
 
 The manuscript direction has pivoted from a negative PFTF/local-SPD headline to
 a separate bounded positive two-layer paper. Commit `9402193` preregistered a

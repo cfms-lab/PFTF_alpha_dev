@@ -6,6 +6,16 @@ reconstruction.
 ## Status
 
 - Quality: **Research**
+- Phase 51C supplies the first positive real/public held-out result. On 63
+  automatically eligible floor--ceiling rooms from building-disjoint S3DIS
+  Area 5, the two-layer candidate safely accepts 62/63 with zero false-safe
+  outputs, reaches mean F-score `0.805611` versus B5 `0.420983` and M1
+  `0.323764`, wins 63/63 against each, and has topology error 0 versus B5
+  `5,214` and M1 `13,375`. All preregistered gates pass, so
+  `real_long_gap_two_layer_supported=true`, `real_scan_supported=true`, and
+  `held_out_validation_supported=true`. This does not support PFTF,
+  shared-trend, close-layer, or deployment claims. See
+  `docs/S3DIS_ROOM_LAYER_VALIDATION_RESULT_PHASE51C.md`.
 - Phase 50 provides a preregistered positive two-layer result on a new,
   arbitrary-pose 144-case panel. The unchanged shared-trend candidate safely
   accepts 144/144 with zero false-safe outputs, reaches mean F-score `0.898536`
