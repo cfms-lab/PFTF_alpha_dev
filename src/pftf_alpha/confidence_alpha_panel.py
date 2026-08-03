@@ -409,7 +409,7 @@ def write_protocol(path: str | Path) -> str:
         sort_keys=True,
     ) + "\n"
     output.write_text(text, encoding="utf-8")
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return hashlib.sha256(output.read_bytes()).hexdigest()
 
 
 def _parser() -> argparse.ArgumentParser:
