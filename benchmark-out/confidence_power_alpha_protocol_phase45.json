@@ -1,0 +1,48 @@
+{
+  "artifact_schema": "pftf_alpha_confidence_power_alpha_protocol_phase45/v1",
+  "calibration_case_count": 9,
+  "calibration_objective": "among non-submerging penalty scales, minimize calibration mean normalized Chamfer-squared + normalized Hausdorff + 0.05 * Betti L1 error; ties prefer the lower penalty scale",
+  "calibration_seeds": [
+    45001
+  ],
+  "claim_boundary": "a positive result supports only a floating-Qhull confidence-aware regular alpha construction; it is not exact, a PFTF-trained alpha, a local-SPD metric complex, real-scan evidence, or deployment evidence",
+  "confidence_penalty_scales": [
+    0.125,
+    0.25,
+    0.375,
+    0.5
+  ],
+  "confidence_power_weight_formula": "w_i = spacing_i^2 * (0.375^2 - penalty_scale^2 * (1 - observed_confidence_i))",
+  "critical_score_selection": "reuse unchanged Phase-44 complete adjacent log-gap selection over all finite unique top-cell scores with lower selected-cell fraction in [0.50, 0.98]",
+  "families": [
+    "sphere",
+    "torus",
+    "disconnected_spheres"
+  ],
+  "frozen_binary_confidence_threshold": 0.25,
+  "frozen_comparators": [
+    "anchor_density_B4",
+    "fused_density_B4",
+    "fused_pca_B5",
+    "M1_density_power_alpha_scale_0.375",
+    "binary_confidence_deletion_threshold_0.25",
+    "fixed_cell_continuous_confidence_strength_1.0"
+  ],
+  "frozen_continuous_penalty_strength": 1.0,
+  "held_out_case_count": 27,
+  "held_out_seeds": [
+    45101,
+    45102,
+    45103
+  ],
+  "m1_density_weight_scale": 0.375,
+  "point_submersion_policy": "reject any calibration penalty that submerges a point in any case; on held-out, fail closed per case to M1 density weights at scale 0.375 and count the fallback",
+  "profiles": [
+    "density_shift",
+    "target_occlusion",
+    "local_nonrigid_warp"
+  ],
+  "reference_boundary": "confidence and power weights use observed coordinates only; reference points, component labels, family/profile identity, and perturbation values are evaluation-only",
+  "role": "pre_method_confidence_power_alpha_protocol",
+  "validation_gate": "candidate must have lower held-out mean geometry and objective than anchor B4, fused B4, M1, binary deletion, and fixed-cell continuous; no larger mean Betti error than all five; repeat stability no larger than M1 and fixed-cell continuous; lower objective than B5; joint casewise objective wins over M1 and fixed-cell continuous in at least 2/3 of cases; connectivity must differ from M1 in at least 1/2 of cases; fallback fraction must not exceed 0.10"
+}
