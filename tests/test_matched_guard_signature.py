@@ -12,6 +12,7 @@ from pftf_alpha.matched_guard_signature import (
     evaluate_matched_guard_signature,
     fit_matched_guard_model,
     matched_guard_signature,
+    matched_guard_signature_from_evidence,
     score_matched_guard_signature,
 )
 from pftf_alpha.matched_pair_consistency import MatchedPairEvidence
@@ -69,11 +70,29 @@ def _raw_case() -> MatchedPairStressRawCase:
 
 
 def test_matched_guard_signature_is_finite_and_has_frozen_dimension() -> None:
-    signature = matched_guard_signature(_raw_case())
+    raw = _raw_case()
+    signature = matched_guard_signature(raw)
+    direct = matched_guard_signature_from_evidence(
+        raw.evidence,
+        retained_pair_count=raw.retained_pair_count,
+        point_count=raw.point_count,
+    )
 
     assert len(signature.values) == len(SIGNATURE_FEATURE_NAMES)
     assert np.all(np.isfinite(signature.values))
     assert signature.values[1] == pytest.approx(0.9)
+    assert direct == signature
+
+
+def test_direct_signature_rejects_invalid_pair_counts() -> None:
+    raw = _raw_case()
+
+    with pytest.raises(ValueError, match="point_count must be at least"):
+        matched_guard_signature_from_evidence(
+            raw.evidence,
+            retained_pair_count=11,
+            point_count=10,
+        )
 
 
 def test_guard_cutoff_rejects_every_harmful_training_case() -> None:

@@ -919,6 +919,20 @@ and 2.1968. Therefore `phase30_supported=true` for the preregistered synthetic
 targeted protocol. Real correspondence and deployment remain unsupported. See
 [docs/TAIL_SENSITIVE_LOCAL_GUARD_PHASE30.md](docs/TAIL_SENSITIVE_LOCAL_GUARD_PHASE30.md).
 
+`pftf_alpha.open3d_real_pair_intake` then opens the first downloadable real
+paired-scan intake using Open3D `DemoICPPointClouds`. The official archive is
+verified by MD5/SHA-256 and parsed without an Open3D runtime dependency. After
+checking the transformation-log direction, the evaluator forms 2 cm and 5 cm
+reciprocal-NN candidates and applies the unchanged global, local-q95, and
+tail-ratio observations to 32 deterministic 96-pair spatial patches. The full
+observational stack passes 17/32 patches; the tail rule alone passes 20/32, so
+the real coordinates exercise it nontrivially. This supports verified real
+paired-scan **intake only**. Reciprocal NN does not prove physical point
+identity, and there is no labeled reconstruction-harm endpoint, so real
+correspondence, guard safety, reconstruction, and deployment remain
+unsupported. See
+[docs/OPEN3D_REAL_PAIR_INTAKE_PHASE31.md](docs/OPEN3D_REAL_PAIR_INTAKE_PHASE31.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

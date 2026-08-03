@@ -306,7 +306,25 @@ class MatchedGuardSignatureResult:
 def matched_guard_signature(
     raw: MatchedPairStressRawCase,
 ) -> MatchedGuardSignature:
-    evidence = raw.evidence
+    return matched_guard_signature_from_evidence(
+        raw.evidence,
+        retained_pair_count=raw.retained_pair_count,
+        point_count=raw.point_count,
+    )
+
+
+def matched_guard_signature_from_evidence(
+    evidence: MatchedPairEvidence,
+    *,
+    retained_pair_count: int,
+    point_count: int,
+) -> MatchedGuardSignature:
+    """Build the frozen signature from observed evidence and pair counts."""
+
+    if retained_pair_count <= 0:
+        raise ValueError("retained_pair_count must be positive")
+    if point_count < retained_pair_count:
+        raise ValueError("point_count must be at least retained_pair_count")
     characteristic_length = max(
         evidence.observed_characteristic_length,
         np.finfo(float).eps,
@@ -319,8 +337,8 @@ def matched_guard_signature(
     peak = evidence.peak_standardized_displacement
     support = evidence.support_standardized_displacement
     values = (
-        math.log(float(raw.retained_pair_count)),
-        raw.retained_pair_count / raw.point_count,
+        math.log(float(retained_pair_count)),
+        retained_pair_count / point_count,
         math.log1p(evidence.median_standardized_displacement),
         math.log1p(evidence.percentile95_standardized_displacement),
         math.log1p(peak),

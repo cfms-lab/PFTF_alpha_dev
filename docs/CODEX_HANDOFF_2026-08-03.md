@@ -1,5 +1,51 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 31
+
+Phase 30 was committed on `main` as `d9d40c7` (`Add tail-sensitive local guard
+phase 30`) and was not pushed.
+
+Phase 31 opens the first downloadable real paired-scan intake in
+`docs/OPEN3D_REAL_PAIR_INTAKE_PHASE31.md`. It uses the official Open3D
+`DemoICPPointClouds` archive: 10,829,466 bytes, official MD5
+`596cffe5f9c587045e7397ad70754de9`, local SHA-256
+`b94e0146c1d48c5edfc11af71b4af39ffca604485668c55a127c3b43203a6bd5`,
+and the exact three-PCD-plus-`init.log` member allowlist. The dataset is stated
+as CC BY 3.0 by the official Open3D API. Dataset files are ignored under
+`benchmark-data/open3d_demo_icp/`.
+
+The dependency-light loader validates the archive, parses the exact binary PCD
+schema and transform log, and extracts only safe top-level members. Direction
+diagnostics confirm that the inverse log matrix is the source-to-target map for
+both pairs: median target-NN distance is 0.027855 m versus 0.454854 m for pair
+0--1 and 0.014228 m versus 0.184901 m for pair 1--2.
+
+At 2 cm the reciprocal-NN intake contains 43,342 and 42,596 candidate pairs; at
+5 cm it contains 49,086 and 46,989. Eight deterministic 96-pair spatial patches
+per pair and threshold produce 32 frozen observations. The unchanged Phase-27
+global score passes 30/32, Phase-28 local q95 passes 24/32, Phase-30 tail ratio
+passes 20/32, and the full observed stack passes 17/32. The tail-ratio range is
+1.06748--4.34164, so the new tail observation remains nontrivial on real scan
+coordinates.
+
+This is not labeled correspondence or safety validation. The candidates are
+metadata-aligned reciprocal nearest neighbours, physical point identity is
+unknown, and no geometry/topology harm endpoint is available. Therefore only
+`real_paired_scan_intake_supported=true`; real correspondence, real paired-scan
+guard support, trimmed reconstruction, and deployment remain false. Opened
+DemoICP patches must not tune any frozen threshold.
+
+Implementation: `src/pftf_alpha/open3d_demo_icp.py` and
+`src/pftf_alpha/open3d_real_pair_intake.py`; tests:
+`tests/test_open3d_real_pair_intake.py`; artifact:
+`benchmark-out/open3d_real_pair_intake_phase31.json`, SHA-256
+`d74498640e6032ee5f82726f93f3cf449f06cd8d687d791fda5aa4548510922e`.
+
+The next unresolved step is a real fragment benchmark with independently
+defined correspondence positives/negatives or scene-level registration ground
+truth. Run a preregistered label-blind evaluation with every Phase-27/28/30
+threshold frozen. No push has been performed.
+
 ## Latest continuation: Phase 30
 
 Phase 29 was committed on `main` as `f913333` (`Add targeted local residual
