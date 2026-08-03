@@ -57,3 +57,25 @@ If no candidate is eligible, stop without opening sources 25-27. If calibration
 is viable, hash-lock the result and preregister those three sources. They have
 five, four, and three direct target scans respectively and were excluded from
 all previous reconstruction endpoint panels.
+
+## Frozen development result
+
+The grid was committed as `6c04859` before execution. Two candidates are
+eligible. The frozen selection rule chooses `anchor_d150_p050_n075`:
+
+- maximum nearest-anchor distance: 1.50 m;
+- maximum anchor-plane residual: 0.50 m;
+- minimum unsigned normal alignment: 0.75.
+
+| Two-source mean endpoint | Anchor | Phase 41 | Selected Phase 42 |
+|---|---:|---:|---:|
+| Geometry loss | 0.161002 | 0.180936 | 0.160472 |
+| F-score | 0.706666 | — | 0.705575 |
+| Recall | 0.734173 | — | 0.741501 |
+
+The selected route adds six cells in source 0 and nine in source 17. Calibration
+artifact SHA-256:
+`ddf119166d119e376acc21b0d73ba078616d6356a9a0f2093944dd7b1fb2f16f`.
+
+This remains development evidence. It does not support a Phase-42 validation
+claim until sources 25-27 are preregistered and evaluated unchanged.
