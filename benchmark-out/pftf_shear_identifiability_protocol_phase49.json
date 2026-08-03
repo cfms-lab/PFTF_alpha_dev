@@ -1,0 +1,77 @@
+{
+  "artifact_schema": "pftf_alpha_pftf_shear_identifiability_protocol_phase49/v1",
+  "block_definition": "one block is one surface family and one seed observed at all five declared strengths; TRAIN has 12 blocks and CALIBRATION has 6",
+  "calibration_seeds": [
+    48101,
+    48102
+  ],
+  "calibration_strengths": [
+    0.04,
+    0.12,
+    0.2,
+    0.28,
+    0.36
+  ],
+  "claim_boundary": "a positive within-block result shows only an observed response to a known coordinate-aligned synthetic shear under repeated measurements; it does not establish standalone identifiability, PFTF reconstruction value, alpha selection, real transfer, exactness, or deployment",
+  "confounding_endpoints": [
+    "pooled linear R2 without family or seed labels",
+    "block variance fraction from a categorical block-intercept model",
+    "partial strength R2 after block intercepts",
+    "block-to-strength explained-sum-of-squares ratio"
+  ],
+  "families": [
+    "torus",
+    "disconnected_parts",
+    "sharp_crease"
+  ],
+  "frozen_direction_rule": "the sign of the median TRAIN block slope is frozen before applying the selected feature to CALIBRATION",
+  "geometry_baseline_features": [
+    "normalized_covariance_xy",
+    "x_skewness",
+    "y_skewness",
+    "axis_variance_ratio"
+  ],
+  "held_out_prohibition": "Phase-48 held-out seeds, points, labels, predictions, and endpoint values are prohibited from feature selection and every Phase-49 gate",
+  "maximum_standalone_mae_fraction_of_train_mean": 0.75,
+  "minimum_calibration_family_direction_fraction": 1.0,
+  "minimum_calibration_median_within_block_r2": 0.75,
+  "minimum_calibration_sign_consistency": 0.8333333333333334,
+  "minimum_standardized_span_effect": 0.25,
+  "next_panel_gate": "new representation development requires the stable and PFTF-specific gates; a new held-out panel additionally requires the standalone gate",
+  "pftf_features": [
+    "relation_xy_mean",
+    "relation_xy_std",
+    "relation_strength_median",
+    "relation_strength_q90",
+    "confidence_mean",
+    "reciprocity_mean",
+    "log_scale_std"
+  ],
+  "pftf_specific_gate": "the stable PFTF feature must strictly exceed the independently TRAIN-selected geometry feature in CALIBRATION median within-block R2",
+  "reference_boundary": "true strengths organize repeated diagnostic blocks and score the audit; no dense reference surface or alpha/reconstruction endpoint is consumed, and the block analysis is not a deployable estimator",
+  "role": "train_calibration_only_post_phase48_identifiability_audit",
+  "source_panel": "Phase-48 quadratic-shear synthetic recovery panel",
+  "stable_signal_gate": "the selected PFTF feature must meet all four frozen CALIBRATION within-block thresholds and retain the TRAIN slope direction",
+  "standalone_endpoint": "CALIBRATION coefficient MAE of one clipped univariate affine model fit only on TRAIN, compared with the TRAIN-mean coefficient",
+  "standalone_gate": "the TRAIN-only PFTF affine decoder must have CALIBRATION MAE below both the geometry decoder and 0.75 times the TRAIN-mean baseline MAE",
+  "train_seeds": [
+    48001,
+    48002,
+    48003,
+    48004
+  ],
+  "train_strengths": [
+    0.0,
+    0.08,
+    0.16,
+    0.24,
+    0.32
+  ],
+  "training_feature_selection": "separately for PFTF and non-PFTF geometry, select one feature on TRAIN by lexicographically maximizing median within-block linear R2, slope-sign consistency, then standardized span effect; ties use the earlier frozen feature order",
+  "within_block_endpoints": [
+    "median per-block linear R2",
+    "fraction of block slopes matching the frozen TRAIN direction",
+    "fraction of family-median slopes matching the frozen direction",
+    "median slope times strength span divided by TRAIN feature standard deviation"
+  ]
+}
