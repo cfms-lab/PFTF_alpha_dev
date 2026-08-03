@@ -879,6 +879,21 @@ harm. It fails, so Validation B and final remain unopened and
 gate on this opened panel, but is forbidden evidence-dependent retuning. See
 [docs/FOCUS_ENVELOPE_CUTOFF_PHASE27.md](docs/FOCUS_ENVELOPE_CUTOFF_PHASE27.md).
 
+`pftf_alpha.local_spatial_residual_guard` then adds genuinely spatial observed
+evidence: each standardized matched displacement is compared with the
+componentwise median displacement of its eight nearest primary-coordinate
+neighbors, and the case uses the 95th-percentile local residual. A cutoff
+frozen on opened development panels removes the Phase-27 residual case while
+retaining 378/381 focus cases under the combined score/local route. On new
+case-seed-disjoint Validation A/B and final panels, the combined route has harm
+`171 -> 0`, `171 -> 0`, and `168 -> 0`, with 100% focus retention and zero
+introduced endpoint harm. Thus `phase28_supported=true` for the preregistered
+synthetic protocol. However, the predecessor also has zero harm on all three
+fresh panels; the local guard's nine additional fresh rejections are all
+non-focus safe cases. Fresh incremental rescue by the local feature is
+therefore not established. See
+[docs/LOCAL_SPATIAL_RESIDUAL_GUARD_PHASE28.md](docs/LOCAL_SPATIAL_RESIDUAL_GUARD_PHASE28.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

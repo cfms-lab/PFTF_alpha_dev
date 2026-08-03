@@ -9,6 +9,7 @@ from collections.abc import Sequence
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
+from .local_spatial_displacement import LocalSpatialDisplacementEvidence
 from .local_surface_consensus import GeometryTopologyHarmEndpoint
 from .matched_guard_signature import (
     GUARD_PROFILE_SPECS,
@@ -86,6 +87,7 @@ class FrozenPartitionCaseResult:
     signature: MatchedGuardSignature
     model_score: float
     evidence: MatchedPairEvidence
+    local_spatial_evidence: LocalSpatialDisplacementEvidence | None
     original_endpoint: GeometryTopologyHarmEndpoint
     routed_endpoint: GeometryTopologyHarmEndpoint
     unguarded_decision: SamplingGateDecision
@@ -401,6 +403,7 @@ def _materialize_case(
         signature=signature,
         model_score=score,
         evidence=raw.evidence,
+        local_spatial_evidence=raw.local_spatial_evidence,
         original_endpoint=raw.endpoint,
         routed_endpoint=routed_endpoint,
         unguarded_decision=raw.unguarded_decision,

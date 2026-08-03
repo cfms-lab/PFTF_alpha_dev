@@ -1,5 +1,64 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 28
+
+The complete Phase 10--27 worktree was verified with Ruff, `git diff --check`,
+and 266 tests, then committed on `main` as `956731c` (`Add observed-coordinate
+validation through phase 27`). It was not pushed.
+
+Phase 27's global score-ordering failure was followed by the preregistered
+local/spatial residual guard in
+`docs/LOCAL_SPATIAL_RESIDUAL_GUARD_PHASE28.md`. The new observed feature builds
+an eight-nearest-neighbor graph from primary 3D coordinates, robustly
+standardizes each matched displacement, compares it with the componentwise
+median neighbor displacement, and summarizes the local residual field by its
+95th percentile. Source labels, injected-outlier IDs, clean references, and
+endpoint truth remain unavailable to the route.
+
+Opened development seeds `27500804`, `27600804`, and failed Phase-27
+Validation A `27800804` were used only for feature/cutoff design. The one
+predecessor residual harmful case has local q95 `3.5441330652515526`; the
+frozen strict cutoff is the preceding binary64 value
+`3.544133065251552`. The combined route requires both the unchanged Phase-27
+score test and this local test. Design-only reproduction passed all five
+development panels.
+
+Fresh bases `28100804`--`28300804` have zero actual-case-seed overlap with all
+full panels from `20300804`--`25900804` and used/reserved bases
+`27500804`--`28000804`. Ruff, diff check, and all 274 tests passed before the
+sequential fresh run. Results:
+
+- Validation A: harm 171 -> 0, focus 129/129, all-safe 354/360, introduced
+  harm 0; pass;
+- Validation B: harm 171 -> 0, focus 126/126, all-safe 361/363, introduced
+  harm 0; pass; and
+- final: harm 168 -> 0, focus 129/129, all-safe 347/354, introduced harm 0;
+  pass.
+
+`phase28_supported=true` and
+`local_spatial_residual_guard_synthetic_supported=true` for the preregistered
+combined synthetic route. The claim boundary matters: the Phase-27 predecessor
+also had zero fresh harm in all three panels. The local guard additionally
+rejected 3/2/4 predecessor accepts, all of them non-focus safe cases. Therefore
+fresh marginal harmful-case rescue by the local feature is not established.
+Real correspondence, paired scans, trimmed reconstruction, and deployment
+remain unsupported.
+
+Implementation:
+`src/pftf_alpha/local_spatial_displacement.py`,
+`src/pftf_alpha/local_spatial_residual_guard.py`, plus local evidence plumbing
+in `src/pftf_alpha/matched_pair_stress.py` and
+`src/pftf_alpha/frozen_partition_reconstruction.py`. Tests:
+`tests/test_local_spatial_displacement.py` and
+`tests/test_local_spatial_residual_guard.py`. Artifact:
+`benchmark-out/local_spatial_residual_guard_phase28.json`, SHA-256
+`2e64562de0d8a7094f8e5e2092c238c90d94649b166a0d9a04e9df597eacc198`.
+
+The next unresolved decision is whether to require a fresh panel containing at
+least one predecessor residual harmful case before claiming incremental local
+benefit, or move to real paired-scan/correspondence data. Phase 28 changes are
+uncommitted and unpushed.
+
 ## Latest continuation: Phase 27
 
 Phase 26's final cutoff-margin failure was followed by the preregistered

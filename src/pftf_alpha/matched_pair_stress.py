@@ -16,6 +16,10 @@ from numpy.typing import NDArray
 
 from .conservative_influence_calibration import InfluenceFeatureCohort
 from .local_insertion_influence import InfluenceRectangle
+from .local_spatial_displacement import (
+    LocalSpatialDisplacementEvidence,
+    estimate_local_spatial_displacement_evidence,
+)
 from .local_surface_consensus import (
     GeometryTopologyHarmEndpoint,
     LocalSurfaceConsensusConfig,
@@ -154,6 +158,7 @@ class MatchedPairStressRawCase:
     matched_subset_endpoint: GeometryTopologyHarmEndpoint
     frozen_partition_endpoint: GeometryTopologyHarmEndpoint
     unguarded_decision: SamplingGateDecision
+    local_spatial_evidence: LocalSpatialDisplacementEvidence | None = None
 
 
 @dataclass(frozen=True)
@@ -646,6 +651,11 @@ def _raw_panel(
                     "pair_order_only; pairing_correctness_unknown_to_route"
                 ),
             )
+            local_spatial_evidence = estimate_local_spatial_displacement_evidence(
+                perturbed.primary_points,
+                perturbed.repeat_points,
+                matched_pair_config,
+            )
             if perturbed.missing_pair_count:
                 matched_subset_construction, _ = construct_shared_trend_surface(
                     perturbed.primary_points,
@@ -723,6 +733,7 @@ def _raw_panel(
                     matched_subset_endpoint=matched_subset_endpoint,
                     frozen_partition_endpoint=frozen_partition_endpoint,
                     unguarded_decision=case_row.candidate_decision,
+                    local_spatial_evidence=local_spatial_evidence,
                 )
             )
     return tuple(rows)
