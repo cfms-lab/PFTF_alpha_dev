@@ -1,6 +1,37 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 39 calibration protocol
+## Current work: Phase 40 real alpha-reconstruction shadow complete
+
+Phase 40 uses the validated Phase-39 p90 observation in an actual real
+point-cloud alpha-shape shadow without consuming registration correctness
+labels. Source 0 was inspected only as a runtime/development case and excluded.
+Commit `a489402` then froze 17 validation sources, a row-index heldout split,
+the ROI, alpha=1.00 m, matched surface sampling, and the geometry gate before
+validation endpoints were evaluated. Protocol SHA-256:
+`cd829c3e1c1d9585ccef5c6fa98311e6a62507d9f57fb55e960405dd53ba635b`.
+
+All 34 validation meshes materialize. Across 336 unguarded direct scan inputs,
+p90 keeps 291 and rejects 45. Mean geometry loss changes 0.245788 -> 0.241750,
+F-score 0.044418 -> 0.059588, and recall 0.074709 -> 0.103817. Eleven of 17
+cases improve geometry loss and 16/17 improve F-score and recall. The frozen
+gate passes, so `geometry_shadow_supported=true`. Final artifact SHA-256:
+`aa6e4cdf6ce30e554bd5945a475ce9f81ba7b8564a5d27021db3be88b00e0f20`.
+A second full run reproduced this hash byte for byte.
+
+Topology is deliberately not promoted. Mean components improve 7.4118 ->
+7.1765, but Betti-1 worsens 60.7647 -> 67.1765 and nonmanifold-edge fraction
+worsens 0.015981 -> 0.016680. There is no full-scene topology label. Keep
+`topology_correctness_supported=false`,
+`real_trimmed_reconstruction_supported=false`, and
+`deployment_supported=false`.
+
+Do not tune alpha or p90 on these 17 validation references. The next distinct
+phase should preregister a point-local multi-scan support/dispersion observation
+on a separate development/validation partition, then route a local alpha field
+or fail closed. Registration labels must remain separate from reconstruction
+geometry/topology evidence.
+
+## Previous continuation: Phase 39 calibration protocol
 
 Phase 39 begins from the negative Phase-38 ETH result without revising it.
 `docs/ETH_PIPELINE_CALIBRATION_PROTOCOL_PHASE39.md` freezes an eight-candidate

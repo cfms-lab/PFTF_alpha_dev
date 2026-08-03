@@ -1059,6 +1059,24 @@ implementation, physical correspondence identity, alpha-shape reconstruction,
 and deployment claims remain unsupported. See
 [docs/ETH_GAZEBO_ROTATION_AUDIT_PHASE39.md](docs/ETH_GAZEBO_ROTATION_AUDIT_PHASE39.md).
 
+Phase 40 connects that validated observation to an actual real point-cloud
+alpha reconstruction shadow. Source 0 was used only to check the runtime path
+and then excluded. Commit `a489402` froze 17 other Gazebo source scans, a
+row-index heldout reference split, a 1.00 m alpha, and geometry gates before
+their reconstruction endpoints were evaluated. The unguarded input uses all
+336 direct registered scan pairs; the frozen p90 route keeps 291 and removes
+45. Mean geometry loss improves from 0.245788 to 0.241750, F-score from
+0.044418 to 0.059588, and recall from 0.074709 to 0.103817, so
+`geometry_shadow_supported=true`. All 34 meshes materialize and a deterministic
+repeat reproduces the result hash byte for byte. Topology remains mixed:
+component count falls slightly, but mean Betti-1 and nonmanifold-edge fraction
+increase. Therefore this is source-view heldout geometry evidence at one fixed
+alpha, not full-scene accuracy or correct topology;
+`topology_correctness_supported=false`,
+`real_trimmed_reconstruction_supported=false`, and
+`deployment_supported=false`. See
+[docs/ETH_GAZEBO_RECONSTRUCTION_SHADOW_PHASE40.md](docs/ETH_GAZEBO_RECONSTRUCTION_SHADOW_PHASE40.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
