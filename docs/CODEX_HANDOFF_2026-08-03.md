@@ -30,6 +30,17 @@ archive identity, generate every nonconsecutive prediction with the selected
 parameters, materialize unchanged p90 decisions, and commit both hashes before
 opening its Leica pose member.
 
+Gazebo Summer is now downloaded and preregistered without opening pose values.
+The official archive is 1,332,460,435 bytes, MD5
+`94f59356d881a67d2ce74937133c3246`, and local SHA-256
+`614052861d6b599c576209965e504682ca78767ac0d4acc112565cf467acb579`.
+Its directory has 32 numeric Hokuyo scan members and the separate Leica label
+member. The next action is to commit
+`docs/ETH_GAZEBO_VALIDATION_PROTOCOL_PHASE39.md`, generate all 465 predictions
+with `fgr_icp_v050`, and materialize all p90 decisions before labels. Protocol
+artifact SHA-256:
+`1711e23cdb29f0f305950c3eb3015309d8dea4f686c4b79a4d1a80c0af335059`.
+
 ## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
