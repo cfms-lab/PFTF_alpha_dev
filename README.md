@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 45 changes regular-triangulation connectivity with observed confidence
+  power weights, but the frozen transfer gate remains negative: connectivity
+  changes in 27/27 cases with best stability, while binary deletion, fixed-cell
+  continuous weighting, and M1 retain lower objectives. See
+  `docs/CONFIDENCE_POWER_ALPHA_BENCHMARK_PHASE45.md`.
 - Phase 44 finds that the Phase-43 continuous confidence advantage does not
   transfer across density shift, target occlusion, and local nonrigid warp
   under reference-free complete critical-gap selection. Fused B4 remains

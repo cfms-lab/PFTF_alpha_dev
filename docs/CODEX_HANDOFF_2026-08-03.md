@@ -1,6 +1,51 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 44 confidence-filtration transfer complete and negative
+## Current work: Phase 45 confidence-power alpha complete and negative
+
+Phase 45 implements the first post-Phase-44 construction that changes complex
+connectivity rather than rescoring fixed Euclidean Delaunay cells. Commit
+`7f4d1d0` froze new calibration/held-out seeds, M1 density scale 0.375, the
+confidence power-weight formula, penalty grid, fail-closed point-submersion
+policy, comparators, and gates. Commit `a1b71f6` clarified zero-score selection
+before candidate implementation. Protocol SHA-256:
+`554b214bbc664041661634e8315c7bd56d87f10fb3825e4a410ad4e765cbe414`.
+
+Commit `c0601a4` implements
+`w_i = spacing_i^2 * (0.375^2 - penalty^2 * (1 - confidence_i))`, regular
+triangulation by 4D lift, and proper weighted power-radius scoring. Penalty zero
+is exactly M1. Calibration selects penalty 0.375; penalty 0.5 is invalid because
+it submerges a point in one of nine calibration cases.
+
+On 27 new held-out cases:
+
+- anchor B4: geometry 0.142943, Betti error 1.592593, objective 0.222573;
+- fused B4: geometry 0.145457, Betti error 1.333333, objective 0.212123;
+- B5: geometry 0.184113, Betti error 3.629630, objective 0.365594;
+- M1: geometry 0.144752, Betti error 1.333333, objective 0.211419;
+- binary deletion: geometry 0.143579, Betti error 1.333333, objective 0.210246;
+- fixed-cell continuous: geometry 0.144438, Betti error 1.333333, objective 0.211105;
+- confidence power alpha: geometry 0.144874, Betti error 1.333333, objective 0.211541.
+
+The candidate changes M1 connectivity in 27/27 cases, has zero fallback, and
+has the best repeat stability (0.004049). It fails geometry/objective and gains
+only 6/27 joint wins over M1 plus fixed-cell continuous versus the frozen 18/27
+requirement. Therefore `confidence_power_alpha_supported=false`. Result
+SHA-256:
+`d2ef5dc843ac881402c5874db52c45bf334864dcf3f1b3b664eeb2876e1014ce`;
+a second full run is byte-identical.
+
+Do not tune Phase-45 held-out seeds, penalty 0.375, or the invalidated 0.5
+candidate. The result shows that changing connectivity is not sufficient; the
+confidence-to-power relation must be justified and endpoint-aligned. Another
+scalar heuristic is not a distinct next step. Future work must either define a
+globally compatible local-SPD/anisotropic complex or learn the relation on
+separate ground-truth training data before a newly frozen validation. Keep
+`exact_weighted_alpha_supported=false`, `pftf_trained_alpha_supported=false`,
+`point_local_alpha_field_supported=false`,
+`topology_correctness_supported=false`,
+`real_scan_transfer_supported=false`, and `deployment_supported=false`.
+
+## Previous continuation: Phase 44 confidence-filtration transfer complete and negative
 
 Phase 44 tests whether the bounded Phase-43 continuous advantage transfers
 without retuning its held-out cases. Commit `8574681` froze three new stresses
