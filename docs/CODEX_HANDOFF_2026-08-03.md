@@ -1,5 +1,49 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 29
+
+Phase 28 was verified with Ruff, `git diff --check`, and 17 targeted tests,
+then committed on `main` as `f7c9cbe` (`Add local spatial residual guard phase
+28`). It was not pushed.
+
+Phase 29 tests whether the frozen q95 local observation has fresh incremental
+benefit, rather than only combined-route transfer. The challenge protocol in
+`docs/TARGETED_LOCAL_RESIDUAL_CHALLENGE_PHASE29.md` fixes N=96, stresses
+control/local-bump/outliers-01, 64 repeats, and the unchanged three profiles.
+Bases `28400804`--`30100804` collide with historical case seeds under this
+expanded repeat count and were rejected without execution. The first three
+mutually and historically disjoint bases are fixed as `30200804`, `30300804`,
+and `30400804`; no seed search or replacement is allowed.
+
+The evaluator reproduced every Phase 28 design value and gate. Ruff, the diff
+check, and all 278 tests passed before Validation A was opened. Validation A is
+informative but fails:
+
+- total harm is 57 -> 3 -> 3 for original -> predecessor -> combined;
+- focus retention is 251/258, all-safe retention is 253/270, and introduced
+  routed endpoint harm is zero; and
+- the three predecessor/combined residual rows are the exact, registration,
+  and missing views of one N=96, `outliers_01`, repeat-59 case seed `30991223`.
+
+Its three q95 local residuals (`2.85526003`, `2.95746686`, `2.91324421`) remain
+below the frozen `3.544133065251552` cutoff, so the local guard rescues none.
+Validation B and final remain unopened. The same rows' maximum local residuals
+are above the cutoff, but that is post-open diagnosis only and cannot retune
+Phase 29. Therefore `phase29_supported=false` and fresh incremental q95-local
+rescue is disproved on this fixed challenge. Real correspondence, paired
+scans, trimmed reconstruction, and deployment remain unsupported.
+
+Implementation:
+`src/pftf_alpha/targeted_local_residual_challenge.py`; tests:
+`tests/test_targeted_local_residual_challenge.py`; artifact:
+`benchmark-out/targeted_local_residual_challenge_phase29.json`, SHA-256
+`bdfea7cc2243b18147ad05d3963d2a46d66d7fdad4005c77e5fcd31c3823b1b6`.
+
+The next unresolved decision is whether to preregister a tail-sensitive local
+observation that can detect a rare isolated residual without sacrificing focus
+retention, or to move to real paired-scan/correspondence data. Phase 29 is the
+next local checkpoint; no push has been performed.
+
 ## Latest continuation: Phase 28
 
 The complete Phase 10--27 worktree was verified with Ruff, `git diff --check`,
@@ -54,10 +98,8 @@ in `src/pftf_alpha/matched_pair_stress.py` and
 `benchmark-out/local_spatial_residual_guard_phase28.json`, SHA-256
 `2e64562de0d8a7094f8e5e2092c238c90d94649b166a0d9a04e9df597eacc198`.
 
-The next unresolved decision is whether to require a fresh panel containing at
-least one predecessor residual harmful case before claiming incremental local
-benefit, or move to real paired-scan/correspondence data. Phase 28 changes are
-uncommitted and unpushed.
+That unresolved incremental-evidence question is addressed by Phase 29 above.
+Phase 28 is committed as `f7c9cbe` and remains unpushed.
 
 ## Latest continuation: Phase 27
 

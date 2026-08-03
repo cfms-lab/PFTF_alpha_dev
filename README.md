@@ -894,6 +894,19 @@ non-focus safe cases. Fresh incremental rescue by the local feature is
 therefore not established. See
 [docs/LOCAL_SPATIAL_RESIDUAL_GUARD_PHASE28.md](docs/LOCAL_SPATIAL_RESIDUAL_GUARD_PHASE28.md).
 
+`pftf_alpha.targeted_local_residual_challenge` then tests the marginal local
+claim on a preregistered N=96 challenge containing 64 repeats each of control,
+local-bump, and 1% outlier stress. Validation A contains one harmful
+`outliers_01` primary case accepted by the predecessor in all three profiles,
+so the panel is informative. The frozen q95 local guard rescues none: total
+harm is `57 -> 3 -> 3` for original, predecessor, and combined routes. All
+three residual q95 values lie below the frozen local cutoff, while their
+maximum local residuals are above it. Validation A therefore fails and the
+fixed Validation B/final seeds remain unopened; `phase29_supported=false`.
+The maximum statistic is post-open diagnostic evidence only and is not a
+Phase 29 retuning. See
+[docs/TARGETED_LOCAL_RESIDUAL_CHALLENGE_PHASE29.md](docs/TARGETED_LOCAL_RESIDUAL_CHALLENGE_PHASE29.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.
