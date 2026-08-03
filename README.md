@@ -1032,6 +1032,15 @@ stays at zero. Consequently `fresh_label_blind_validation_supported=false`
 and `fresh_external_pipeline_transfer_supported=false`; see
 [docs/FRESH_EXTERNAL_ROTATION_AUDIT_PHASE38.md](docs/FRESH_EXTERNAL_ROTATION_AUDIT_PHASE38.md).
 
+Phase 39 explicitly treats Mountain Plain as opened calibration data and tests
+a preregistered eight-candidate ETH-scale grid. The selected candidate is
+`fgr_icp_v050`: 0.50 m voxels, 0.25 m FGR distance, and point-to-plane ICP at
+0.75 m. It has 83/435 correct calibration registrations versus 0/435 for the
+Phase-38 fixed pipeline. Guard behavior was excluded from selection. The
+selected parameter dictionary is frozen for a once-only, pre-label validation
+on untouched ETH Gazebo Summer; see
+[docs/ETH_PIPELINE_CALIBRATION_PHASE39.md](docs/ETH_PIPELINE_CALIBRATION_PHASE39.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

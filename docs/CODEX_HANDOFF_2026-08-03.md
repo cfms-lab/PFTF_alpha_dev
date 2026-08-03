@@ -17,6 +17,19 @@ environment, and freeze the selected parameter dictionary. A viable result may
 then proceed to predictions and pre-label p90 decisions on a different
 untouched ETH scene.
 
+The calibration run is now complete. Correct counts for the FGR-only/ICP pair
+at each voxel are: 0/13 at 0.10 m, 4/51 at 0.20 m, 7/77 at 0.30 m, and 13/83
+at 0.50 m. The preregistered selection therefore chooses `fgr_icp_v050` with
+83 correct and 352 incorrect predictions. Its parameters are 0.50 m voxels,
+1.0 m normals, 2.5 m FPFH, 0.25 m FGR distance, and 0.75 m/50-iteration
+point-to-plane ICP. Artifact SHA-256:
+`1001b214f6b69be4bfe21bade1a0100a7bb89e357b58796edb00031c077228d5`.
+
+The next untouched validation scene is ETH Gazebo Summer. Freeze its official
+archive identity, generate every nonconsecutive prediction with the selected
+parameters, materialize unchanged p90 decisions, and commit both hashes before
+opening its Leica pose member.
+
 ## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
