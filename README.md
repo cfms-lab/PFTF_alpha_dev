@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 49 closes the learned PFTF coordinate-map branch without reopening
+  held-out data. The TRAIN-selected PFTF summary falls from within-block `R2`
+  `0.924` to `0.491` on CALIBRATION, while family/seed variation is about
+  `4256x` the shear contribution; no new representation or held-out panel is
+  justified. See `docs/PFTF_SHEAR_IDENTIFIABILITY_RESULT_PHASE49.md`.
 - Phase 48 trains a globally invertible quadratic-shear coefficient from
   observed PFTF summaries with frozen `60/30/45` train/calibration/held-out
   separation. Invertibility passes for `45/45` predictions, but PFTF loses to

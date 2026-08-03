@@ -1,6 +1,43 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 48 learned PFTF coordinate map complete and negative
+## Current work: Phase 49 PFTF shear identifiability complete and negative
+
+Phase 49 follows the required diagnostic after Phase 48 without reopening any
+held-out case. Commit `5b2dddb` preregistered a TRAIN/CALIBRATION-only audit,
+fixed family/seed blocks, TRAIN-only feature selection, within-block,
+confounding, and standalone endpoints, all gates, and the prohibition on
+Phase-48 held-out inputs. Protocol SHA-256:
+`7256ca43884d7e808f8e9e3f186a24f510e59810f06b928f6f84f3d8cc34a1bc`.
+
+Commit `62275ec` implements paired block slopes/R2, sign transfer, family
+direction checks, variance decomposition, and one-feature TRAIN-only affine
+decoders. Zero-variance responses are assigned `R2=0`; a regression test stops
+constant `x_skewness` from being mislabeled as an identifiable signal.
+
+TRAIN selected PFTF `log_scale_std` and non-PFTF
+`normalized_covariance_xy`. On CALIBRATION:
+
+- PFTF median within-block R2 is `0.491280`, direction consistency `3/6`,
+  family direction `3/3`, standardized effect `0.008540`;
+- geometry median within-block R2 is `0.992884`, direction consistency `5/6`,
+  and standardized effect `0.136756`;
+- PFTF pooled R2 is `0.000234`, block variance fraction `0.997299`, partial
+  strength R2 `0.086759`, and block/strength explained-SS ratio `4255.57`;
+- PFTF standalone MAE is `0.103968`, geometry `0.103960`, and TRAIN-mean
+  baseline `0.104000`; the frozen standalone threshold is `0.078000`.
+
+All stable, PFTF-specific, standalone, new-representation, and new-held-out
+gates fail. The result consumes `60/30/0` TRAIN/CALIBRATION/held-out cases and
+has SHA-256
+`f6479406becf127301f290e37f8d0890fb1c7816bfc8e3513f75e6f68bb51975`.
+
+Do not add another PFTF summary, reopen Phase-48 held-out, or create a new
+shear panel. Phase 49 closes the learned PFTF coordinate-map branch. The next
+decision should be a paper pivot: consolidate the honest negative/limits paper
+around P3, M1, G4, and Phase-43--49 boundaries, or split the specialized
+positive two-layer result into a separate manuscript.
+
+## Previous continuation: Phase 48 learned PFTF coordinate map complete and negative
 
 Phase 48 follows the distinct route requested after Phase 47: learn a member of
 the globally invertible quadratic-shear family from observed PFTF evidence.
