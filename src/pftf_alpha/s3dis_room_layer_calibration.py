@@ -86,15 +86,19 @@ def _load_merged(paths: list[Path]) -> np.ndarray:
     return np.ascontiguousarray(np.vstack([load_xyz(path) for path in paths]))
 
 
-def _area_and_room(annotation_path: Path) -> tuple[str, str]:
+def _area_and_room(
+    annotation_path: Path,
+    *,
+    allowed_areas: tuple[str, ...] = CALIBRATION_AREAS,
+) -> tuple[str, str]:
     areas = [part for part in annotation_path.parts if part.startswith("Area_")]
     if len(areas) != 1:
         raise ValueError(f"cannot identify one area from {annotation_path}")
     area = areas[0]
-    if area == RESERVED_HELD_OUT_AREA:
+    if area == RESERVED_HELD_OUT_AREA and area not in allowed_areas:
         raise ValueError("reserved Area 5 content may not enter calibration")
-    if area not in CALIBRATION_AREAS:
-        raise ValueError(f"unexpected calibration area: {area}")
+    if area not in allowed_areas:
+        raise ValueError(f"area is outside the allowed set: {area}")
     return area, annotation_path.parent.name
 
 
@@ -111,8 +115,9 @@ def _room_pair(
     *,
     max_fit_points: int,
     max_spacing_points: int,
+    allowed_areas: tuple[str, ...] = CALIBRATION_AREAS,
 ) -> RoomLayerPairCalibration:
-    area, room = _area_and_room(annotation_path)
+    area, room = _area_and_room(annotation_path, allowed_areas=allowed_areas)
     floor_points = _load_merged(floor_paths)
     ceiling_points = _load_merged(ceiling_paths)
     floor = summarize_plane(
