@@ -19,9 +19,17 @@ matrix direction, strict RRE < 15 degrees plus RTE < 0.30 m correctness,
 unchanged p90 acceptance, and the same precision/retention/rejection gates.
 The generated preregistration artifact SHA-256 is
 `1d183f5b6c8dd7eaeb35a6950ac3fdb16e3306f21e187489e5d0272279973649`.
-The next action is to commit this preregistration, extract/convert only the 31
-scan members, generate and hash all predictions, and only then let a separate
-evaluator open the Leica member. Do not tune any threshold after labels.
+The preregistration was committed as `3528297`. After that commit, the
+label-free generator opened exactly the 31 Hokuyo members and produced all 435
+predictions in about 17 minutes 26 seconds. Prediction artifact SHA-256:
+`71dc13f8ef8702dc54cc9787ddefd537aaf6de82cf5faab448679abd52bff708`.
+The separate label-free decision materializer accepts 391 and rejects 44;
+decision artifact SHA-256:
+`26f069fa77841dfb446185d01809a062b242af3f1517e605d68105aab43850c0`.
+Both artifacts state that labels were not opened/accessed. The next action is
+to commit this complete pre-label state, then implement a separate evaluator
+that first verifies both hashes and only then opens the Leica member. Do not
+tune any threshold after labels.
 
 ## Latest continuation: Phase 37
 

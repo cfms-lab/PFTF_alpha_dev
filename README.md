@@ -1022,8 +1022,10 @@ Leica-pose member name are present, but the pose member's values have not been
 opened or decoded. `docs/FRESH_EXTERNAL_PROTOCOL_PHASE38.md` fixes all 435
 nonconsecutive pairs, the unchanged Phase-37 Open3D pipeline, a strict
 15-degree/0.30-m correctness rule, and the unchanged p90/gate requirements.
-The next execution must materialize the entire prediction artifact before it
-opens the pose labels.
+The full pre-label execution is complete: all 435 predictions were generated
+after the preregistration commit, and the hash-locked p90 decision artifact
+accepts 391 and rejects 44 without opening the pose values. The next separate
+evaluator may now decode those values and report the unchanged gate result.
 
 ## Novelty boundary
 
