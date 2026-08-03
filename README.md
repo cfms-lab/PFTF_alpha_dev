@@ -1077,6 +1077,22 @@ alpha, not full-scene accuracy or correct topology;
 `deployment_supported=false`. See
 [docs/ETH_GAZEBO_RECONSTRUCTION_SHADOW_PHASE40.md](docs/ETH_GAZEBO_RECONSTRUCTION_SHADOW_PHASE40.md).
 
+Phase 41 tests genuinely point-local spatial evidence rather than another
+scan-level decision. On the opened development source 0, a frozen grid selects
+target-only 0.75 m cells supported by at least two distinct scans with RMS
+dispersion at most 0.15 m. A separately committed protocol evaluates this rule
+on seven endpoint-unopened Gazebo sources excluded from Phase 40. The result is
+negative despite broad casewise improvement: local support beats anchor-only
+geometry in 6/7 cases and scan-fused geometry in 6/7, but source 17 raises the
+aggregate local geometry loss to 0.130329 versus anchor-only 0.124651. Mean
+F-score is 0.627225 versus anchor 0.680672 and mean recall is 0.690487 versus
+0.706426, so both frozen tolerances fail and
+`local_support_shadow_supported=false`. Source 17 improves recall while sharply
+worsening Hausdorff, showing that mutually consistent target scans can form a
+coherent but anchor-misaligned cluster. Thus support and within-cell dispersion
+alone are not a safe reconstruction certificate. See
+[docs/ETH_GAZEBO_LOCAL_SUPPORT_SHADOW_PHASE41.md](docs/ETH_GAZEBO_LOCAL_SUPPORT_SHADOW_PHASE41.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

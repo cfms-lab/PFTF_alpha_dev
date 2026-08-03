@@ -1,6 +1,44 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 40 real alpha-reconstruction shadow complete
+## Current work: Phase 41 local-support shadow complete and negative
+
+Phase 41 introduces observed-only point-local evidence. The source-0
+development grid was committed as `d66c3ff`; it selected target-only 0.75 m
+cells with at least two distinct contributing scans and RMS dispersion <=0.15
+m. Calibration SHA-256:
+`dfc37f2bbc011e89646bd5a9a89744b9e065d78026b1dcdb58f900f64b18ecae`.
+
+Commit `6561711` then froze seven validation sources excluded from Phase 40:
+`1, 17, 18, 21, 22, 23, 24`. All 84 direct predictions are p90-accepted, so
+the experiment isolates point-local evidence. Protocol SHA-256:
+`f3c48a60657a8877f4cde330a8f917b99bd1a3521ed5ffd7682565145fce60a8`.
+
+The fixed route adds 1,162 corroborated target-only cells, rejects 23,696, and
+materializes all 21 meshes. It beats anchor geometry in 6/7 cases and scan-fused
+geometry in 6/7, but the aggregate gate fails:
+
+- geometry loss: anchor 0.124651, scan 0.174167, local 0.130329;
+- F-score: anchor 0.680672, scan 0.190455, local 0.627225;
+- recall: anchor 0.706426, scan 0.280927, local 0.690487.
+
+Source 17 is decisive: recall improves 0.741476 -> 0.755115, but normalized
+Hausdorff worsens 0.140230 -> 0.225938. Target scans can agree locally with one
+another while forming a coherent cluster that is misplaced relative to the
+anchor. Therefore `local_support_shadow_supported=false`. Result SHA-256:
+`ab91f20245bcdce687b897469084e742030a837ca0c2538dc49ad4395b5c3ed9`;
+a second execution reproduced it byte for byte.
+
+Do not retune support or dispersion on the seven Phase-41 sources or the 17
+Phase-40 sources. The next distinct observation must measure target-to-anchor
+local agreement, for example distance plus normal/tangent consistency, and fail
+closed when targets agree only with each other. Source 17 is now opened failure
+development evidence. A positive validation requires a separately frozen panel
+or different real scene. Keep `point_local_alpha_field_supported=false`,
+`topology_correctness_supported=false`,
+`real_trimmed_reconstruction_supported=false`, and
+`deployment_supported=false`.
+
+## Previous continuation: Phase 40 real alpha-reconstruction shadow complete
 
 Phase 40 uses the validated Phase-39 p90 observation in an actual real
 point-cloud alpha-shape shadow without consuming registration correctness
