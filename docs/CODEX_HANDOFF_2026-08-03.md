@@ -1,6 +1,46 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 47 integrable nonlinear spatial-alpha complete and positive
+## Current work: Phase 48 learned PFTF coordinate map complete and negative
+
+Phase 48 follows the distinct route requested after Phase 47: learn a member of
+the globally invertible quadratic-shear family from observed PFTF evidence.
+Commit `38312af` preregistered the map family, `60/30/45` disjoint
+TRAIN/CALIBRATION/HELD_OUT cases, seven PFTF summaries, a four-feature non-PFTF
+geometry ridge, identity/TRAIN-mean/oracle controls, all endpoints, and claim
+boundaries before the benchmark was opened. Protocol SHA-256:
+`4428aff85db9242bdd25880032cedc50cc7f538316b1eb60279cc3fe8ee90085`.
+
+Commit `c4ecc2f` implements centered/RMS-normalized synthetic corruption,
+observed-only feature extraction, training-standardized ridge fitting,
+calibration-only penalty selection, frozen held-out evaluation, and map
+inverse/Jacobian checks. Calibration chose PFTF penalty `0.01` and geometry
+penalty `0`.
+
+Held-out means are:
+
+- identity: coefficient MAE `0.180000`, coordinate RMS `0.153777`, top-cell
+  Jaccard `0.493423`;
+- TRAIN mean: `0.100000`, `0.085432`, `0.601368`;
+- non-PFTF geometry ridge: `0.100103`, `0.085439`, `0.598767`;
+- PFTF ridge: `0.115118`, `0.098199`, `0.576518`;
+- oracle: `0`, `0`, `1`.
+
+All `45/45` predictions remain within `[0,0.40]`; maximum inverse error is
+`2.220446e-16` and determinant is exactly `1`. Thus the construction gate
+passes, but all three PFTF value gates fail. Keep
+`pftf_conditioning_value_supported=false` and
+`learned_invertible_quadratic_shear_supported=false`, plus arbitrary-local,
+general-learner, alpha-selection, reconstruction/topology/real/exact/deployment
+claims false. Result SHA-256:
+`f024f0609da9f4ce09f71f4b97a085a66bb3a9ab0166409d45032ab15e0ad3eb`.
+
+Do not add features or tune the opened Phase-48 held-out panel. The next
+distinct route is a TRAIN/CALIBRATION-only identifiability audit that separates
+within-family shear response from between-family variation. Only if that audit
+finds a stable observed signal should a new representation and new held-out
+seeds be preregistered.
+
+## Previous continuation: Phase 47 integrable nonlinear spatial-alpha complete and positive
 
 Phase 47 moves beyond the constant Phase-46 metric without treating arbitrary
 point matrices as a complex. Commit `a0022b6` preregistered one analytic

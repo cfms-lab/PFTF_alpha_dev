@@ -6,6 +6,12 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 48 trains a globally invertible quadratic-shear coefficient from
+  observed PFTF summaries with frozen `60/30/45` train/calibration/held-out
+  separation. Invertibility passes for `45/45` predictions, but PFTF loses to
+  the TRAIN mean and non-PFTF geometry model on all three recovery endpoints;
+  `pftf_conditioning_value_supported=false`. See
+  `docs/LEARNED_PFTF_COORDINATE_MAP_RESULT_PHASE48.md`.
 - Phase 47 extends the coherent construction to one analytic spatially varying
   SPD regime: an invertible quadratic-shear coordinate map passes all eight
   frozen construction controls and changes Delaunay connectivity. Arbitrary
