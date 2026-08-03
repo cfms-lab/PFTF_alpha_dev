@@ -1,0 +1,26 @@
+{
+  "ambient_dimension": 3,
+  "artifact_schema": "pftf_alpha_affine_spd_alpha_protocol_phase46/v1",
+  "audit_seed": 46001,
+  "claim_boundary": "a positive audit supports only the mathematical and floating-point implementation validity of a constant global affine-SPD alpha control; it is not an exact-predicate result, a spatially varying local-SPD complex, a performance advantage, topology correctness, real-scan transfer, or deployment evidence",
+  "compatibility_condition": "there exists one invertible matrix L shared by every point such that M_i = L L^T within the frozen tolerances; equivalently the point metric field is constant and globally affine-representable",
+  "connectivity_tolerance": 0.0,
+  "construction": "transform row-vector coordinates by y = x L, build the ordinary Euclidean Delaunay alpha filtration in y, and retain its indexed simplices and filtration values on the original coordinates",
+  "coordinate_covariance_rule": "under x_prime = x A, use M_prime = A^-1 M A^-T so squared metric distances, connectivity, and alpha filtration values are invariant",
+  "frozen_controls": [
+    "identity metric reproduces the Euclidean alpha filtration",
+    "one constant rotated anisotropic SPD metric reproduces the explicit transformed-coordinate filtration",
+    "one invertible affine reparameterization preserves connectivity and filtration values under the covariance rule",
+    "a constant LocalMetricField is accepted and reproduces the global construction",
+    "a spatially rotating LocalMetricField is rejected as not representable by one global affine transform"
+  ],
+  "frozen_incompatible_field": "M_i = R_z(theta_i) diag(4, 1, 0.25) R_z(theta_i)^T with theta_i spanning [-0.6, 0.6] in point-index order",
+  "metric_compatibility_absolute_tolerance": 1e-12,
+  "metric_compatibility_relative_tolerance": 1e-10,
+  "point_count": 48,
+  "reference_boundary": "the audit consumes only generated point coordinates and declared SPD matrices; it uses no reference surface or reconstruction endpoint",
+  "role": "pre_implementation_affine_spd_complex_compatibility_audit",
+  "score_absolute_tolerance": 1e-12,
+  "score_relative_tolerance": 5e-10,
+  "validation_gate": "all five controls must pass; identity, explicit-transform, affine-covariance, and constant-field cases require identical canonical top-simplex sets and all simplex filtration values within frozen tolerances, while the rotating field must fail closed before a filtration is constructed"
+}
