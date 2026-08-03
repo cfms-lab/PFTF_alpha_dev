@@ -1,0 +1,213 @@
+{
+  "artifact_schema": "pftf_alpha_pftf_shear_identifiability_phase49/v1",
+  "calibration_case_count": 30,
+  "deployment_supported": false,
+  "exact_predicates_supported": false,
+  "geometry_training_scores": [
+    {
+      "block_slope_sign_consistency": 0.5,
+      "feature_name": "normalized_covariance_xy",
+      "median_slope": -0.004837715310701516,
+      "median_within_block_r2": 0.9773653897204992,
+      "standardized_span_effect": 0.011183749723755678
+    },
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "x_skewness",
+      "median_slope": 5.92413150896906e-18,
+      "median_within_block_r2": 0.0,
+      "standardized_span_effect": 1.3121932957405368e-17
+    },
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "y_skewness",
+      "median_slope": 0.07637660145728245,
+      "median_within_block_r2": 0.9707918709818757,
+      "standardized_span_effect": 0.1053696784884273
+    },
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "axis_variance_ratio",
+      "median_slope": -1.253264407769979,
+      "median_within_block_r2": 0.819614675917063,
+      "standardized_span_effect": 0.07174459364193826
+    }
+  ],
+  "global_alpha_selection_supported": false,
+  "new_held_out_panel_justified": false,
+  "new_representation_development_justified": false,
+  "pftf_reconstruction_value_supported": false,
+  "pftf_specific_within_block_signal_supported": false,
+  "pftf_training_scores": [
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "relation_xy_mean",
+      "median_slope": 0.005115149277795472,
+      "median_within_block_r2": 0.908732057592775,
+      "standardized_span_effect": 0.36195992308997876
+    },
+    {
+      "block_slope_sign_consistency": 0.75,
+      "feature_name": "relation_xy_std",
+      "median_slope": 0.0076046185277332135,
+      "median_within_block_r2": 0.4887705502701242,
+      "standardized_span_effect": 0.47301569773368335
+    },
+    {
+      "block_slope_sign_consistency": 0.75,
+      "feature_name": "relation_strength_median",
+      "median_slope": 0.01214471574871314,
+      "median_within_block_r2": 0.7032969688866968,
+      "standardized_span_effect": 0.31271910282035287
+    },
+    {
+      "block_slope_sign_consistency": 0.5,
+      "feature_name": "relation_strength_q90",
+      "median_slope": 0.005287964393669178,
+      "median_within_block_r2": 0.5870756339462082,
+      "standardized_span_effect": 0.07769502678611284
+    },
+    {
+      "block_slope_sign_consistency": 0.5,
+      "feature_name": "confidence_mean",
+      "median_slope": 0.001177007158948579,
+      "median_within_block_r2": 0.6102993494386858,
+      "standardized_span_effect": 0.02260647871122787
+    },
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "reciprocity_mean",
+      "median_slope": 0.009765625000000704,
+      "median_within_block_r2": 0.8612637362637354,
+      "standardized_span_effect": 0.10758006055381521
+    },
+    {
+      "block_slope_sign_consistency": 0.5833333333333334,
+      "feature_name": "log_scale_std",
+      "median_slope": 0.0065267454387953824,
+      "median_within_block_r2": 0.9241618339097264,
+      "standardized_span_effect": 0.044557276480468394
+    }
+  ],
+  "phase49_identifiability_supported": false,
+  "prohibited_held_out_case_count": 0,
+  "protocol": {
+    "artifact_schema": "pftf_alpha_pftf_shear_identifiability_protocol_phase49/v1",
+    "block_definition": "one block is one surface family and one seed observed at all five declared strengths; TRAIN has 12 blocks and CALIBRATION has 6",
+    "calibration_seeds": [
+      48101,
+      48102
+    ],
+    "calibration_strengths": [
+      0.04,
+      0.12,
+      0.2,
+      0.28,
+      0.36
+    ],
+    "claim_boundary": "a positive within-block result shows only an observed response to a known coordinate-aligned synthetic shear under repeated measurements; it does not establish standalone identifiability, PFTF reconstruction value, alpha selection, real transfer, exactness, or deployment",
+    "confounding_endpoints": [
+      "pooled linear R2 without family or seed labels",
+      "block variance fraction from a categorical block-intercept model",
+      "partial strength R2 after block intercepts",
+      "block-to-strength explained-sum-of-squares ratio"
+    ],
+    "families": [
+      "torus",
+      "disconnected_parts",
+      "sharp_crease"
+    ],
+    "frozen_direction_rule": "the sign of the median TRAIN block slope is frozen before applying the selected feature to CALIBRATION",
+    "geometry_baseline_features": [
+      "normalized_covariance_xy",
+      "x_skewness",
+      "y_skewness",
+      "axis_variance_ratio"
+    ],
+    "held_out_prohibition": "Phase-48 held-out seeds, points, labels, predictions, and endpoint values are prohibited from feature selection and every Phase-49 gate",
+    "maximum_standalone_mae_fraction_of_train_mean": 0.75,
+    "minimum_calibration_family_direction_fraction": 1.0,
+    "minimum_calibration_median_within_block_r2": 0.75,
+    "minimum_calibration_sign_consistency": 0.8333333333333334,
+    "minimum_standardized_span_effect": 0.25,
+    "next_panel_gate": "new representation development requires the stable and PFTF-specific gates; a new held-out panel additionally requires the standalone gate",
+    "pftf_features": [
+      "relation_xy_mean",
+      "relation_xy_std",
+      "relation_strength_median",
+      "relation_strength_q90",
+      "confidence_mean",
+      "reciprocity_mean",
+      "log_scale_std"
+    ],
+    "pftf_specific_gate": "the stable PFTF feature must strictly exceed the independently TRAIN-selected geometry feature in CALIBRATION median within-block R2",
+    "reference_boundary": "true strengths organize repeated diagnostic blocks and score the audit; no dense reference surface or alpha/reconstruction endpoint is consumed, and the block analysis is not a deployable estimator",
+    "role": "train_calibration_only_post_phase48_identifiability_audit",
+    "source_panel": "Phase-48 quadratic-shear synthetic recovery panel",
+    "stable_signal_gate": "the selected PFTF feature must meet all four frozen CALIBRATION within-block thresholds and retain the TRAIN slope direction",
+    "standalone_endpoint": "CALIBRATION coefficient MAE of one clipped univariate affine model fit only on TRAIN, compared with the TRAIN-mean coefficient",
+    "standalone_gate": "the TRAIN-only PFTF affine decoder must have CALIBRATION MAE below both the geometry decoder and 0.75 times the TRAIN-mean baseline MAE",
+    "train_seeds": [
+      48001,
+      48002,
+      48003,
+      48004
+    ],
+    "train_strengths": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32
+    ],
+    "training_feature_selection": "separately for PFTF and non-PFTF geometry, select one feature on TRAIN by lexicographically maximizing median within-block linear R2, slope-sign consistency, then standardized span effect; ties use the earlier frozen feature order",
+    "within_block_endpoints": [
+      "median per-block linear R2",
+      "fraction of block slopes matching the frozen TRAIN direction",
+      "fraction of family-median slopes matching the frozen direction",
+      "median slope times strength span divided by TRAIN feature standard deviation"
+    ]
+  },
+  "real_scan_transfer_supported": false,
+  "selected_geometry": {
+    "calibration_block_to_strength_ss_ratio": 467.2148551204233,
+    "calibration_block_variance_fraction": 0.9914198866462824,
+    "calibration_family_direction_fraction": 0.6666666666666666,
+    "calibration_median_slope": -0.059156189586452794,
+    "calibration_median_within_block_r2": 0.9928843882016769,
+    "calibration_partial_strength_r2": 0.24731357643101928,
+    "calibration_pooled_r2": 0.0021219785196914254,
+    "calibration_slope_sign_consistency": 0.8333333333333334,
+    "calibration_standardized_span_effect": 0.13675629433638445,
+    "feature_name": "normalized_covariance_xy",
+    "frozen_train_direction": -1,
+    "standalone_calibration_mae": 0.10396022941860393,
+    "train_median_slope": -0.004837715310701516,
+    "train_median_within_block_r2": 0.9773653897204992,
+    "train_slope_sign_consistency": 0.5,
+    "train_standardized_span_effect": 0.011183749723755678
+  },
+  "selected_pftf": {
+    "calibration_block_to_strength_ss_ratio": 4255.573568435585,
+    "calibration_block_variance_fraction": 0.9972988388141,
+    "calibration_family_direction_fraction": 1.0,
+    "calibration_median_slope": 0.0012509018316058705,
+    "calibration_median_within_block_r2": 0.49128032643732467,
+    "calibration_partial_strength_r2": 0.0867594339862646,
+    "calibration_pooled_r2": 0.00023435121559467476,
+    "calibration_slope_sign_consistency": 0.5,
+    "calibration_standardized_span_effect": 0.008539750674123766,
+    "feature_name": "log_scale_std",
+    "frozen_train_direction": 1,
+    "standalone_calibration_mae": 0.10396796346495245,
+    "train_median_slope": 0.0065267454387953824,
+    "train_median_within_block_r2": 0.9241618339097264,
+    "train_slope_sign_consistency": 0.5833333333333334,
+    "train_standardized_span_effect": 0.044557276480468394
+  },
+  "stable_within_block_pftf_signal_supported": false,
+  "standalone_pftf_identifiability_supported": false,
+  "train_case_count": 60,
+  "train_mean_calibration_mae": 0.10400000000000004,
+  "train_mean_strength": 0.16000000000000003
+}
