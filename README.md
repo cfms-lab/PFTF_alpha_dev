@@ -947,6 +947,17 @@ at 5 cm it removes four incorrect and seventeen correct predictions. Thus
 result does not transfer to a useful real-registration guard. See
 [docs/THREEDMATCH_REGISTRATION_GUARD_PHASE32.md](docs/THREEDMATCH_REGISTRATION_GUARD_PHASE32.md).
 
+`pftf_alpha.threedmatch_transfer_audit` freezes the exact Phase-32 artifact and
+repeats the unchanged route on the official SUN3D
+`hotel_umd/maryland_hotel3` scene. Its baseline has 15/61 correct predictions
+(24.59% precision, 57.69% recall). The full route accepts only 1/13 correct at
+2 cm and 0/8 correct at 5 cm, so precision falls to 7.69% and 0%. Thus the
+redkitchen failure transfers to a second independently labeled real scene:
+`negative_transfer_reproduced=true`, `cross_scene_guard_supported=false`, and
+deployment remains unsupported. The opened redkitchen and Maryland scenes must
+not be reused as fresh validation after any redesign. See
+[docs/THREEDMATCH_SECOND_SCENE_TRANSFER_PHASE33.md](docs/THREEDMATCH_SECOND_SCENE_TRANSFER_PHASE33.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

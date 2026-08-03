@@ -270,6 +270,26 @@ class _SampledFragment:
     original_indices: IntArray
 
 
+@dataclass(frozen=True)
+class SceneRegistrationGuardEvaluation:
+    """Shared label-blind result before phase-specific claim packaging."""
+
+    scene_name: str
+    evaluation_name: str
+    phase28_artifact_path: str
+    phase28_artifact_sha256: str
+    model: MatchedGuardModel
+    raw_prediction_count: int
+    eligible_prediction_count: int
+    ground_truth_overlap_pair_count: int
+    maximum_points_per_fragment: int
+    patch_size: int
+    patch_count: int
+    distance_thresholds: tuple[float, ...]
+    observations: tuple[LabeledRegistrationObservation, ...]
+    threshold_summaries: tuple[ThresholdRegistrationSummary, ...]
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -641,16 +661,19 @@ def _threshold_summary(
     )
 
 
-def evaluate_threedmatch_registration_guard(
+def evaluate_extracted_threedmatch_scene_guard(
     data_root: str | Path,
     phase28_artifact: str | Path,
     *,
+    scene_name: str,
+    evaluation_name: str,
+    fragment_count: int,
     distance_thresholds: Sequence[float] = DEFAULT_DISTANCE_THRESHOLDS,
     maximum_points_per_fragment: int = DEFAULT_MAXIMUM_POINTS_PER_FRAGMENT,
     patch_size: int = DEFAULT_PATCH_SIZE,
     patch_count: int = DEFAULT_PATCH_COUNT,
-) -> ThreeDMatchRegistrationGuardResult:
-    """Run blind observations first, then join official labels for scoring."""
+) -> SceneRegistrationGuardEvaluation:
+    """Evaluate one extracted scene, materializing all guards before labels."""
 
     root = Path(data_root)
     thresholds = tuple(float(value) for value in distance_thresholds)
@@ -660,12 +683,13 @@ def evaluate_threedmatch_registration_guard(
         or any(not math.isfinite(value) or value <= 0.0 for value in thresholds)
     ):
         raise ValueError("distance thresholds must be unique, positive, and sorted")
+    if fragment_count <= 0:
+        raise ValueError("fragment_count must be positive")
     if patch_size < 9 or patch_count <= 0 or patch_count > patch_size:
         raise ValueError("invalid patch size or patch count")
-    fragment_archive, evaluation_archive = prepare_redkitchen_data(root)
     model_path = Path(phase28_artifact)
     model = load_phase28_predecessor_model(model_path)
-    prediction_path = root / EVALUATION_NAME / "3dmatch.log"
+    prediction_path = root / evaluation_name / "3dmatch.log"
     predictions = read_registration_log(prediction_path)
     eligible_predictions = tuple(
         prediction
@@ -673,9 +697,9 @@ def evaluate_threedmatch_registration_guard(
         if prediction.target_index - prediction.source_index > 1
     )
     fragments: dict[int, _SampledFragment] = {}
-    for index in range(FRAGMENT_COUNT):
+    for index in range(fragment_count):
         points = read_binary_ply_xyz(
-            root / SCENE_NAME / f"cloud_bin_{index}.ply"
+            root / scene_name / f"cloud_bin_{index}.ply"
         )
         sampled, original_indices = deterministic_fragment_sample(
             points,
@@ -706,7 +730,7 @@ def evaluate_threedmatch_registration_guard(
         for prediction in eligible_predictions
     )
 
-    evaluation_root = root / EVALUATION_NAME
+    evaluation_root = root / evaluation_name
     ground_truth = read_registration_log(evaluation_root / "gt.log")
     information = read_registration_info(evaluation_root / "gt.info")
     labeled = _label_observations(blind_observations, ground_truth, information)
@@ -721,9 +745,54 @@ def evaluate_threedmatch_registration_guard(
         )
         for index in range(len(thresholds))
     )
-    phase32_supported = all(summary.threshold_gate_passed for summary in summaries)
+    return SceneRegistrationGuardEvaluation(
+        scene_name=scene_name,
+        evaluation_name=evaluation_name,
+        phase28_artifact_path=str(model_path),
+        phase28_artifact_sha256=_sha256(model_path),
+        model=model,
+        raw_prediction_count=len(predictions),
+        eligible_prediction_count=len(eligible_predictions),
+        ground_truth_overlap_pair_count=ground_truth_pair_count,
+        maximum_points_per_fragment=maximum_points_per_fragment,
+        patch_size=patch_size,
+        patch_count=patch_count,
+        distance_thresholds=thresholds,
+        observations=labeled,
+        threshold_summaries=summaries,
+    )
+
+
+def evaluate_threedmatch_registration_guard(
+    data_root: str | Path,
+    phase28_artifact: str | Path,
+    *,
+    distance_thresholds: Sequence[float] = DEFAULT_DISTANCE_THRESHOLDS,
+    maximum_points_per_fragment: int = DEFAULT_MAXIMUM_POINTS_PER_FRAGMENT,
+    patch_size: int = DEFAULT_PATCH_SIZE,
+    patch_count: int = DEFAULT_PATCH_COUNT,
+) -> ThreeDMatchRegistrationGuardResult:
+    """Run blind observations first, then join official labels for scoring."""
+
+    root = Path(data_root)
+    fragment_archive, evaluation_archive = prepare_redkitchen_data(root)
+    scene = evaluate_extracted_threedmatch_scene_guard(
+        root,
+        phase28_artifact,
+        scene_name=SCENE_NAME,
+        evaluation_name=EVALUATION_NAME,
+        fragment_count=FRAGMENT_COUNT,
+        distance_thresholds=distance_thresholds,
+        maximum_points_per_fragment=maximum_points_per_fragment,
+        patch_size=patch_size,
+        patch_count=patch_count,
+    )
+    phase32_supported = all(
+        summary.threshold_gate_passed for summary in scene.threshold_summaries
+    )
     tail_supported = all(
-        summary.tail_incremental_gate_passed for summary in summaries
+        summary.tail_incremental_gate_passed
+        for summary in scene.threshold_summaries
     )
     return ThreeDMatchRegistrationGuardResult(
         artifact_schema="pftf_alpha_threedmatch_registration_guard_phase32/v1",
@@ -741,28 +810,29 @@ def evaluate_threedmatch_registration_guard(
         ),
         fragment_archive=fragment_archive,
         evaluation_archive=evaluation_archive,
-        phase28_artifact_path=str(model_path),
-        phase28_artifact_sha256=_sha256(model_path),
+        phase28_artifact_path=scene.phase28_artifact_path,
+        phase28_artifact_sha256=scene.phase28_artifact_sha256,
         prediction_log_name="3dmatch.log",
-        raw_prediction_count=len(predictions),
-        eligible_prediction_count=len(eligible_predictions),
-        ground_truth_overlap_pair_count=ground_truth_pair_count,
+        raw_prediction_count=scene.raw_prediction_count,
+        eligible_prediction_count=scene.eligible_prediction_count,
+        ground_truth_overlap_pair_count=scene.ground_truth_overlap_pair_count,
         official_error_threshold_squared=OFFICIAL_ERROR_THRESHOLD_SQUARED,
-        maximum_points_per_fragment=maximum_points_per_fragment,
-        patch_size=patch_size,
-        patch_count=patch_count,
-        distance_thresholds=thresholds,
-        global_signature_rejection_cutoff=model.rejection_cutoff,
+        maximum_points_per_fragment=scene.maximum_points_per_fragment,
+        patch_size=scene.patch_size,
+        patch_count=scene.patch_count,
+        distance_thresholds=scene.distance_thresholds,
+        global_signature_rejection_cutoff=scene.model.rejection_cutoff,
         local_percentile95_rejection_cutoff=(
             EXPECTED_LOCAL_REJECTION_CUTOFF
         ),
         isolated_tail_ratio_rejection_cutoff=(
             EXPECTED_TAIL_REJECTION_CUTOFF
         ),
-        observations=labeled,
-        threshold_summaries=summaries,
+        observations=scene.observations,
+        threshold_summaries=scene.threshold_summaries,
         real_registration_labels_supported=bool(
-            ground_truth_pair_count > 0 and len(labeled) > 0
+            scene.ground_truth_overlap_pair_count > 0
+            and len(scene.observations) > 0
         ),
         phase32_supported=phase32_supported,
         tail_sensitive_real_registration_supported=tail_supported,

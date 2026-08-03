@@ -1,5 +1,53 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 33
+
+Phase 32 and the five preceding local-observation commits were pushed to
+`origin/main` through `3dd6333` (`Add 3DMatch registration guard benchmark phase
+32`).
+
+Phase 33 in `docs/THREEDMATCH_SECOND_SCENE_TRANSFER_PHASE33.md` runs the exact
+unchanged Phase-32 route on the official SUN3D
+`hotel_umd/maryland_hotel3` scene. The scene was selected only because its
+official 33 MB fragment archive is the smallest remaining scene; no thresholds,
+patch settings, distance choices, or gates changed. The evaluator validates the
+opened Phase-32 artifact SHA-256
+`b7653adda0f0b93f14fda54bb57a4559c4a00863e4f22702b4bc14650442cb4d`
+and freezes protocol identity
+`a29abba7b0088b8a0467cd0cbb9cc324b59c3b87c139cb0377054a70b7dc2fd6`.
+
+The verified 32,849,425-byte fragment archive contains 37 binary XYZ PLY files;
+the 18,445-byte evaluation archive contains `3dmatch.log`, `gt.log`, and
+`gt.info`. Their SHA-256 values are respectively
+`2dd600fad0cfd98968b9ff1684430f3647f241b3690004154c56d1c058c6f5bc`
+and `180bf3749c7353f5e0a0a17220f9760944ed86613aaf787ab1e841e7007912b7`.
+The accessed 3DMatch and SUN3D pages do not state an explicit SUN3D data
+license, so do not redistribute the ignored local archives.
+
+The official non-consecutive filter leaves 61 external predictions and 26
+ground-truth overlap pairs. The baseline has 15 correct and 46 incorrect
+predictions, 24.59% precision, and 57.69% recall. At 2 cm the full route accepts
+13 predictions: one correct and twelve incorrect, for 7.69% precision, 3.85%
+recall, and 6.67% correct retention. At 5 cm it accepts eight predictions, all
+incorrect, for zero precision, recall, and correct retention. Both frozen gates
+fail and neither improves precision.
+
+Therefore `negative_transfer_reproduced=true`,
+`second_scene_guard_supported=false`, `cross_scene_guard_supported=false`, and
+`tail_sensitive_real_registration_supported=false`. This is stronger than a
+mere abstention failure: on Maryland hotel3 the score ordering is adverse to
+official correctness. Do not test more unchanged scenes as if repetition could
+rescue the route. If work continues, redesign the real-registration observation
+using separate design scenes and reserve untouched scenes for validation; both
+redkitchen and Maryland hotel3 are now opened and cannot be fresh validation.
+
+Implementation: `src/pftf_alpha/threedmatch_scene.py`, shared evaluator in
+`src/pftf_alpha/threedmatch_registration_guard.py`, and
+`src/pftf_alpha/threedmatch_transfer_audit.py`; tests:
+`tests/test_threedmatch_transfer_audit.py`; artifact:
+`benchmark-out/threedmatch_transfer_audit_phase33.json`, SHA-256
+`961773176cd10cd41e6054b2b898f02af2c9c357a28401911c05189b2bedd5fa`.
+
 ## Latest continuation: Phase 32
 
 Phase 31 was committed on `main` as `72e4d0d` (`Add Open3D real scan intake
@@ -42,7 +90,7 @@ Implementation: `src/pftf_alpha/threedmatch_redkitchen.py` and
 `tests/test_threedmatch_registration_guard.py`; artifact:
 `benchmark-out/threedmatch_registration_guard_phase32.json`, SHA-256
 `b7653adda0f0b93f14fda54bb57a4559c4a00863e4f22702b4bc14650442cb4d`.
-No push has been performed.
+It was subsequently pushed to `origin/main` through `3dd6333`.
 
 ## Latest continuation: Phase 31
 
