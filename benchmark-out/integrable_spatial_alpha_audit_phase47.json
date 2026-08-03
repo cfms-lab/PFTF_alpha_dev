@@ -1,0 +1,110 @@
+{
+  "analytic_integrable_spatial_spd_complex_supported": true,
+  "arbitrary_point_local_spd_complex_supported": false,
+  "artifact_schema": "pftf_alpha_integrable_spatial_alpha_audit_phase47/v1",
+  "connectivity_symmetric_difference_count": 133,
+  "controls": [
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "zero-strength nonlinear-map boundary",
+      "name": "zero_shear_reproduces_euclidean",
+      "observed_value": 0.0,
+      "passed": true,
+      "threshold": 5e-10
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 1.7095590010285378e-06,
+        "maximum_relative_score_error": 2.4290808483854493e-11,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "constant Jacobian boundary versus global affine-SPD alpha",
+      "name": "affine_map_reproduces_phase46",
+      "observed_value": 2.4290808483854493e-11,
+      "passed": true,
+      "threshold": 5e-10
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "single transformed-coordinate Delaunay/alpha construction",
+      "name": "nonlinear_map_matches_explicit_transform",
+      "observed_value": 0.0,
+      "passed": true,
+      "threshold": 5e-10
+    },
+    {
+      "comparison": null,
+      "detail": "roundtrip error; minimum determinant=1",
+      "name": "inverse_and_positive_jacobian",
+      "observed_value": 2.220446049250313e-16,
+      "passed": true,
+      "threshold": 1e-12
+    },
+    {
+      "comparison": null,
+      "detail": "maximum absolute Jacobian entry error",
+      "name": "analytic_jacobian_matches_finite_difference",
+      "observed_value": 2.143444310931386e-10,
+      "passed": true,
+      "threshold": 1e-08
+    },
+    {
+      "comparison": null,
+      "detail": "minimum eigenvalue=0.294965266419; connectivity symmetric difference=133",
+      "name": "spatial_spd_variation_changes_connectivity",
+      "observed_value": 1.303642367715665,
+      "passed": true,
+      "threshold": 0.05
+    },
+    {
+      "comparison": null,
+      "detail": "incompatible residual; shear residual=0",
+      "name": "integrability_accepts_shear_rejects_incompatible_field",
+      "observed_value": 0.35000000003782006,
+      "passed": true,
+      "threshold": 1e-08
+    },
+    {
+      "comparison": {
+        "connectivity_equal": true,
+        "maximum_absolute_score_error": 0.0,
+        "maximum_relative_score_error": 0.0,
+        "scores_equal": true,
+        "simplex_keys_equal": true
+      },
+      "detail": "post-composed exactly representable half-turn rotation",
+      "name": "rigid_output_invariance",
+      "observed_value": 0.0,
+      "passed": true,
+      "threshold": 5e-10
+    }
+  ],
+  "exact_integrable_spatial_predicates_supported": false,
+  "generic_floating_rigid_score_invariance_supported": false,
+  "generic_rotation_connectivity_equal": true,
+  "generic_rotation_maximum_relative_score_error": 3.532591124340083e-09,
+  "passed_control_count": 8,
+  "pftf_conditioned_spatial_alpha_supported": false,
+  "point_local_alpha_field_supported": false,
+  "protocol_schema": "pftf_alpha_integrable_spatial_alpha_protocol_phase47/v1",
+  "protocol_sha256": "c8ead6b3bbf4850708fb84d6d4b83ca647a491c11728eca2de439ec4e835fa38",
+  "spatial_alpha_deployment_supported": false,
+  "spatial_alpha_real_scan_transfer_supported": false,
+  "spatial_alpha_reconstruction_advantage_supported": false,
+  "spatial_alpha_topology_correctness_supported": false,
+  "total_control_count": 8
+}

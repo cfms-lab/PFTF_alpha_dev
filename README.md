@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 47 extends the coherent construction to one analytic spatially varying
+  SPD regime: an invertible quadratic-shear coordinate map passes all eight
+  frozen construction controls and changes Delaunay connectivity. Arbitrary
+  point-local metrics, learned/PFTF maps, and reconstruction advantage remain
+  unsupported. See `docs/INTEGRABLE_SPATIAL_ALPHA_AUDIT_PHASE47.md`.
 - Phase 46 establishes a coherent constant global affine-SPD alpha control:
   all five construction/covariance controls pass, while a spatially rotating
   local metric field fails closed before filtration construction. This is not
@@ -57,6 +62,10 @@ The current Python prototype provides:
   shared affine coordinate transform before both Delaunay construction and
   filtration scoring, plus a fail-closed guard that rejects varying point
   fields from this construction;
+- an analytic nonlinear coordinate-map construction with explicit inverse,
+  Jacobian-induced spatial SPD diagnostics, numerical mixed-partial
+  compatibility audit, and fail-closed rejection of a nonintegrable Jacobian
+  field;
 - deterministic train/calibration/held-out variants of the six required 3D
   synthetic families;
 - B0 convex hull, B1 fixed normalized alpha, B2 exhaustive reference oracle,

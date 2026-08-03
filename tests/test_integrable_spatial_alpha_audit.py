@@ -13,9 +13,13 @@ def test_phase47_audit_passes_bounded_analytic_controls() -> None:
     assert result.passed_control_count == 8
     assert result.total_control_count == 8
     assert result.connectivity_symmetric_difference_count > 0
+    assert result.generic_rotation_connectivity_equal
+    assert result.generic_rotation_maximum_relative_score_error > 5.0e-10
     assert result.analytic_integrable_spatial_spd_complex_supported
     assert not result.arbitrary_point_local_spd_complex_supported
+    assert not result.point_local_alpha_field_supported
     assert not result.pftf_conditioned_spatial_alpha_supported
+    assert not result.generic_floating_rigid_score_invariance_supported
     assert not result.exact_integrable_spatial_predicates_supported
     assert not result.spatial_alpha_reconstruction_advantage_supported
     assert not result.spatial_alpha_topology_correctness_supported

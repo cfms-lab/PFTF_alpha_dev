@@ -1,6 +1,53 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 46 global affine-SPD control complete and positive
+## Current work: Phase 47 integrable nonlinear spatial-alpha complete and positive
+
+Phase 47 moves beyond the constant Phase-46 metric without treating arbitrary
+point matrices as a complex. Commit `a0022b6` preregistered one analytic
+quadratic-shear map, its explicit inverse, row-Jacobian convention, induced
+metric, necessary mixed-partial audit, eight controls, and claim boundary.
+Protocol SHA-256:
+`c8ead6b3bbf4850708fb84d6d4b83ca647a491c11728eca2de439ec4e835fa38`.
+
+Commit `434c873` implements `Phi(x,y,z)=(x,y+0.20*x^2,z)`, its inverse and
+Jacobians, the row-convention metric `M(x)=J_Phi J_Phi^T`, and one alpha
+filtration built from all `Phi(points)`. It also implements a numerical
+mixed-partial compatibility audit and fail-closed rejection API.
+
+All eight frozen controls pass:
+
+- zero shear exactly reproduces Euclidean alpha;
+- the affine boundary matches Phase 46 with relative score error `2.4291e-11`;
+- the nonlinear construction exactly matches explicit transformed coordinates;
+- inverse error is `2.2204e-16` and minimum Jacobian determinant is `1`;
+- analytic/finite-difference Jacobian maximum error is `2.1434e-10`;
+- induced metric variation is `1.303642`, minimum eigenvalue `0.294965`, and
+  Euclidean/shear top-cell symmetric difference is `133`;
+- the shear integrability residual is `0`, while the frozen incompatible field
+  residual is `0.35000000004` and fails closed;
+- an exactly representable output half-turn preserves connectivity and scores.
+
+The result is byte-identical twice. Result SHA-256:
+`7228d2f00314f88a7fb13cb6786bda7b14eacd0c271b0e53b3f0b3851fc75ce8`.
+Thus `analytic_integrable_spatial_spd_complex_supported=true` in this bounded
+control. Keep `arbitrary_point_local_spd_complex_supported=false`,
+`point_local_alpha_field_supported=false`,
+`pftf_conditioned_spatial_alpha_supported=false`, exact/performance/topology/
+real-scan/deployment claims false.
+
+Numerical boundary: a generic `0.43 rad` floating rotation keeps connectivity
+but has maximum relative score error `3.5326e-9`, above the frozen `5e-10`
+tolerance. Do not claim generic floating rigid score invariance; the passing
+gate uses an exactly representable half-turn. An exact or better-conditioned
+kernel is required to strengthen that claim.
+
+Do not tune the quadratic shear or run it on Phase 43--45 held-out panels. The
+next distinct route is a separately trained globally invertible coordinate map
+conditioned on observed confidence/PFTF features. Freeze its map family,
+invertibility/Jacobian regularization, and training objective on training and
+calibration data before one new held-out validation.
+
+## Previous continuation: Phase 46 global affine-SPD control complete and positive
 
 Phase 46 separates a mathematically coherent anisotropic-complex control from
 the existing B5/P1 fixed-Euclidean-connectivity cell rescoring. Commit

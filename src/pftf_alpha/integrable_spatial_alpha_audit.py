@@ -73,9 +73,13 @@ class IntegrableSpatialAlphaAuditResult:
     passed_control_count: int
     total_control_count: int
     connectivity_symmetric_difference_count: int
+    generic_rotation_connectivity_equal: bool
+    generic_rotation_maximum_relative_score_error: float
     analytic_integrable_spatial_spd_complex_supported: bool
     arbitrary_point_local_spd_complex_supported: bool
+    point_local_alpha_field_supported: bool
     pftf_conditioned_spatial_alpha_supported: bool
+    generic_floating_rigid_score_invariance_supported: bool
     exact_integrable_spatial_predicates_supported: bool
     spatial_alpha_reconstruction_advantage_supported: bool
     spatial_alpha_topology_correctness_supported: bool
@@ -244,10 +248,28 @@ def evaluate_integrable_spatial_alpha_audit() -> IntegrableSpatialAlphaAuditResu
     except NonIntegrableJacobianError:
         observed_rejection = True
 
-    rotation = np.asarray(
+    generic_angle = 0.43
+    generic_cosine = float(np.cos(generic_angle))
+    generic_sine = float(np.sin(generic_angle))
+    generic_rotation = np.asarray(
+        [
+            [generic_cosine, -generic_sine, 0.0],
+            [generic_sine, generic_cosine, 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+    )
+    generic_rigid = AlphaFiltration.from_points(
+        shear.transformed_points @ generic_rotation
+    )
+    generic_rigid_comparison = _compare_filtrations(
+        shear.filtration,
+        generic_rigid,
+    )
+
+    exact_rotation = np.asarray(
         [[-1.0, 0.0, 0.0], [0.0, -1.0, 0.0], [0.0, 0.0, 1.0]]
     )
-    rigid_points = shear.transformed_points @ rotation
+    rigid_points = shear.transformed_points @ exact_rotation
     rigid = AlphaFiltration.from_points(rigid_points)
     rigid_comparison = _compare_filtrations(shear.filtration, rigid)
 
@@ -350,9 +372,17 @@ def evaluate_integrable_spatial_alpha_audit() -> IntegrableSpatialAlphaAuditResu
         passed_control_count=passed_count,
         total_control_count=len(controls),
         connectivity_symmetric_difference_count=connectivity_difference,
+        generic_rotation_connectivity_equal=(
+            generic_rigid_comparison.connectivity_equal
+        ),
+        generic_rotation_maximum_relative_score_error=(
+            generic_rigid_comparison.maximum_relative_score_error
+        ),
         analytic_integrable_spatial_spd_complex_supported=supported,
         arbitrary_point_local_spd_complex_supported=False,
+        point_local_alpha_field_supported=False,
         pftf_conditioned_spatial_alpha_supported=False,
+        generic_floating_rigid_score_invariance_supported=False,
         exact_integrable_spatial_predicates_supported=False,
         spatial_alpha_reconstruction_advantage_supported=False,
         spatial_alpha_topology_correctness_supported=False,
