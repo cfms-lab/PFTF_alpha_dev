@@ -1041,6 +1041,12 @@ selected parameter dictionary is frozen for a once-only, pre-label validation
 on untouched ETH Gazebo Summer; see
 [docs/ETH_PIPELINE_CALIBRATION_PHASE39.md](docs/ETH_PIPELINE_CALIBRATION_PHASE39.md).
 
+The Gazebo Summer pre-label run is complete. After a separate preregistration
+commit, the calibrated generator opened only 32 scan members and produced all
+465 predictions. The hash-locked unchanged p90 decisions accept 418 and reject
+47; the Gazebo pose values remain unopened. The prediction and decision code
+and hashes are ready for a final pre-label commit before evaluation.
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

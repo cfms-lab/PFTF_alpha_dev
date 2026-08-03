@@ -41,6 +41,15 @@ with `fgr_icp_v050`, and materialize all p90 decisions before labels. Protocol
 artifact SHA-256:
 `1711e23cdb29f0f305950c3eb3015309d8dea4f686c4b79a4d1a80c0af335059`.
 
+Preregistration was committed as `d4174a1`. The generator then opened exactly
+32 Hokuyo members and wrote all 465 predictions, SHA-256
+`ed25ac05393d3a9270bef04e99bf79870b8eddd4c0ba6cb0e45d7bff2931900e`.
+The separate unchanged p90 materializer accepts 418 and rejects 47, SHA-256
+`20dcacaed83575d7c997657d61de2a5e797cfb7d5a3fd3d2ecaea0e070a5f6fb`.
+Both artifacts say Gazebo labels remain unopened. Commit the two programs and
+hashes now; only then may a separate evaluator open
+`leica/pose_scanner_leica.csv` and join the frozen labels.
+
 ## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external

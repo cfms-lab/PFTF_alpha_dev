@@ -38,3 +38,28 @@ evaluator opens the Leica pose member. No result may change these choices.
 Preregistration artifact:
 `benchmark-out/eth_gazebo_validation_protocol_phase39.json`, SHA-256
 `1711e23cdb29f0f305950c3eb3015309d8dea4f686c4b79a4d1a80c0af335059`.
+
+## Completed pre-label execution
+
+After preregistration commit `d4174a1`, the calibrated generator opened exactly
+the 32 Hokuyo members and materialized all 465 FGR+ICP predictions. It did not
+open a pose member. Prediction artifact:
+
+- `benchmark-out/eth_gazebo_predictions_phase39.json`;
+- SHA-256
+  `ed25ac05393d3a9270bef04e99bf79870b8eddd4c0ba6cb0e45d7bff2931900e`;
+- `complete_prediction_set_materialized=true`;
+- `validation_label_member_opened=false`.
+
+The separate hash-locked decision materializer then accepted 418 and rejected
+47 predictions under unchanged p90, still without label access. Decision
+artifact:
+
+- `benchmark-out/eth_gazebo_rotation_decisions_phase39.json`;
+- SHA-256
+  `20dcacaed83575d7c997657d61de2a5e797cfb7d5a3fd3d2ecaea0e070a5f6fb`;
+- `complete_decision_set_materialized=true`;
+- `validation_label_values_accessed=false`.
+
+These programs and hashes must now be committed. Only after that commit may the
+post-label evaluator open the single frozen Leica pose member.
