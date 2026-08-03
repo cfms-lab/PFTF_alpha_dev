@@ -23,6 +23,12 @@ below is bounded by committed evidence; `promotion_supported` is false throughou
 | **Removal-based** false-bridge interventions fail **universally** by exposing boundary; only a connectivity change helps. | Negative evidence: schemas 12/14/15, P1 resampling-persistence probe (AUC≈0.50), multiplier backoff, reference-free routing, M2 oriented-normal removal/offset/signed labeling — all regress. | A global graph-cut tetrahedron labeling (Labatut-style) remains untested (separate build). |
 | A **frozen, predeclared held-out methodology** (synthetic G5 four-profile preflight + real P3), with information-boundary discipline and fail-closed claim tracking. | G5 (`pftf_alpha_g5_preflight/v1`), P3, and the predeclared design docs; every method-development step was probe-gated before build. | Methodology contribution, not a performance claim. |
 
+## Separate Phase-43 bounded result (not the negative-paper headline)
+
+| Claim | Evidence | Boundary |
+|---|---|---|
+| Continuous observed-confidence weighting can outperform fused B4 and binary point deletion on the frozen analytic multi-view panel. | Phase 43: held-out geometry 0.134240 versus 0.153141/0.145920, Betti error 1.444444 versus 2.611111/2.111111, and repeat stability 0.021446 versus 0.034078/0.043830. All preregistered gates pass. | Synthetic analytic surfaces only. The score is a closure-preserving tetrahedron filtration penalty, not P1/P2, a classical local-alpha complex, or a learned global alpha. It does not beat anchor B4 on combined objective, every calibration method hits the 0.84 grid boundary, and topology remains imperfect. |
+
 ## Separate Phase-2 positive result (not the negative-paper headline)
 
 | Claim | Evidence | Boundary |

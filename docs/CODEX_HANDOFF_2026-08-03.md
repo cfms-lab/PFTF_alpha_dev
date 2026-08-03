@@ -1,6 +1,51 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 42 anchor-relative shadow complete and negative
+## Current work: Phase 43 confidence-weighted filtration complete and bounded positive
+
+Phase 43 returns to the alpha question on a new method-blind analytic panel.
+Commit `4936df2` froze sphere, torus, and disconnected-sphere references, two
+misregistration profiles, one six-case calibration seed, three 18-case
+held-out seeds, score grids, comparators, metrics, stability, and gates before
+the candidate existed. Protocol SHA-256:
+`a1e9e37b7b1e6bc203a061eabbce3647699d8104dd26c034270e69486b08853d`.
+
+Commit `f1eb525` then implemented observed-only confidence from nearest-anchor
+distance, local plane residual, and unsigned PCA-normal alignment. The
+continuous method multiplies B4 tetrahedron scores by
+`1 + strength * (1 - geometric_mean_vertex_confidence)`, delaying uncertain
+cells without binary deletion and preserving complete closure.
+
+Calibration selects strength 2.0 and score threshold 3.8207679454. All methods
+select the largest preregistered scale quantile, 0.84, so
+`calibration_scale_boundary_reached=true`. On 18 held-out cases:
+
+- anchor B4: geometry 0.136665, Betti error 1.388889, objective 0.206109;
+- fused B4: geometry 0.153141, Betti error 2.611111, objective 0.283696;
+- B5: geometry 0.186358, Betti error 14.500000, objective 0.911358;
+- binary deletion: geometry 0.145920, Betti error 2.111111, objective 0.251475;
+- continuous: geometry 0.134240, Betti error 1.444444, objective 0.206463.
+
+The continuous route passes the preregistered geometry, topology, and repeat
+stability comparisons against fused B4 and binary deletion, so
+`bounded_simulated_confidence_filtration_supported=true`. It does not dominate
+anchor B4 on the combined objective, topology remains incorrect, and this is a
+top-cell score filtration rather than a classical spatial alpha complex.
+Therefore keep `anchor_objective_dominance_supported=false`,
+`point_local_alpha_field_supported=false`,
+`topology_correctness_supported=false`,
+`real_trimmed_reconstruction_supported=false`, and
+`deployment_supported=false`. Result SHA-256:
+`fbf7e8f010af65bc9addd7a40129009b4a63cb0a9eecbb587cdc6df34e769f63`;
+a second full run is byte-identical.
+
+Do not tune the 18 Phase-43 held-out cases. The next phase should freeze a new
+panel before widening/replacing the boundary-hit scale grid, add density,
+occlusion, and local/non-rigid registration shifts, and decide whether the
+bounded continuous advantage transfers. A genuine local-alpha claim requires
+a precise complex-level spatial construction, not only a tetrahedron score
+penalty.
+
+## Previous continuation: Phase 42 anchor-relative shadow complete and negative
 
 Phase 42 layers observed-only nearest-anchor distance, anchor-plane residual,
 and unsigned 12-NN PCA normal alignment after the Phase-41 support/dispersion

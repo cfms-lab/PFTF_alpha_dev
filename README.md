@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 43 adds a preregistered analytic multi-view panel and finds bounded
+  positive evidence for continuous observed-confidence weighting versus fused
+  B4 and binary deletion. It does not establish a classical local-alpha
+  complex, correct topology, anchor-objective dominance, real transfer, or
+  deployment; see `docs/CONFIDENCE_ALPHA_BENCHMARK_PHASE43.md`.
 - Stage: G0-G3 complete plus a G4 conservative P2 fallback prototype,
   evaluation-only cell/boundary bridge diagnostics, a calibration-only penalty
   ablation, a rejected boundary-owner intervention, and a rejected connected

@@ -140,6 +140,9 @@ class ConfidenceAlphaBenchmarkResult:
     topology_gate_passed: bool
     stability_gate_passed: bool
     continuous_confidence_weighting_supported: bool
+    bounded_simulated_confidence_filtration_supported: bool
+    anchor_objective_dominance_supported: bool
+    calibration_scale_boundary_reached: bool
     point_local_alpha_field_supported: bool
     topology_correctness_supported: bool
     classical_spatial_alpha_complex_supported: bool
@@ -469,6 +472,7 @@ def evaluate_confidence_alpha_benchmark(
     continuous = by_method["continuous_confidence_weighted_B4"]
     fused = by_method["fused_density_B4"]
     binary = by_method["binary_confidence_deletion"]
+    anchor = by_method["anchor_density_B4"]
     geometry_gate = continuous.mean_geometry_loss < min(
         fused.mean_geometry_loss, binary.mean_geometry_loss
     )
@@ -492,7 +496,14 @@ def evaluate_confidence_alpha_benchmark(
         topology_gate_passed=topology_gate,
         stability_gate_passed=stability_gate,
         continuous_confidence_weighting_supported=supported,
-        point_local_alpha_field_supported=supported,
+        bounded_simulated_confidence_filtration_supported=supported,
+        anchor_objective_dominance_supported=(
+            continuous.mean_objective < anchor.mean_objective
+        ),
+        calibration_scale_boundary_reached=any(
+            method.scale_quantile == max(scale_quantiles) for method in selected
+        ),
+        point_local_alpha_field_supported=False,
         topology_correctness_supported=(
             supported and continuous.mean_betti_error == 0.0
         ),
@@ -510,7 +521,7 @@ def write_result(result: ConfidenceAlphaBenchmarkResult, path: str | Path) -> st
     output.parent.mkdir(parents=True, exist_ok=True)
     text = json.dumps(result.to_dict(), indent=2, sort_keys=True) + "\n"
     output.write_text(text, encoding="utf-8")
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    return _sha256(output)
 
 
 def _parser() -> argparse.ArgumentParser:
