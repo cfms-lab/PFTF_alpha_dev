@@ -907,6 +907,18 @@ The maximum statistic is post-open diagnostic evidence only and is not a
 Phase 29 retuning. See
 [docs/TARGETED_LOCAL_RESIDUAL_CHALLENGE_PHASE29.md](docs/TARGETED_LOCAL_RESIDUAL_CHALLENGE_PHASE29.md).
 
+`pftf_alpha.tail_sensitive_local_guard` then compares six observed-only tail
+summaries on all nine opened development panels and freezes the
+maximum-to-q95 local-residual ratio. Its strict cutoff
+`1.6636368999089541` retains 1248/1281 development focus accepts and removes
+all three Phase-29 residual rows. On case-seed-disjoint targeted bases
+30500804--30700804, all panels pass with aggregate harm `171 -> 2 -> 0`, focus
+`697/735`, and zero introduced endpoint harm. The two Phase-28 predecessor
+residual rows occur only in final and are both rejected by tail ratios 1.9092
+and 2.1968. Therefore `phase30_supported=true` for the preregistered synthetic
+targeted protocol. Real correspondence and deployment remain unsupported. See
+[docs/TAIL_SENSITIVE_LOCAL_GUARD_PHASE30.md](docs/TAIL_SENSITIVE_LOCAL_GUARD_PHASE30.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

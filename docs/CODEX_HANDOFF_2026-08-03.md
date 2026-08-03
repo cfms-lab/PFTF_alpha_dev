@@ -1,5 +1,55 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 30
+
+Phase 29 was committed on `main` as `f913333` (`Add targeted local residual
+challenge phase 29`) and was not pushed. Its fixed challenge established that
+q95 local evidence misses a rare isolated harmful peak.
+
+Phase 30 in `docs/TAIL_SENSITIVE_LOCAL_GUARD_PHASE30.md` compares six
+observed-only tail summaries across the five Phase 28 design panels, three
+Phase 28 fresh panels, and failed Phase 29 Validation A. A candidate must
+remove all three Phase-29 residual rows and pass every panel/profile safety
+gate. The deterministic focus-first selection freezes
+
+`isolated_tail_ratio = maximum_local_residual / percentile95_local_residual`
+
+with strict cutoff `1.6636368999089541`. It retains 1248/1281 development
+focus accepts and passes all nine development panels. Phase-30 bases
+`30500804`, `30600804`, and `30700804` are mutually disjoint and have zero
+case-seed overlap with all prior full panels and targeted bases 302--304.
+
+Ruff, `git diff --check`, and 284 tests passed before opening Validation A.
+All three fresh panels then pass:
+
+- Validation A: harm 51 -> 0 -> 0, focus 222/234, all-safe 222/252;
+- Validation B: harm 63 -> 0 -> 0, focus 228/246, all-safe 231/273; and
+- final: harm 57 -> 2 -> 0, focus 247/255, all-safe 247/264.
+
+The arrows are original -> Phase 28 score/q95 predecessor -> Phase 30 route.
+All introduced-harm counts are zero. The final panel contains two residual
+profile rows from one `outliers_01`, N=96, repeat-44 case seed `31341118`.
+Tail ratios 1.90915596 and 2.19680994 reject both. Aggregate harm is
+171 -> 2 -> 0 and focus retention is 697/735, so
+`phase30_supported=true` and the fresh incremental gate passes.
+
+Post-run case inspection found a decision-label-only bug: tail-rejected
+harmful original accepts had correct false accept/harm booleans but serialized
+as `guarded_decision=accept`. The branch was fixed, a regression test added,
+all 285 tests passed, and the exact fixed seeds were deterministically rerun
+without changing any scientific rule. Final rejected rows now serialize as
+`unsupported_geometry_fail_closed`.
+
+Implementation: `src/pftf_alpha/tail_sensitive_local_guard.py`; tests:
+`tests/test_tail_sensitive_local_guard.py`; artifact:
+`benchmark-out/tail_sensitive_local_guard_phase30.json`, SHA-256
+`84e169e0749daffd7465a91f0b90048267c2fdf7a84d2c7464d14d69b794690d`.
+
+The next unresolved step is external validity: real paired-scan correspondence
+or a downloadable benchmark with correspondence noise is required before the
+tail-sensitive route can support a real-data or deployment claim. Phase 30 is
+the next local checkpoint; no push has been performed.
+
 ## Latest continuation: Phase 29
 
 Phase 28 was verified with Ruff, `git diff --check`, and 17 targeted tests,
@@ -39,10 +89,8 @@ Implementation:
 `benchmark-out/targeted_local_residual_challenge_phase29.json`, SHA-256
 `bdfea7cc2243b18147ad05d3963d2a46d66d7fdad4005c77e5fcd31c3823b1b6`.
 
-The next unresolved decision is whether to preregister a tail-sensitive local
-observation that can detect a rare isolated residual without sacrificing focus
-retention, or to move to real paired-scan/correspondence data. Phase 29 is the
-next local checkpoint; no push has been performed.
+The tail-sensitive synthetic question is addressed by Phase 30 above. Phase 29
+is committed as `f913333` and remains unpushed.
 
 ## Latest continuation: Phase 28
 
