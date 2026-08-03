@@ -1014,6 +1014,17 @@ correspondence identity, alpha-shape reconstruction, and deployment remain
 unsupported. See
 [docs/INDEPENDENT_PIPELINE_TRANSFER_PHASE37.md](docs/INDEPENDENT_PIPELINE_TRANSFER_PHASE37.md).
 
+Phase 38 preregisters a genuinely fresh external validation on the ETH
+Mountain Plain real laser-scan sequence. The official 902,525,379-byte archive
+matches its published MD5 and a locally frozen SHA-256. Only the ZIP directory
+has been inspected: all 31 local Hokuyo scan member names and the separate
+Leica-pose member name are present, but the pose member's values have not been
+opened or decoded. `docs/FRESH_EXTERNAL_PROTOCOL_PHASE38.md` fixes all 435
+nonconsecutive pairs, the unchanged Phase-37 Open3D pipeline, a strict
+15-degree/0.30-m correctness rule, and the unchanged p90/gate requirements.
+The next execution must materialize the entire prediction artifact before it
+opens the pose labels.
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

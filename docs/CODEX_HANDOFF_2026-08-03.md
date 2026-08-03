@@ -1,5 +1,28 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 38 preregistration
+
+Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
+validation. The official archive `plain_01-Sep-2011-16_39_18.zip` is
+902,525,379 bytes, matches MD5 `fb931a4ddf06720ec18774e2fdd0cc27`, and has
+local SHA-256
+`d07ddd6f314c8caa2d91dea91646e8ca7c4ebdadd0139d6f9ca82fe12070d926`.
+Its ZIP directory contains 31 local `Hokuyo_<index>.csv` scans and the separate
+`leica/pose_scanner_leica.csv` label member. The container was downloaded and
+hashed and member names were enumerated, but the label member has not been
+opened, decompressed, decoded, or numerically inspected.
+
+`docs/FRESH_EXTERNAL_PROTOCOL_PHASE38.md` and
+`src/pftf_alpha/fresh_external_protocol.py` freeze all 435 nonconsecutive
+pairs, unchanged Phase-37 Open3D parameters, target-index-to-source-index
+matrix direction, strict RRE < 15 degrees plus RTE < 0.30 m correctness,
+unchanged p90 acceptance, and the same precision/retention/rejection gates.
+The generated preregistration artifact SHA-256 is
+`1d183f5b6c8dd7eaeb35a6950ac3fdb16e3306f21e187489e5d0272279973649`.
+The next action is to commit this preregistration, extract/convert only the 31
+scan members, generate and hash all predictions, and only then let a separate
+evaluator open the Leica member. Do not tune any threshold after labels.
+
 ## Latest continuation: Phase 37
 
 Phase 36 was committed and pushed to `origin/main` as `b1de4ea` (`Add
