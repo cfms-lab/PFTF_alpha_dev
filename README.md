@@ -997,6 +997,23 @@ transfer, correspondence identity, alpha-shape reconstruction, and deployment
 remain unsupported. See
 [docs/INDEPENDENT_METHOD_TRANSFER_PHASE36.md](docs/INDEPENDENT_METHOD_TRANSFER_PHASE36.md).
 
+`pftf_alpha.open3d_fgr_pipeline` and
+`pftf_alpha.independent_pipeline_rotation_audit` close the precomputed-log gap
+by locally generating all 2,341 nonconsecutive-pair predictions with Open3D
+0.19.0 FPFH+FGR and then applying the unchanged p90 guard. Redkitchen retains
+all 178 correct predictions and rejects 11.15% of incorrect predictions;
+Maryland hotel3 retains all 8 correct predictions and rejects 10.13%. Precision
+rises from 10.40% to 11.56% and from 1.27% to 1.41%, respectively, so
+`independent_end_to_end_pipeline_transfer_supported=true` for this fixed
+pipeline audit. A preliminary uncommitted matrix-direction mismatch was
+invalidated and corrected from the official fragment2-to-fragment1 3DMatch
+convention without changing parameters or gates. Because both scene labels had
+already been opened, `fresh_label_blind_validation_supported=false`; Open3D
+also supplies the algorithms, so independent algorithm implementation,
+correspondence identity, alpha-shape reconstruction, and deployment remain
+unsupported. See
+[docs/INDEPENDENT_PIPELINE_TRANSFER_PHASE37.md](docs/INDEPENDENT_PIPELINE_TRANSFER_PHASE37.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

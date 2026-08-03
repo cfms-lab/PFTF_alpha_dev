@@ -1,5 +1,59 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 37
+
+Phase 36 was committed and pushed to `origin/main` as `b1de4ea` (`Add
+independent method transfer phase 36`).
+
+Phase 37 in `docs/INDEPENDENT_PIPELINE_TRANSFER_PHASE37.md` reproduces a
+separate executable registration pipeline instead of consuming another
+precomputed log. Open3D 0.19.0 locally preprocesses the official redkitchen and
+Maryland hotel3 fragments with 5 cm voxel downsampling, 10 cm/30-NN normals,
+25 cm/100-NN FPFH, and FGR at 2.5 cm. It emits every nonconsecutive pair: 1,711
+plus 630 predictions. The generator verifies the fragment archives and every
+extracted PLY but has no evaluation-archive argument. Both complete prediction
+sets and p90 decisions exist before `gt.log` or `gt.info` is decoded.
+
+A preliminary uncommitted schema-v1 execution used the opposite API argument
+direction and produced zero correct predictions. Official 3DMatch
+`register2Fragments.m` and `getGtInfoLog.m` show that a `(fragment1,
+fragment2)` log matrix aligns fragment2 to fragment1. Schema v2 corrects only
+that Open3D call direction; pairs, features, seeds, parameters, guard, and gates
+are unchanged. The invalidated-v1 history is recorded in the final artifact.
+
+The final results are:
+
+- redkitchen: 178/1,711 correct, precision 10.40% -> 11.56%, correct retention
+  100%, incorrect rejection 11.15%;
+- Maryland hotel3: 8/630 correct, precision 1.27% -> 1.41%, correct retention
+  100%, incorrect rejection 10.13%.
+
+Both scenes independently pass. Thus
+`external_method_generation_reproduced=true`,
+`phase37_fixed_parameter_audit_supported=true`, and
+`independent_end_to_end_pipeline_transfer_supported=true`. The two labels were
+already opened in Phases 32--34, so
+`fresh_label_blind_validation_supported=false`. Open3D supplies FPFH and FGR,
+so `independent_algorithm_implementation_supported=false`; physical
+correspondence identity, alpha-shape reconstruction, and deployment also remain
+unsupported.
+
+Implementation: `src/pftf_alpha/open3d_fgr_pipeline.py` and
+`src/pftf_alpha/independent_pipeline_rotation_audit.py`; tests:
+`tests/test_independent_pipeline_rotation_audit.py`. Prediction artifact:
+`benchmark-out/open3d_fgr_predictions_phase37.json`, SHA-256
+`7276bed58266349a536101d0d95d825c3084226e656065f498b9700347414515`.
+Audit artifact:
+`benchmark-out/independent_pipeline_rotation_audit_phase37.json`, SHA-256
+`7eece8dacc94e051760ddaea4dd6c7c9b77f2fb532f608881bf4977bc8f36db9`.
+
+The next scientifically distinct step is fresh external validation, not more
+tuning on these opened 3DMatch scenes. Phase 38 should freeze a compatible
+real-fragment benchmark and evaluation mapping whose labels have not been read,
+generate the complete prediction set first, and apply the unchanged p90 rule.
+If no compatible untouched benchmark can be reproduced, stop at the Phase-37
+fixed-parameter transfer claim.
+
 ## Latest continuation: Phase 36
 
 Phase 35 was committed and pushed to `origin/main` as `32cbeeb` (`Add six-scene
