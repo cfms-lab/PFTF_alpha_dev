@@ -1,0 +1,55 @@
+{
+  "archive_bytes": 4394701719,
+  "archive_path": "D:\\__PFTF_Projects(2026)\\PFTF_alpha_dev\\benchmark-data\\s3dis\\Stanford3dDataset_v1.2_Aligned_Version.zip",
+  "archive_sha256": "f16db73310983e6b4df9b3d5290d20315e0cdf56c14f0d795f96d372378fce94",
+  "artifact_schema": "pftf_alpha_s3dis_room_layer_intake_phase51b/v1",
+  "calibration_areas": [
+    "Area_1",
+    "Area_2",
+    "Area_3",
+    "Area_4",
+    "Area_6"
+  ],
+  "calibration_target_member_count": 525,
+  "claim_boundary": "a true intake flag verifies calibration extraction only; floor--ceiling efficacy and Area-5 transfer remain untested",
+  "extracted_member_count": 525,
+  "extracted_root": "D:\\__PFTF_Projects(2026)\\PFTF_alpha_dev\\benchmark-data\\s3dis\\calibration_room_layers",
+  "extracted_uncompressed_bytes": 2284239135,
+  "floor_ceiling_intake_supported": true,
+  "held_out_validation_supported": false,
+  "real_scan_supported": false,
+  "reserved_content_opened": false,
+  "reserved_held_out_area": "Area_5",
+  "reserved_target_member_count": 144,
+  "role": "metadata_audit_and_calibration_only_floor_ceiling_extraction",
+  "target_classes": [
+    "floor",
+    "ceiling"
+  ],
+  "target_member_counts": {
+    "Area_1": {
+      "ceiling": 55,
+      "floor": 44
+    },
+    "Area_2": {
+      "ceiling": 81,
+      "floor": 50
+    },
+    "Area_3": {
+      "ceiling": 37,
+      "floor": 23
+    },
+    "Area_4": {
+      "ceiling": 73,
+      "floor": 50
+    },
+    "Area_5": {
+      "ceiling": 76,
+      "floor": 68
+    },
+    "Area_6": {
+      "ceiling": 63,
+      "floor": 49
+    }
+  }
+}
