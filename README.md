@@ -958,6 +958,18 @@ deployment remains unsupported. The opened redkitchen and Maryland scenes must
 not be reused as fresh validation after any redesign. See
 [docs/THREEDMATCH_SECOND_SCENE_TRANSFER_PHASE33.md](docs/THREEDMATCH_SECOND_SCENE_TRANSFER_PHASE33.md).
 
+`pftf_alpha.scene_relative_rotation_guard` then uses only the two opened scenes
+to design a batch-relative spatial-transform observation. It converts each
+external prediction's principal rotation angle to a within-scene empirical
+midrank percentile and rejects the top 10%. On redkitchen it retains 346/383
+correct predictions and rejects 16/148 incorrect predictions; on Maryland
+hotel3 it retains 14/15 and rejects 5/46. Precision rises only from 72.13% to
+72.38% and from 24.59% to 25.45%, so `phase34_design_supported=true` is a narrow
+design result, not validation. The six remaining official scenes are frozen as
+untouched Phase-35 validation, while `held_out_validation_supported=false` and
+deployment remains unsupported. See
+[docs/SCENE_RELATIVE_ROTATION_GUARD_PHASE34.md](docs/SCENE_RELATIVE_ROTATION_GUARD_PHASE34.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

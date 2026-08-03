@@ -1,5 +1,52 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
+## Latest continuation: Phase 34
+
+Phase 33 was committed and pushed to `origin/main` as `47126f1` (`Add
+second-scene 3DMatch transfer audit phase 33`).
+
+Phase 34 in `docs/SCENE_RELATIVE_ROTATION_GUARD_PHASE34.md` uses only the two
+opened design artifacts, redkitchen and Maryland hotel3. The remaining six
+official 3DMatch scenes are frozen as untouched validation and have not been
+downloaded or read in the project. Existing-summary ridge scores and an
+exploratory raw spatial-support footprint ridge both failed bidirectional
+scene transfer during design, so neither was promoted.
+
+The selected design candidate is
+`scene_relative_prediction_rotation_midrank_percentile`. It computes each
+external prediction's principal rigid-rotation angle, converts all angles in a
+scene to empirical midrank percentiles, and accepts only percentile `< 0.90`.
+This execution path is label-free but batch-relative; it is transform-level
+spatial evidence, not correspondence or local-surface identity. Decisions for
+both design scenes are materialized before labels are joined.
+
+Redkitchen changes from 383/531 correct, 72.13% precision, and 85.30% recall to
+346/478 correct, 72.38% precision, and 77.06% recall. Correct retention is
+90.34% and incorrect rejection is 10.81%. Maryland hotel3 changes from 15/61
+correct, 24.59% precision, and 57.69% recall to 14/55 correct, 25.45% precision,
+and 53.85% recall. Correct retention is 93.33% and incorrect rejection is
+10.87%. Both nominal design gates pass, but the precision gains are only 0.26
+and 0.86 percentage points.
+
+Therefore `phase34_design_supported=true`, while
+`held_out_validation_artifacts_accessed=false`,
+`held_out_validation_supported=false`,
+`cross_scene_real_registration_supported=false`, and deployment remains false.
+The candidate was selected with design labels and must not be presented as
+generalization evidence.
+
+The next step is Phase 35: open all six frozen validation scenes as one panel,
+apply the exact 0.90 midrank feature without tuning, report each scene
+separately, and fail the cross-scene claim if any scene misses precision
+improvement, 90% correct retention, or 10% incorrect rejection. Do not alter
+the feature, cutoff, midrank tie handling, or gates after any validation result
+is seen.
+
+Implementation: `src/pftf_alpha/scene_relative_rotation_guard.py`; tests:
+`tests/test_scene_relative_rotation_guard.py`; artifact:
+`benchmark-out/scene_relative_rotation_guard_phase34.json`, SHA-256
+`805f056fdf50c80aa89fd74d1bba67968ab8405279b481bf9051494f655ea9d8`.
+
 ## Latest continuation: Phase 33
 
 Phase 32 and the five preceding local-observation commits were pushed to
