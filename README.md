@@ -1047,6 +1047,18 @@ commit, the calibrated generator opened only 32 scan members and produced all
 47; the Gazebo pose values remain unopened. The prediction and decision code
 and hashes are ready for a final pre-label commit before evaluation.
 
+The committed post-label audit is positive. On ETH Gazebo Summer, the
+calibrated predictor produces 135 correct and 330 incorrect registrations.
+Unchanged p90 retains every correct prediction and rejects 47 incorrect ones,
+raising precision from 29.03% to 32.30%; correct retention is 100% and
+incorrect rejection is 14.24%. Thus
+`fresh_label_blind_validation_supported=true`,
+`calibrated_external_pipeline_transfer_supported=true`, and
+`fresh_external_rotation_guard_transfer_supported=true`. The Open3D algorithm
+implementation, physical correspondence identity, alpha-shape reconstruction,
+and deployment claims remain unsupported. See
+[docs/ETH_GAZEBO_ROTATION_AUDIT_PHASE39.md](docs/ETH_GAZEBO_ROTATION_AUDIT_PHASE39.md).
+
 ## Novelty boundary
 
 Density-scaled and normal-driven anisotropic alpha shapes already exist.

@@ -63,3 +63,12 @@ artifact:
 
 These programs and hashes must now be committed. Only after that commit may the
 post-label evaluator open the single frozen Leica pose member.
+
+## Post-label outcome
+
+The programs and hashes were committed as `032a3c3`, after which the evaluator
+opened the Leica member. The calibrated predictor has 135 correct and 330
+incorrect registrations. Unchanged p90 retains all 135 correct predictions and
+rejects 47 incorrect predictions, improving precision from 29.03% to 32.30%.
+Correct retention is 100% and incorrect rejection is 14.24%, so all frozen
+gates pass. See `docs/ETH_GAZEBO_ROTATION_AUDIT_PHASE39.md`.

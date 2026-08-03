@@ -50,6 +50,21 @@ Both artifacts say Gazebo labels remain unopened. Commit the two programs and
 hashes now; only then may a separate evaluator open
 `leica/pose_scanner_leica.csv` and join the frozen labels.
 
+The pre-label state was committed as `032a3c3`, and the evaluator then opened
+the Gazebo Leica pose member. The final result is positive: 135/465 base
+predictions are correct; p90 accepts 418 total, retains all 135 correct, and
+rejects 47/330 incorrect predictions. Precision changes 29.03% -> 32.30%,
+correct retention is 100%, and incorrect rejection is 14.24%. All gates pass,
+so `fresh_label_blind_validation_supported=true`,
+`calibrated_external_pipeline_transfer_supported=true`, and
+`fresh_external_rotation_guard_transfer_supported=true`. Final audit SHA-256:
+`5703052834ad3f5c04dd3381f4153a47dc718e15c35b9f489ae04ce0a629f9f0`.
+
+Phase 39 is complete. Do not add more registration scenes next. The next
+distinct phase should use this validated observation in a real-data
+alpha-field/reconstruction shadow comparison, while keeping registration
+correctness labels separate from reconstruction geometry/topology evidence.
+
 ## Latest continuation: Phase 38 final
 
 Phase 38 selected the untouched ETH Mountain Plain sequence for fresh external
