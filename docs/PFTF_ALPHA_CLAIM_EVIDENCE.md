@@ -28,6 +28,7 @@ below is bounded by committed evidence; `promotion_supported` is false throughou
 | Claim | Evidence | Boundary |
 |---|---|---|
 | Continuous observed-confidence weighting can outperform fused B4 and binary point deletion on the frozen analytic multi-view panel. | Phase 43: held-out geometry 0.134240 versus 0.153141/0.145920, Betti error 1.444444 versus 2.611111/2.111111, and repeat stability 0.021446 versus 0.034078/0.043830. All preregistered gates pass. | Synthetic analytic surfaces only. The score is a closure-preserving tetrahedron filtration penalty, not P1/P2, a classical local-alpha complex, or a learned global alpha. It does not beat anchor B4 on combined objective, every calibration method hits the 0.84 grid boundary, and topology remains imperfect. |
+| The Phase-43 advantage does **not transfer** under a reference-free complete critical-gap selector and new density/occlusion/local-warp stresses. | Phase 44: continuous objective 0.208318 versus fused B4 0.207237 and binary deletion 0.208194; only 4/27 joint casewise wins versus the frozen 18/27 gate. | Negative synthetic transfer evidence. Do not tune the opened panel or treat another fixed-complex score penalty as a distinct local-alpha construction. |
 
 ## Separate Phase-2 positive result (not the negative-paper headline)
 

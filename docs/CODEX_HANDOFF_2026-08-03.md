@@ -1,6 +1,45 @@
 # PFTF-alpha Codex handoff (2026-08-03)
 
-## Current work: Phase 43 confidence-weighted filtration complete and bounded positive
+## Current work: Phase 44 confidence-filtration transfer complete and negative
+
+Phase 44 tests whether the bounded Phase-43 continuous advantage transfers
+without retuning its held-out cases. Commit `8574681` froze three new stresses
+(48/96 density shift, half-view target occlusion, and local nonrigid warp), one
+nine-case calibration seed, three 27-case held-out seeds, and a reference-free
+complete critical-score selector. The selector scans every adjacent unique
+score gap in the 50%--98% selected-cell interval rather than learning another
+quantile grid. Protocol SHA-256:
+`2bdd309855500e2e0bced3701ae4fffa3741358513d6e0d4a5310ed269a5f5a3`.
+
+Commit `e504afc` implemented the selector and benchmark before held-out
+evaluation. Calibration selects continuous strength 1.0 and binary confidence
+threshold 0.25. On the 27 held-out cases:
+
+- anchor B4: geometry 0.157169, Betti error 1.740741, objective 0.244206;
+- fused B4: geometry 0.140571, Betti error 1.333333, objective 0.207237;
+- B5: geometry 0.170583, Betti error 2.777778, objective 0.309472;
+- binary deletion: geometry 0.141527, Betti error 1.333333, objective 0.208194;
+- continuous: geometry 0.141652, Betti error 1.333333, objective 0.208318.
+
+Continuous has the best repeat stability (0.004282), matches the best mean
+Betti error, and beats anchor/B5. It does not beat fused B4 or binary deletion
+on geometry/objective and records only 4/27 joint casewise wins versus the
+frozen 18/27 requirement. Therefore
+`bounded_confidence_filtration_transfer_supported=false`. Result SHA-256:
+`cdf19791161c4c5fd762395cb78fce2293d211b8ed7b0ac855d26b5995cff5ca`;
+a second full run is byte-identical.
+
+Do not retune Phase-44 held-out cases, confidence parameters, or the 50%--98%
+selector bounds. The late selected-cell fractions (means 0.957--0.970) make
+the density-based routes nearly identical. Another multiplicative penalty on
+the same Euclidean Delaunay top-cell scores is not a distinct next step. The
+next credible route requires a precisely defined complex-level weighted or
+local-metric construction on a newly preregistered panel. Keep
+`point_local_alpha_field_supported=false`,
+`topology_correctness_supported=false`,
+`real_scan_transfer_supported=false`, and `deployment_supported=false`.
+
+## Previous continuation: Phase 43 confidence-weighted filtration complete and bounded positive
 
 Phase 43 returns to the alpha question on a new method-blind analytic panel.
 Commit `4936df2` froze sphere, torus, and disconnected-sphere references, two

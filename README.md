@@ -6,6 +6,11 @@ reconstruction.
 ## Status
 
 - Quality: **ToDo**
+- Phase 44 finds that the Phase-43 continuous confidence advantage does not
+  transfer across density shift, target occlusion, and local nonrigid warp
+  under reference-free complete critical-gap selection. Fused B4 remains
+  slightly better overall; see
+  `docs/CONFIDENCE_ALPHA_TRANSFER_BENCHMARK_PHASE44.md`.
 - Phase 43 adds a preregistered analytic multi-view panel and finds bounded
   positive evidence for continuous observed-confidence weighting versus fused
   B4 and binary deletion. It does not establish a classical local-alpha
