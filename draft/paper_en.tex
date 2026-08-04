@@ -1,0 +1,388 @@
+% Positive two-layer paper. Peer-blind submission source.
+% Canonical style: A4, 12 pt, double-spaced review copy.
+% Do not build PDF/DOCX until the user explicitly requests final artifacts.
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=25mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage[labelfont=bf,labelsep=period]{caption}
+\usepackage[authoryear,round]{natbib}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{1em}
+\setlength{\headheight}{14pt}
+\doublespacing
+\graphicspath{{pics/}}
+\svgpath{{pics/}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small Layer-First Two-Surface Reconstruction}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{Layer-First Reconstruction of Separated Two-Surface Point Clouds:
+Frozen Synthetic Confirmation and Building-Disjoint S3DIS Validation}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+Alpha-shape surface reconstruction is controlled by a scale, but changing that
+scale cannot always prevent a three-dimensional complex from connecting two
+nearby surfaces that should remain separate. We test a layer-first alternative:
+infer two layers from observed coordinates, fail closed when their separation or
+sampling is inadequate, and triangulate each accepted layer independently in its
+estimated tangent plane. A shared-quadratic trend variant handles bounded surface
+bending. Parameters and acceptance gates were frozen before two confirmatory
+tests. On 144 arbitrary-pose synthetic cases, the method attained mean surface
+F-score 0.899, versus 0.516 for PCA-anisotropic alpha and 0.620 for weighted
+power-alpha, and won every paired case; aggregate topology error was zero versus
+45,606 and 11,925. On a once-opened, building-disjoint S3DIS Area-5 panel of 63
+automatically eligible floor--ceiling rooms, it attained mean F-score 0.806,
+versus 0.421 and 0.324, again winning every case, with zero topology error and
+62/63 safe accepts. The shared-trend variant did not outperform the simpler
+global-normal layer model on the real panel. The supported contribution is
+therefore narrow: observed-only routing and constrained per-layer connectivity
+substantially improve reconstruction for sufficiently planar, overlapping,
+long-gap two-surface point clouds. Close layers, intersections, outliers,
+automatic semantic extraction, and deployment remain outside the claim.
+\end{abstract}
+
+\noindent\textbf{Keywords.} Point-cloud reconstruction; alpha shape; constrained
+connectivity; two-layer surface; fail-closed routing; S3DIS
+
+\section{Introduction}
+
+An alpha shape can represent concavity and disconnected components that a convex
+hull cannot, but the reconstruction depends strongly on the scale parameter
+$\alpha$ \citep{edelsbrunner1994}. A small value leaves holes; a large value fills
+gaps and may fuse surfaces. Density-scaled and anisotropic alpha methods improve
+this trade-off by adapting the size or shape of the empty ball
+\citep{teichmann1998}. Weighted alpha complexes can additionally change the
+underlying regular triangulation \citep{edelsbrunner1992}. These are important
+improvements, but all still ask one complex to decide which nearby points should
+be connected.
+
+That formulation is poorly matched to a common special case: two surfaces occupy
+an overlapping footprint but are known, from the observed geometry, to be
+separate layers. Examples include the opposite sides of a thin gap, repeated
+sheet-like structures, and the floor and ceiling of a room. Once a tetrahedron or
+triangle spans the two layers, changing $\alpha$ must remove that cell without
+destroying needed within-layer cells. The difficult part is then not only the
+choice of scale. It is the admissible connectivity.
+
+We study a simple layer-first principle. The input remains an unlabeled set of
+three-dimensional coordinates. The method estimates a common normal frame,
+separates the points into two clusters along the normal direction, measures
+whether the separation is identifiable and sufficiently sampled, and accepts the
+case only when frozen observed-only gates pass. It then constructs one
+two-dimensional Delaunay surface per inferred layer. Cross-layer faces are not
+penalized after construction; they are absent from the construction space
+(Figure~\ref{fig:workflow}). A shared quadratic trend can be removed before
+clustering when both layers bend together.
+
+The contribution is empirical and deliberately bounded. First, a preregistered
+144-case synthetic confirmatory panel tests arbitrary poses, six non-outlier
+stresses, and strong PCA-anisotropic and weighted-alpha comparators. Second, a
+separately preregistered external test uses the public Stanford Large-Scale 3D
+Indoor Spaces (S3DIS) data \citep{armeni2016}. Area 5, which belongs to a building
+excluded from calibration, was opened once after the extraction rule, method,
+parameters, metrics, and gates had been committed. This test asks whether the
+same observed-only method works on real floor--ceiling point clouds, not whether
+semantic floor and ceiling instances can be found automatically.
+
+The result is positive in that declared domain. The layer-first reconstruction
+wins every paired case against both alpha comparators in both panels, while its
+aggregate topology error is zero. The result also sharpens the novelty boundary:
+the real-data shared-trend output is numerically identical to the simpler
+global-normal ablation at reported precision. Thus the supported advance is the
+combination of observed-only two-layer routing and constrained connectivity, not
+a new local metric, a learned $\alpha$, or shared-trend superiority.
+
+\begin{figure}[t]
+  \centering
+  \includesvg[width=\textwidth]{two_layer_workflow}
+  \caption{Layer-first reconstruction. A single three-dimensional complex can
+  contain cross-layer cells (A). The proposed route estimates separation and
+  sampling adequacy from observed coordinates only (B). Accepted points are
+  triangulated independently within each inferred layer, so a cross-layer face
+  is not admissible (C).}
+  \label{fig:workflow}
+\end{figure}
+
+\section{Method}
+
+\subsection{Observed-only layer inference}
+
+Let $X=\{\mathbf{x}_i\}_{i=1}^{n}\subset\mathbb{R}^3$ be the observed point set.
+No class name, instance identity, reference point, or ground-truth layer label is
+available to the method. For each point we estimate a local PCA normal from its
+$k=12$ nearest neighbors. Because a normal and its negative represent the same
+unoriented plane, the common orientation is obtained from the second-moment
+tensor
+\begin{equation}
+ \mathbf{Q}=\frac{1}{n}\sum_{i=1}^{n}\mathbf{n}_i\mathbf{n}_i^{\mathsf T},
+ \qquad
+ \widehat{\mathbf{n}}=\operatorname*{arg\,max}_{\|\mathbf{v}\|=1}
+ \mathbf{v}^{\mathsf T}\mathbf{Q}\mathbf{v}.
+ \label{eq:normal}
+\end{equation}
+In plain terms, $\mathbf{Q}$ finds the direction most local planes agree is
+normal to the two surfaces. Each centered point is projected onto that direction,
+$h_i=(\mathbf{x}_i-\bar{\mathbf{x}})^{\mathsf T}\widehat{\mathbf{n}}$, and a
+deterministic two-means iteration separates the two height modes.
+
+For bounded jointly curved surfaces, the shared-trend variant first constructs a
+tangent frame $(u,v,h)$ and alternates between two residual clusters and one
+quadratic height trend
+\begin{equation}
+ q(u,v)=\beta_0+\beta_1u+\beta_2v+\beta_3u^2+
+          \beta_4uv+\beta_5v^2.
+ \label{eq:trend}
+\end{equation}
+The two layers are assigned from $h-q(u,v)$. Both surfaces share $q$ but retain
+different residual centers. This conventional mixture regression is used because
+it repairs a measured synthetic curvature failure; it is not presented as a PFTF
+or local-SPD contribution.
+
+\subsection{Fail-closed routing}
+
+Three quantities summarize whether the inferred layers are usable. The smaller
+cluster fraction checks that neither layer has collapsed. The separation signal
+to noise ratio is
+\begin{equation}
+ \mathrm{SNR}=\frac{|\mu_1-\mu_0|}
+ {\sqrt{n^{-1}\sum_i(r_i-\mu_{z_i})^2}},
+ \label{eq:snr}
+\end{equation}
+where $r_i$ is either normal height or trend-removed height, $z_i$ is its inferred
+layer, and $\mu_0,\mu_1$ are the layer centers. Finally, the cross-kNN fraction is
+the proportion of directed $k$-nearest-neighbor relations whose endpoints receive
+different inferred labels. Low cross-kNN fraction means that sampling within a
+surface is locally denser than sampling across the gap.
+
+The frozen route requires a minimum cluster fraction of 0.20, SNR of at least
+3.0 in the final two confirmatory protocols, and cross-kNN fraction at most 0.05.
+An unidentifiable pair is labeled unsupported. An identifiable but inadequately
+sampled pair requests rescanning. A reconstruction that violates its inferred
+two-component structure fails closed as an algorithm failure. Only an accepted
+case is counted as a safe output. These decisions use observed coordinates and
+the reconstructed mesh; true labels enter evaluation only.
+
+\subsection{Constrained per-layer reconstruction}
+
+For each inferred layer $\ell\in\{0,1\}$, its points are centered, projected onto
+their two leading PCA directions, and triangulated by two-dimensional Delaunay.
+The local triangle indices are mapped back to the original three-dimensional
+points, and the two triangle sets are combined without adding a cross-layer edge
+or face. The operation does not optimize $\alpha$:
+\begin{equation}
+ \mathcal{T}_{\mathrm{layer}}
+ =\mathcal{D}_{2}\!\left(\Pi_0 X_0\right)
+  \;\cup\;
+  \mathcal{D}_{2}\!\left(\Pi_1 X_1\right),
+ \qquad X_0\cap X_1=\varnothing,
+ \label{eq:construction}
+\end{equation}
+where $\Pi_\ell$ is the PCA tangent projection and $\mathcal{D}_2$ is planar
+Delaunay triangulation. Equation~\eqref{eq:construction} is the central design
+choice: layer inference changes which connections are possible before any scale
+decision is made.
+
+\subsection{Comparators and endpoints}
+
+B5 is a frozen PCA-normal anisotropic alpha filtration with density
+normalization. M1 is a frozen weighted regular triangulation scored by the proper
+power circumradius. Both are stronger comparators than a fixed global alpha and
+were frozen independently of the confirmatory endpoints.
+
+Geometry is measured by surface F-score at a fixed distance tolerance and by a
+normalized two-sided distance loss (squared Chamfer plus Hausdorff; higher
+F-score and lower loss are better). Topology error aggregates component error,
+Betti-number error, and true-layer bridge edges and faces. Nonmanifold edges are
+also audited. A safe accept must have no component error or true-layer bridge.
+Topology totals are comparable between methods within a panel, not between the
+two panels, because their sampling budgets differ.
+
+\section{Frozen experiments}
+
+\subsection{Synthetic confirmatory panel}
+
+The synthetic Phase-50 protocol was frozen before evaluation. It contains 144
+cases: two observed point counts (160 and 256), six stresses (control, upper
+occlusion, 75:25 layer imbalance, anisotropic noise, a sinusoidal common trend,
+and a local bump), and 12 paired repeats. Every observed/reference pair receives
+the same seed-specific proper three-dimensional rotation. Dense references use
+4,096 points and evaluation samples 1,024 surface points. The gates require zero
+false-safe accepts, at least 95\% overall and 90\% subgroup safe coverage, mean
+F-score margins of at least 0.10, at least 75\% casewise wins against each
+comparator, lower geometry loss, zero candidate topology error, and improvement
+over the global-normal ablation.
+
+\subsection{Building-disjoint S3DIS panel}
+
+Calibration used S3DIS Areas 1, 2, 3, 4, and 6. Area 5, mapped by the distributed
+data description to a separate building, remained unopened except for archive
+member names and sizes until the final protocol and evaluator were committed.
+The fixed extractor merges every floor instance and every ceiling instance in a
+room. Eligibility requires normal disagreement no larger than $5^{\circ}$,
+projected bounding-box overlap at least 0.75, at least 592 common-footprint points
+per layer, gap-to-plane-residual SNR at least 10, and 95th-percentile plane
+residual no larger than ten times median spacing. These annotation-derived rules
+define the evaluation corpus; they are not supplied to the reconstruction.
+
+All eligible rooms are enumerated automatically. Each layer contributes 80
+coordinate-hash-selected observed points and up to 512 disjoint reference points
+within the common footprint. A deterministic normalized $10^{-4}$ general-
+position joggle is shared by all methods. After one opening, 63 Area-5 rooms were
+eligible, exceeding the preregistered minimum of 20. The gates require no
+false-safe accepts, safe coverage at least 0.90, comparator availability, mean
+F-score margins at least 0.20 versus B5 and 0.30 versus M1, at least 85\%
+casewise wins, lower geometry loss, and topology error at most one quarter of
+each comparator. Non-inferiority to the global-normal ablation was also required.
+
+\section{Results}
+
+\begin{table}[t]
+\centering
+\caption{Frozen confirmatory reconstruction results. Geometry loss and topology
+error are lower-is-better. All values are prespecified panel aggregates.}
+\label{tab:results}
+\begin{tabular}{llrrr}
+\toprule
+Panel & Method & Mean F-score & Geometry loss & Topology error \\
+\midrule
+Synthetic (144) & Layer-routed & \textbf{0.898536} & \textbf{0.126043} & \textbf{0} \\
+ & B5 PCA-anisotropic alpha & 0.515603 & 0.140552 & 45,606 \\
+ & M1 weighted power-alpha & 0.620140 & 0.137152 & 11,925 \\
+\addlinespace
+S3DIS Area 5 (63) & Layer-routed & \textbf{0.805611} & \textbf{0.116385} & \textbf{0} \\
+ & B5 PCA-anisotropic alpha & 0.420983 & 0.243356 & 5,214 \\
+ & M1 weighted power-alpha & 0.323764 & 0.228920 & 13,375 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+On the synthetic panel, the layer-routed method exceeds B5 by 0.382933 mean
+F-score and M1 by 0.278396. It wins 144/144 paired cases against each comparator,
+and every one of the 12 point-count--stress subgroups has 12/12 safe accepts.
+The global-normal ablation has 138 safe accepts and six false-safe accepts; the
+shared-trend candidate repairs all six, reaches 144/144 safe accepts, and has no
+nonmanifold edge. Every preregistered safety, geometry, topology, and ablation gate
+passes.
+
+On S3DIS Area 5, the method exceeds B5 by 0.384627 mean F-score and M1 by
+0.481847, with 63/63 casewise wins against both. It safely accepts 62/63 rooms
+with no false-safe case. The one conservative rescan request, hallway 5, is
+nevertheless topology-safe and has F-score 0.989640. Both alpha comparators are
+available for all rooms. The candidate has zero aggregate topology error, while
+B5 and M1 accumulate 5,214 and 13,375. All frozen gates pass
+(Figure~\ref{fig:results}).
+
+\begin{figure}[t]
+  \centering
+  \includesvg[width=\textwidth]{two_layer_results}
+  \caption{Confirmatory outcomes generated directly from the frozen result
+  artifacts. The method has the highest mean F-score and zero topology error in
+  both panels. The lower row uses $\log_{10}(\mathrm{error}+1)$ only for display;
+  Table~\ref{tab:results} reports the raw totals.}
+  \label{fig:results}
+\end{figure}
+
+The S3DIS global-normal ablation has the same 62/63 safe coverage, zero
+false-safe cases, and the same mean F-score at reported precision as the
+shared-trend version. This is a useful null ablation: the real floor--ceiling
+result validates layer-first routing and constrained connectivity, but it does
+not validate shared-trend superiority.
+
+\section{Discussion}
+
+The paired improvements are large because the method changes the hypothesis
+space. B5 changes the local metric of an alpha filtration and M1 changes the
+regular triangulation, but both still reconstruct the union of two surfaces as
+one three-dimensional complex. The layer-first method uses an observed geometric
+condition---two identifiable, locally separated layers---to factor the problem
+into two planar reconstructions. This structural constraint removes the entire
+class of cross-layer faces rather than asking a tuned threshold to suppress each
+one. The result therefore answers the original alpha-selection question in a
+specific way: for this regime, a better $\alpha$ is less important than declaring
+which connectivity is admissible.
+
+The validation design limits optimistic bias. Synthetic parameters were frozen
+before an untouched arbitrary-pose panel. For S3DIS, a multi-building calibration
+set was used to freeze eligibility and observation rules, then Area 5 was opened
+once as an automatically enumerated panel. Candidate decisions used only combined
+XYZ coordinates; semantic annotations, reference points, and true layer labels
+were restricted to corpus extraction and evaluation. Casewise wins in all 207
+confirmatory cases show that the aggregate result is not produced by a few large
+outliers. We nevertheless treat rooms, not individual points, as the unit of
+evidence and do not infer broader population performance beyond this protocol.
+
+The strongest limitation is scope, not a small numerical margin. The S3DIS test
+selects nearly parallel floor--ceiling pairs with broad projected overlap and a
+large gap relative to residual and spacing. Earlier wall--board calibration showed
+that geometry can improve on close layers, but the current topology-safe route
+rejects them because physical occlusion produces non-overlapping observed support.
+The method is also not validated for intersecting surfaces, severe spatial
+outliers, fewer than 160 synthetic observed points, arbitrary multi-surface scenes,
+or automatic discovery of the two semantic objects. Its planar Delaunay surfaces
+can bridge large holes within one layer because no boundary recovery is included.
+Floating-point triangulation is used, so this is not an exact-predicate or
+deployment certificate.
+
+These boundaries suggest concrete next tests. A visibility-aware support model is
+needed for close occluded layers. Boundary-aware planar meshing or a per-layer
+alpha restriction should be tested for incomplete footprints. A deployment study
+must add automatic pair discovery, sensor-specific artifacts, runtime and memory,
+and exact or validated geometric predicates. None of those extensions is required
+to interpret the present result: the current evidence already establishes a
+positive, reproducible advantage in the stated long-gap two-layer domain.
+
+\section{Conclusion}
+
+For sufficiently separated two-surface point clouds, constraining connectivity is
+more effective than continuing to tune an alpha filtration. An observed-only
+fail-closed route followed by independent per-layer triangulation improved mean
+F-score by 0.279--0.383 on the synthetic confirmatory panel and by 0.385--0.482 on
+building-disjoint S3DIS rooms, won all 207 paired cases against both frozen alpha
+comparators, and produced zero aggregate topology error. The real-data ablation
+shows that this success should be credited to layer-first routing and constrained
+connectivity, not to shared-trend or PFTF/local-SPD novelty. The resulting claim is
+narrow, affirmative, and testable: when two approximately parallel layers are
+observationally identifiable and well sampled, reconstructing them separately is
+substantially more accurate and topologically safer than reconstructing their
+union with anisotropic or weighted alpha methods.
+
+\begin{thebibliography}{}
+
+\bibitem[Armeni et al.(2016)]{armeni2016}
+Armeni, I., Sener, O., Zamir, A.R., Jiang, H., Brilakis, I., Fischer, M. and
+Savarese, S. (2016), ``3D semantic parsing of large-scale indoor spaces'',
+\emph{Proceedings of the IEEE Conference on Computer Vision and Pattern
+Recognition}, pp. 1534--1543.
+
+\bibitem[Edelsbrunner(1992)]{edelsbrunner1992}
+Edelsbrunner, H. (1992), ``Weighted alpha shapes'', Technical Report
+UIUCDCS-R-92-1760, University of Illinois at Urbana--Champaign.
+
+\bibitem[Edelsbrunner and M\"ucke(1994)]{edelsbrunner1994}
+Edelsbrunner, H. and M\"ucke, E.P. (1994), ``Three-dimensional alpha shapes'',
+\emph{ACM Transactions on Graphics}, Vol. 13 No. 1, pp. 43--72.
+
+\bibitem[Teichmann and Capps(1998)]{teichmann1998}
+Teichmann, M. and Capps, M. (1998), ``Surface reconstruction with anisotropic
+density-scaled alpha shapes'', \emph{Proceedings of IEEE Visualization '98},
+pp. 67--72, doi:10.1109/VISUAL.1998.745286.
+
+\end{thebibliography}
+
+\end{document}

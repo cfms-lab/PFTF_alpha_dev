@@ -9,9 +9,10 @@ baseline, and a deployed fail-closed exact-construction fallback). Every claim
 below is bounded by committed evidence; `promotion_supported` is false throughout.
 
 Current manuscript decision (2026-08-04): prepare the specialized two-layer
-line as a **separate positive paper** centered on the untouched Phase-50 result.
-The negative PFTF/local-SPD evidence remains an explicit boundary, not the
-positive paper's headline.
+line as a **separate positive paper** centered on the untouched Phase-50
+synthetic result and the building-disjoint Phase-51C real held-out result. The
+negative PFTF/local-SPD evidence remains an explicit boundary, not the positive
+paper's headline.
 
 ## Primary claim (negative, the headline)
 
@@ -41,7 +42,7 @@ positive paper's headline.
 | Frozen PFTF summaries do **not** identify the coefficient of the declared invertible quadratic-shear family better than simple controls. | Phase 48: all 45 held-out maps pass the inverse/determinant audit, but PFTF coefficient MAE/RMS/Jaccard are `0.115118/0.098199/0.576518`, behind the TRAIN mean (`0.100000/0.085432/0.601368`) and non-PFTF geometry ridge (`0.100103/0.085439/0.598767`). | Negative synthetic coordinate-aligned recovery evidence. It does not support PFTF-conditioned map value, arbitrary local-SPD metrics, alpha selection, reconstruction/topology benefit, real transfer, exactness, or deployment. Do not retune the opened held-out panel. |
 | The Phase-48 failure is explained by lack of an invariant observed PFTF shear signal, not by loss of map invertibility. | Phase 49 uses TRAIN/CALIBRATION only: selected PFTF `log_scale_std` falls from median within-block `R2=0.924162` to `0.491280`, with only `3/6` slope directions retained, pooled `R2=0.000234`, and family/seed block-to-strength explained-SS ratio `4255.57`. Standalone MAE `0.103968` is effectively the TRAIN-mean `0.104000`. | Identifiability diagnostic on repeated coordinate-aligned synthetic corruptions only. No Phase-48 held-out case is reused. It closes this learned-map branch and does not alter the positive analytic Phase-47 construction. |
 
-## Separate two-layer positive line (Phases 2-50)
+## Separate two-layer positive line (Phases 2-51C)
 
 | Claim | Evidence | Boundary |
 |---|---|---|
@@ -54,6 +55,7 @@ positive paper's headline.
 | **Shared-trend residual layer inference** repairs the upstream global-coordinate assignment failure in the declared two-layer regime. | Phase 7 (`pftf_alpha_shared_trend_inference_phase7/v1`): frozen 360-case held-out. Base false-safe 60 -> candidate 0; all 186 base-safe accepts retained; 58/60 base false-safe cases become accepted safe outputs and two fail closed. | Positive model-based baseline, not PFTF-SPD novelty. The quadratic trend family matches the synthetic shapes; no real scan, occlusion/outlier stress, arbitrary surface, or deployment evidence. `phase7_supported=true`, `deployment_supported=false`. |
 | The Phase-7 candidate transfers to tested non-outlier sensor stresses at N>=160, but is **outlier-blind** and sparse-conservative. | Phase 8 (`pftf_alpha_sensor_stress_phase8/v1`): 216 frozen cases. At N=160/256, all 96 non-outlier occlusion/imbalance/noise/nonquadratic cases are safe accepts. At N=96, non-outlier coverage is 43.75%. Spatial outliers produce 56 candidate false-safe accepts. | Positive bounded operating envelope plus decisive negative boundary. No outlier robustness, real scan, arbitrary corruption, or deployment support. `phase8_supported=false`. |
 | The frozen shared-trend two-layer method has a **positive untouched confirmatory result** against strong alpha-shape comparators in its declared operating envelope. | Phase 50 (`pftf_alpha_two_layer_confirmatory_phase50/v1`): new arbitrary-pose 144-case panel at N=160/256. Candidate safe accepts 144/144, false-safe 0, repairs 6/6 global-normal base false-safes, mean F 0.898536 versus B5 0.515603 and M1 0.620140, and wins 144/144 cases against each. Candidate topology error/nonmanifold edges are 0 versus B5 topology error 45,606 and M1 11,925. All preregistered gates pass. | Positive synthetic two-layer efficacy only. Spatial outliers, N<160, intersecting/non-separable or arbitrary surfaces, real scans, PFTF/local-SPD superiority, exactness, and deployment remain unsupported. `phase50_supported=true`; promotion remains false. |
+| The same layer-first construction has a **positive building-disjoint real held-out result** for long-gap floor--ceiling layers. | Phase 51C (`pftf_alpha_s3dis_room_layer_validation_phase51c/v1`): S3DIS Area 5 was opened once after protocol and evaluator commits. The frozen automatic rule admits 63 rooms. Candidate safe accepts are 62/63 with false-safe 0; mean F is 0.805611 versus B5 0.420983 and M1 0.323764; candidate wins 63/63 against each, with topology error 0 versus 5,214 and 13,375. Every preregistered gate passes. | Annotation-defined extraction of sufficiently planar, overlapping, long-gap floor--ceiling pairs only. The candidate receives combined observed XYZ, but automatic semantic pair discovery is not tested. Global-normal matches shared-trend, so shared-trend superiority, close-layer transfer, PFTF/local-SPD superiority, exactness, and deployment remain unsupported. `phase51c_supported=true`. |
 | A robust shared-trend residual guard catches moderate contamination but **does not transfer as a complete outlier certificate**. | Phase 9 (`pftf_alpha_outlier_guard_phase9/v1`): frozen 216-case held-out. False-safe 58 -> 4; all accepted 3%/5% contamination removed; safe retention 88.70%. Local-bump retention is only 9/22. | Residual score confounds localized nonquadratic shape with contamination, while near-surface 1% outliers can look like noisy inliers. No post-hoc retuning. `phase9_supported=false`. |
 
 ## What the paper must NOT claim
@@ -76,6 +78,10 @@ positive paper's headline.
 - Phase 50 supports arbitrary surfaces, spatial-outlier robustness, real-scan
   transfer, or PFTF/local-SPD superiority (its positive claim is restricted to
   N>=160 globally separable non-outlier synthetic two-layer surfaces).
+- Phase 51C supports close wall--board layers, shared-trend superiority,
+  automatic semantic extraction, arbitrary scene transfer, exact predicates, or
+  deployment (it validates only annotation-extracted, approximately parallel,
+  overlapping, long-gap floor--ceiling pairs in S3DIS Area 5).
 - Phase 9 supplies a universal shape-agnostic outlier certificate (four 1%
   false-safe cases remain and local-bump safe retention is 40.91%).
 - Any promotion: `promotion_supported=false` in every artifact.
@@ -86,13 +92,15 @@ positive paper's headline.
 
 1. Problem: alpha-shape threshold selection cannot by itself prevent false
    connectivity between two nearby but distinct surfaces.
-2. Method: observed-only shared-trend layer inference, sampling-sufficiency
-   routing, and per-layer constrained Delaunay connectivity.
+2. Method: observed-only global-normal/shared-trend layer inference,
+   sampling-sufficiency routing, and per-layer constrained Delaunay connectivity.
 3. Development evidence: Phases 2-7, including curvature/density failure maps.
 4. Confirmatory evidence: untouched Phase 50 versus frozen B5 and M1, with
    geometry, topology, casewise wins, and ablation.
-5. Limits: N<160, spatial outliers, intersections, and current lack of real
-   two-layer validation.
+5. External evidence: preregistered Phase 51C on building-disjoint S3DIS Area 5,
+   with annotation-defined corpus extraction and observed-XYZ-only routing.
+6. Limits: N<160, spatial outliers, intersections, close occluded layers,
+   automatic semantic extraction, exactness, and deployment.
 
 ### Earlier negative PFTF/local-SPD paper
 
