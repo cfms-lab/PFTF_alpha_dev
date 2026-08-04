@@ -8,7 +8,6 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{svg}
 \usepackage[labelfont=bf,labelsep=period]{caption}
 \usepackage[authoryear,round]{natbib}
 \usepackage{setspace}
@@ -18,7 +17,6 @@
 \setlength{\headheight}{14pt}
 \doublespacing
 \graphicspath{{pics/}}
-\svgpath{{pics/}}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -110,7 +108,7 @@ a new local metric, a learned $\alpha$, or shared-trend superiority.
 
 \begin{figure}[t]
   \centering
-  \includesvg[width=\textwidth]{two_layer_workflow}
+  \includegraphics[width=\textwidth]{two_layer_workflow.png}
   \caption{Layer-first reconstruction. A single three-dimensional complex can
   contain cross-layer cells (A). The proposed route estimates separation and
   sampling adequacy from observed coordinates only (B). Accepted points are
@@ -257,7 +255,9 @@ each comparator. Non-inferiority to the global-normal ablation was also required
 \caption{Frozen confirmatory reconstruction results. Geometry loss and topology
 error are lower-is-better. All values are prespecified panel aggregates.}
 \label{tab:results}
-\begin{tabular}{llrrr}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.17\textwidth}p{0.28\textwidth}rrr}
 \toprule
 Panel & Method & Mean F-score & Geometry loss & Topology error \\
 \midrule
@@ -290,7 +290,7 @@ B5 and M1 accumulate 5,214 and 13,375. All frozen gates pass
 
 \begin{figure}[t]
   \centering
-  \includesvg[width=\textwidth]{two_layer_results}
+  \includegraphics[width=\textwidth]{two_layer_results.png}
   \caption{Confirmatory outcomes generated directly from the frozen result
   artifacts. The method has the highest mean F-score and zero topology error in
   both panels. The lower row uses $\log_{10}(\mathrm{error}+1)$ only for display;
